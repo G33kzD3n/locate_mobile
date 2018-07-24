@@ -1,0 +1,51 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Login</ion-title>
+  </ion-navbar>
+
+</ion-header>s
+
+
+<ion-content padding class="bg-style">
+		      
+                    <div class="header padding text-center">
+                        <img src="assets/imgs/bus.jpg"/>
+                    </div>
+          <form [formGroup]="loginForm" (ngSubmit)="gotoprofile(loginForm.value)">
+            <ion-list>
+
+            <ion-item>
+            <ion-label floating>Enter ur phone no:</ion-label>
+            <ion-input type="nmuber"  name="phone" id="phone" loginFormControlName="phone" required></ion-input>
+            </ion-item>
+              <div class="errorBox" *ngIf="loginForm.controls['phone'].hasError('required')  && loginForm.controls['phone'].touched">*phone no is required.
+              </div>
+              <div class="errorBox" *ngIf="loginForm.controls['phone'].hasError('pattern') && loginForm.controls['phone'].touched">*phone no not valid.
+              </div>
+              <div class="errorBox" *ngIf="loginForm.controls['phone'].hasError('minlength') || loginForm.controls['phone'].hasError('maxlength')  && loginForm.controls['phone'].touched">
+              *Enter valid Mobile No.
+            </div>
+
+            <ion-item>
+            <ion-label floating>Enter ur roll no:</ion-label>
+            <ion-input type="number"  name="roll" id="roll" loginFormControlName="roll" required></ion-input>
+              </ion-item>
+              <div class="errorBox" *ngIf="loginForm.controls['roll'].hasError('required')  && loginForm.controls['roll'].touched">*roll no is required 
+              </div>
+
+              <div class="errorBox" *ngIf="loginForm.controls['roll'].hasError('minlength') || loginForm.controls['roll'].hasError('maxlength')  && loginForm.controls['roll'].touched">*not valid roll no
+              </div>
+
+              
+
+          </ion-list>
+
+ 
+<button (click)="gotoprofile()" ion-button round color="dark" class="submit-btn" type="submit">log in
+</button>
+
+<a (click)="gotopage()" >Apply for registration</a>
+</form>
+
+</ion-content>
