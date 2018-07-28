@@ -49,7 +49,7 @@
           </ion-list>
 
  
-<button ion-button round color="dark" class="submit-btn" type="submit">log in
+<button ion-button [disabled]="!loginForm.valid" round color="dark" class="submit-btn" type="submit">log in
 </button>
 
 <a (click)="gotopage()" >Apply for registration</a>

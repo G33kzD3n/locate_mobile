@@ -46,15 +46,15 @@ gotopage()
 }
 gotoprofile()
   {  
-       // if (this.loginForm.controls['phone'].value == this.phone &&
-        //this.loginForm.controls['roll'].value == this.roll)
-        //{
+        if (this.loginForm.controls['phone'].value == this.phone &&
+       this.loginForm.controls['roll'].value == this.roll)
+       {
          
           this.app.loader();
           this.navCtrl.setRoot(MenuPage);
-       // }
-       // else{
-        //  this.app.showToast('Enter Valid Details', 'top');
-        //}
+        }
+        else{
+         this.app.showToast('Enter Valid Details', 'top');
+       }
 }
 }
