@@ -1,12 +1,11 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, Tabs} from 'ionic-angular';
+import { IonicPage, NavController } from 'ionic-angular';
 import { FormGroup, Validators, FormControl} from '@angular/forms';
+import { AppServiceProvider } from '../../providers/app-service/app-service';
 
 import { SignupPage } from '../signup/signup';
-//import { StudentPage } from '../student/student';
-import { LoadingController } from 'ionic-angular';
-import { TabsPage } from '../tabs/tabs';
 import { MenuPage } from '../menu/menu';
+
 
 @IonicPage()
 @Component({
@@ -15,32 +14,13 @@ import { MenuPage } from '../menu/menu';
 })
 
 export class LoginPage {
-
+  loader:any;
   loginForm: FormGroup;
-
-
-                 users = 
-                  [
-                  {
-                    id: 1,
-                    username: "Nadeem",
-                    password: "stranger"
-                  },
-                  {
-                    id: 2,
-                    username: "Sami",
-                    password: "stranger"
-                    
-                  },
-                  {
-                    id: 3,
-                    username: "Owais",
-                    password: "stranger"
-                  }
-                  ];
+  phone:number = 9796563123;
+  roll:number= 15045112007;
   
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public loadingCtrl: LoadingController) 
+  constructor(public navCtrl: NavController, private app: AppServiceProvider) 
             {
              }
 
@@ -56,47 +36,25 @@ export class LoginPage {
         'roll' : new FormControl('',  Validators.compose([
                                       Validators.required,
                                       Validators.minLength(8),
-                                      Validators.maxLength(10)])),
+                                      Validators.maxLength(11)])),
                               });
             }
-  
-  gotopage()
+gotopage()
   {
-  	this.loader();
+  	this.app.loader();
   	this.navCtrl.push(SignupPage);
-    console.log("signupage");
-
-
-  }
-
-
-  gotoprofile()
-  {  
-     
-        console.log("signupage");
-//        if (this.loginForm.controls['phone'].value === this.phone)
-          this.loader();
-    this.navCtrl.setRoot(MenuPage);
-   //this.navCtrl.push(TabsPage);
-  
-
 }
-
-
-loader()
-{
-  let loading = this.loadingCtrl.create({
-    content: 'Please wait...'
-  });
-  
-  loading.present();
-
-  setTimeout(() => {
-    loading.dismiss();
-  }, 50);
-
-
+gotoprofile()
+  {  
+       // if (this.loginForm.controls['phone'].value == this.phone &&
+        //this.loginForm.controls['roll'].value == this.roll)
+        //{
          
-  }
-
+          this.app.loader();
+          this.navCtrl.setRoot(MenuPage);
+       // }
+       // else{
+        //  this.app.showToast('Enter Valid Details', 'top');
+        //}
+}
 }

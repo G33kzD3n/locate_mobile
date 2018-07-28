@@ -2,7 +2,6 @@ import { Component, ViewChild } from '@angular/core';
 import { IonicPage, NavController, NavParams, Nav, Platform} from 'ionic-angular';
 
 import { TabsPage } from '../tabs/tabs';
-
 import { ProfilePage} from '../profile/profile';
 import { FeedetailsPage} from '../feedetails/feedetails';
 import { StudentPage} from '../student/student';
@@ -14,30 +13,24 @@ import { StudentPage} from '../student/student';
   templateUrl: 'menu.html',
 })
 export class MenuPage {
-
-	  @ViewChild(Nav) nav: Nav;
-	  rootpage: any =  TabsPage;
-	  
-    pages: Array<{title: string, component: any}>;
-
+  public rootpage: any = TabsPage;
+  @ViewChild(Nav) nav: Nav;
+  public pages: Array<{ title: string, component: any, icon: any, index:any}>;
+    
   
   constructor(public platform: Platform, public navCtrl: NavController, public navParams: NavParams) {
- 	  console.log("in menu page constructro");
-      this.pages = [
-        { title: 'Profile', component: ProfilePage },
-        { title: 'Feedetails', component: FeedetailsPage }
+    this.pages = [
+      { title: 'Student', component: StudentPage, icon:'person', index: 0 },
+      { title: 'Profile', component: ProfilePage, icon:'person', index: 0 },
+      { title: 'Feedetails', component: FeedetailsPage, icon:'add', index: 0 }
     ];
-  }
-
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad MenuPage');
-  }
-openPage(page: any) {
-	    console.log("hell")
-      this.navCtrl.setRoot(page.component); 
 }
+openPage(p:any)
+{
+  this.navCtrl.push(p.component);
+} 
+  isActive(p:any)
+  {
 
-isActive(page : any)
-{}
-
+  }
 }

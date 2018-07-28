@@ -7,14 +7,15 @@ import { RoutePage } from '../route/route';
 
 @IonicPage()
 @Component({
-  templateUrl: 'tabs.html'
+	selector: 'page-tabs',
+  templateUrl: 'tabs.html',
 })
 export class TabsPage {
 
 
-  tab1Root = StudentPage; 
-  tab2Root = LocationPage; 
-  tab3Root = RoutePage;  
+  tab1Root:any = StudentPage; 
+  tab2Root:any = LocationPage; 
+  tab3Root:any = RoutePage;  
 
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {

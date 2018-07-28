@@ -1,12 +1,7 @@
-import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { Component, ViewChild} from '@angular/core';
+import { IonicPage, NavController, NavParams, Nav } from 'ionic-angular';
 
-/**
- * Generated class for the ProfilePage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+import { TabsPage } from '../tabs/tabs'
 
 @IonicPage()
 @Component({
@@ -14,6 +9,8 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
   templateUrl: 'profile.html',
 })
 export class ProfilePage {
+  public rootpage:any = TabsPage;
+  @ViewChild(Nav) nav: Nav;
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
   }
