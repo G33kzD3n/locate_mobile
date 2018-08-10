@@ -1,6 +1,8 @@
-import { HttpClient } from '@angular/common/http';
+import { Http } from '@angular/http';
 import { Injectable } from '@angular/core';
 import { ToastController, LoadingController } from 'ionic-angular';
+import 'rxjs/add/operator/map';
+
 /*
   Generated class for the AppServiceProvider provider.
 
@@ -10,8 +12,8 @@ import { ToastController, LoadingController } from 'ionic-angular';
 @Injectable()
 export class AppServiceProvider {
 
-  constructor(public http: HttpClient, public loadingCtrl: LoadingController, public toastCtrl: ToastController) {
-    console.log('Hello AppServiceProvider Provider');
+  constructor(public http: Http, public loadingCtrl: LoadingController, public toastCtrl: ToastController) {
+
   }
 
 
@@ -40,4 +42,13 @@ showToast(data: string, position: string,delay:number=0) {
   }, delay);
 
 }
+  getRemoteData()
+  {
+    //return this.http.get('assets/data/example_2.json').map(res =>res.json());.subscribe
+    //(data => {console.log(data);});
+
+    return this.http.get("https://jsonplaceholder.typicode.com/users").map(res =>res.json());//.subscribe
+   // (data => {console.log(data);});
+    
+  }
 }

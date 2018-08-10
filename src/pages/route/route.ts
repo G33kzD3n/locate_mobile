@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component,} from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { AppServiceProvider } from '../../providers/app-service/app-service';
 
 /**
  * Generated class for the RoutePage page.
@@ -14,12 +15,32 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
   templateUrl: 'route.html',
 })
 export class RoutePage {
+ 
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  firstRoute = {
+    id: 1,
+    driverName: "bilal",
+    driverRoute: "Universitry-lalbazaar-alamgaribazar-Hawal-Gojwara-Qamarwari"
+    
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad RoutePage');
+  constructor(public navCtrl: NavController, public navParams: NavParams, public app : AppServiceProvider) {
+  
   }
 
+  ionViewDidLoad()
+  {
+    this.app.getRemoteData().subscribe(data => {
+    let jobs = [];
+
+    for(var i=0; i<data.length; i++); {
+		jobs.push(
+    {
+  	//job_id: data[i].id, 
+	  job_name: data[i].name,
+	  job_desc: data[i].desc
+    });      
+                                      }
+                                                })
+  }
 }
