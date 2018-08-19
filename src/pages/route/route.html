@@ -3,16 +3,18 @@
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>Route</ion-title>
+    <ion-title>{{ title }}</ion-title>
+    <input type="text" [(ngModel)]="title">
   </ion-navbar>
 </ion-header>
 
 
 <ion-content padding>
-    <ion-item *ngFor="let job of jobs">
-        <h2>name: {{job.job_name}}</h2>
-        <h3>Desc : {{job.job_desc}}</h3>
-      </ion-item>
+    <page-login></page-login>
+    <!--ion-item *ngFor="let job of jobs">
+        <!h2>name: {{job.job_name}}</h2>
+        <!h3>Desc : {{job.job_desc}}</h3>
+      </ion-item-->
     <ion-card>
         <img src="img/nin-live.png"/>
         <ion-card-content>

@@ -11,9 +11,11 @@ import { MenuPage } from '../menu/menu';
 @Component({
   selector: 'page-login',
   templateUrl: 'login.html',
+  
 })
 
 export class LoginPage {
+  title = "LocaTe";
   loader:any;
   loginForm: FormGroup;
   phone:number = 9796563123;
