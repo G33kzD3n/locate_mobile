@@ -13,7 +13,7 @@ import { RoutePage } from '../pages/route/route';
 export class MyApp {
     @ViewChild(Nav) nav: Nav;
     //rootPage :any =  TabsPage;
-    rootPage:any =  RoutePage;
+    rootPage:any =  LoginPage;
     
 
   constructor(public platform: Platform,public  statusBar: StatusBar,public splashScreen: SplashScreen) {

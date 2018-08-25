@@ -20,9 +20,10 @@ export class MenuPage {
   
   constructor(public platform: Platform, public navCtrl: NavController, public navParams: NavParams) {
     this.pages = [
-      { title: 'Student', component: StudentPage, icon:'person', index: 0 },
+      { title: 'Trackbus', component: StudentPage, icon:'locate', index: 0 },
       { title: 'Profile', component: ProfilePage, icon:'person', index: 0 },
-      { title: 'Feedetails', component: FeedetailsPage, icon:'add', index: 0 }
+      { title: 'Feedetails', component: FeedetailsPage, icon:'money', index: 0 },
+      { title: 'Buses', component: FeedetailsPage, icon:'bus', index: 0 }
     ];
 }
 openPage(p:any)

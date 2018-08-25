@@ -57,6 +57,9 @@ export class RoutePage {
       },
       error =>{
         console.log(error);
+      },
+      ()=>{
+        
       }
     );
     
