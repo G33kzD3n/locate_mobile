@@ -7,8 +7,36 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content padding>
-  <h3>Ionic Menu Starter</h3>
 
- 
-</ion-content>
+    <ion-content>
+        <ion-grid>
+          <ion-row>
+            <ion-col col-md-9>
+              <ion-card>
+                <ion-item class="username">
+                  <h4 id="username-value"></h4>
+                </ion-item>
+                <h1>someone</h1>
+                <p class="">
+                  <button class="edit-button" color="light" ion-button icon-only  (click)="editProfile(user)">
+                    <ion-icon name="create"></ion-icon>
+                  </button>
+                </p>
+                <ion-card-content class="profile-content">
+                  <ion-item>
+                    <p class="labels">Known as:</p>
+                    <p class="label-value"></p>
+                  </ion-item>
+                  <ion-item>
+                    <p class="labels">
+                      <ion-icon name="ios-link" start></ion-icon>
+                    </p>
+                    <h4 class="email"></h4>
+                  </ion-item>
+                </ion-card-content>
+              </ion-card>
+            </ion-col>
+          </ion-row>
+          </ion-grid>
+  </ion-content>
+  

@@ -14,7 +14,7 @@ export class StudentPage {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad StudentPage');
+  
   }
 
 }

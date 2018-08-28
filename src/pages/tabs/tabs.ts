@@ -19,6 +19,6 @@ export class TabsPage {
 
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
-  	console.log("in tabs file");
+  	
   }
 }

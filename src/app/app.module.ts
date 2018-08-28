@@ -20,6 +20,7 @@ import { MenuPage } from '../pages/menu/menu';
 import { ProfilePage } from '../pages/profile/profile';
 import { FeedetailsPage } from '../pages/feedetails/feedetails';
 import { AppServiceProvider } from '../providers/app-service/app-service';
+import { IonicStorageModule } from '@ionic/storage';
 
 @NgModule({
   declarations: [
@@ -39,7 +40,8 @@ import { AppServiceProvider } from '../providers/app-service/app-service';
     HttpClientModule,
     FormsModule,
     HttpModule,
-    IonicModule.forRoot(MyApp)
+    IonicModule.forRoot(MyApp),
+    IonicStorageModule.forRoot(),
     
   ],
   bootstrap: [IonicApp],

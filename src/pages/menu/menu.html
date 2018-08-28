@@ -1,9 +1,17 @@
 <ion-menu [content]="content">  
     <ion-header>
+     
       <ion-navbar>
-        <ion-title>Menu</ion-title>
+          <ion-segment (click)="openProfile()">
+          <ion-thumbnail item-start>
+              <img src="assets/imgs/12.jpg">
+            </ion-thumbnail>
+        <ion-title>Someone</ion-title>
+        <p></p>
+      </ion-segment>
       </ion-navbar>
     </ion-header>
+    
     <ion-content>
   <ion-list>
     <button ion-item menuClose *ngFor="let p of pages" (click)="openPage(p)">
@@ -12,5 +20,11 @@
       </button> 
   </ion-list>
       </ion-content>
+      <ion-footer>
+          <ion-toolbar>
+            <ion-title (click)="logOut()">LogOut</ion-title>
+          </ion-toolbar>
+        </ion-footer>
     </ion-menu>
+    
     <ion-nav [root]="rootpage" #content swipeBackEnabled="false"></ion-nav>
