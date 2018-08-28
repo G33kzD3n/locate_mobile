@@ -23,29 +23,27 @@
             <ion-list>
 
             <ion-item>
-            <ion-label floating>Enter ur phone no:</ion-label>
-            <ion-input type="number"  name="phone" id="phone" formControlName="phone" required></ion-input>
+            <ion-label floating>Enter ur roll no:</ion-label>
+            <ion-input type="number"  name="username" id="username" formControlName="username" required></ion-input>
             </ion-item>
-              <div class="errorBox" *ngIf="loginForm.controls['phone'].hasError('required')  && loginForm.controls['phone'].touched">*phone no is required.
+              <div class="errorBox" *ngIf="loginForm.controls['username'].hasError('required')  && loginForm.controls['username'].touched">*roll no is required.
               </div>
-              <div class="errorBox" *ngIf="loginForm.controls['phone'].hasError('pattern') && loginForm.controls['phone'].touched">*phone no not valid.
+              <div class="errorBox" *ngIf="loginForm.controls['username'].hasError('pattern') && loginForm.controls['username'].touched">*roll no not valid.
               </div>
-              <div class="errorBox" *ngIf="loginForm.controls['phone'].hasError('minlength') || loginForm.controls['phone'].hasError('maxlength')  && loginForm.controls['phone'].touched">
-              *Enter valid Mobile No.
+              <div class="errorBox" *ngIf="loginForm.controls['username'].hasError('minlength') || loginForm.controls['username'].hasError('maxlength')  && loginForm.controls['username'].touched">
+              *Enter valid Roll No.
             </div>
 
             <ion-item>
-            <ion-label floating>Enter ur roll no:</ion-label>
-            <ion-input type="number"  name="roll" id="roll" formControlName="roll" required></ion-input>
+            <ion-label floating>Enter ur date of birth:</ion-label>
+            <ion-input type="text"  name="password" id="password" formControlName="password" required></ion-input>
               </ion-item>
-              <div class="errorBox" *ngIf="loginForm.controls['roll'].hasError('required')  && loginForm.controls['roll'].touched">*roll no is required 
+              <div class="errorBox" *ngIf="loginForm.controls['password'].hasError('required')  && loginForm.controls['password'].touched">*date of birth is required 
               </div>
 
-              <div class="errorBox" *ngIf="loginForm.controls['roll'].hasError('minlength') || loginForm.controls['roll'].hasError('maxlength')  && loginForm.controls['roll'].touched">*not valid roll no
-              </div>
+              <div class="errorBox" *ngIf="loginForm.controls['password'].hasError('pattern') || loginForm.controls['password'].hasError('maxlength')  && loginForm.controls['password'].touched">*not valid date of birth             </div>
 
-              
-
+            
           </ion-list>
 
  
