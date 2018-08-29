@@ -9,7 +9,8 @@ import { ProfilePage} from '../profile/profile';
 import { FeedetailsPage} from '../feedetails/feedetails';
 import { StudentPage} from '../student/student';
 import { LoginPage } from '../login/login';
-import { getScrollData } from 'ionic-angular/umd/components/input/input';
+import { LocationPage } from '../location/location';
+
 
 
 @IonicPage()
@@ -47,7 +48,7 @@ showMenu(){
     this.pages = [
       
       { title: 'Home', component: StudentPage, icon:'home', index: 0 },
-      { title: 'Locate Bus', component: ProfilePage, icon:'bus', index: 0 },
+      { title: 'Locate Bus', component: LocationPage, icon:'bus', index: 0 },
       { title: 'Feedetails', component: FeedetailsPage, icon:'cash', index: 0 },
       { title: 'University Calender', component: FeedetailsPage, icon:'calendar', index: 0 },
     ];

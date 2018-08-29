@@ -7,6 +7,8 @@ import { LoginPage } from '../pages/login/login';
 import { StudentPage } from '../pages/student/student';
 import { ProfilePage } from '../pages/profile/profile';
 import { MenuPage } from '../pages/menu/menu'
+import { LocationPage } from '../pages/location/location'
+import { FeedetailsPage } from '../pages/feedetails/feedetails'
 
 @Component({
   templateUrl: 'app.html'

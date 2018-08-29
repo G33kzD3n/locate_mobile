@@ -4,6 +4,7 @@ import { IonicPage, NavController, NavParams} from 'ionic-angular';
 
 @IonicPage()
 @Component({
+  
   selector: 'page-student',
   templateUrl: 'student.html',
 })
