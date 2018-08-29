@@ -17,6 +17,7 @@ import { SignupPage } from '../pages/signup/signup';
 import { StudentPage } from '../pages/student/student';
 import { AuthServiceProvider } from '../providers/auth-service/auth-service';
 import { MenuPage } from '../pages/menu/menu';
+import { CalenderPage } from '../pages/calender/calender';
 import { ProfilePage } from '../pages/profile/profile';
 import { FeedetailsPage } from '../pages/feedetails/feedetails';
 import { AppServiceProvider } from '../providers/app-service/app-service';
@@ -33,7 +34,8 @@ import { IonicStorageModule } from '@ionic/storage';
     RoutePage,
     MenuPage,
     ProfilePage,
-    FeedetailsPage
+    FeedetailsPage,
+    CalenderPage
   ],
   imports: [
     BrowserModule,
@@ -55,7 +57,8 @@ import { IonicStorageModule } from '@ionic/storage';
     RoutePage,
     MenuPage,
     ProfilePage,
-    FeedetailsPage
+    FeedetailsPage,
+    CalenderPage
   ],
   providers: [
     StatusBar,

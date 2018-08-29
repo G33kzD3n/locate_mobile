@@ -4,7 +4,7 @@
       <ion-navbar>
           <ion-segment (click)="openProfile()">
           <ion-avatar item-start>
-              <img class="image" src="assets/imgs/12.jpg">
+              <img class="imagex" src="assets/imgs/12.jpg">
             </ion-avatar>
         <ion-title>{{ user1 }}</ion-title>
         <p></p>
@@ -14,8 +14,8 @@
     
     <ion-content>
   <ion-list>
-    <button ion-item menuClose *ngFor="let p of pages" (click)="openPage(p)">
-      <ion-icon item-start [name]="p.icon" [color]="isActive(p)"></ion-icon>
+    <button ion-item menuClose *ngFor="let p of pages" [class.activehighlight]="checkActive(p)" (click)="openPage(p)">
+      <!--ion-icon item-start [name]="p.icon" [color]="isActive(p)"></ion-icon-->
     {{ p.title }}
       </button> 
   </ion-list>

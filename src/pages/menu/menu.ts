@@ -10,6 +10,7 @@ import { FeedetailsPage} from '../feedetails/feedetails';
 import { StudentPage} from '../student/student';
 import { LoginPage } from '../login/login';
 import { LocationPage } from '../location/location';
+import { CalenderPage } from '../calender/calender';
 
 
 
@@ -25,6 +26,7 @@ export class MenuPage {
   public pages: Array<{ title: string, component: any, icon: any, index:any}>;
   public user ="";
   public user1:any;  
+  activepage:any;
     
   
   constructor(public platform: Platform,public app:AppServiceProvider , public navCtrl: NavController,public http: Http, public navParams: NavParams, public storage: Storage) {
@@ -32,11 +34,12 @@ export class MenuPage {
 }
 openPage(p:any)
 {
-  this.navCtrl.push(p.component);
+  this.nav.setRoot(p.component);
+  this.activepage=p;
 } 
 openProfile()
 {
-     this.navCtrl.push(ProfilePage, {
+     this.nav.setRoot(ProfilePage, {
       user: this.navParams.get('user')});
 
 }
@@ -50,8 +53,9 @@ showMenu(){
       { title: 'Home', component: StudentPage, icon:'home', index: 0 },
       { title: 'Locate Bus', component: LocationPage, icon:'bus', index: 0 },
       { title: 'Feedetails', component: FeedetailsPage, icon:'cash', index: 0 },
-      { title: 'University Calender', component: FeedetailsPage, icon:'calendar', index: 0 },
+      { title: 'University Calender', component: CalenderPage, icon:'calendar', index: 0 },
     ];
+    this.activepage=this.pages[0];
   }
   if ( data === 1 )
   {
@@ -59,8 +63,9 @@ showMenu(){
       { title: 'Home', component: StudentPage, icon:'home', index: 0 },
       { title: 'Passengers', component: ProfilePage, icon:'people', index: 0 },
       { title: 'Breakdown', component: FeedetailsPage, icon:'hand', index: 0 },
-      { title: 'University Calender', component: FeedetailsPage, icon:'calendar', index: 0 },
+      { title: 'University Calender', component: CalenderPage, icon:'calendar', index: 0 },
     ];
+    this.activepage=this.pages[0];
   }
 })
 }
@@ -93,9 +98,9 @@ ionViewDidEnter()
   }
 
 
-  isActive(p:any)
+  checkActive(p)
   {
-
+   return p == this.activepage;
   }
 logOut(){
   this.navCtrl.setRoot(LoginPage);
