@@ -3,7 +3,10 @@
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>Profile</ion-title>
+    <ion-title>{{ title }}</ion-title>
+    <ion-buttons end>
+        <button ion-button icon-only><ion-icon name="notifications"></ion-icon></button>
+      </ion-buttons>
   </ion-navbar>
 </ion-header>
 
@@ -15,19 +18,23 @@
          
         <ion-item class=username> 
           <label>Name:</label>
-          <h1>John Doe</h1>
+          <h1>{{ user1.name }}</h1>
         </ion-item>
         <ion-item class =username> 
             <label>Department Name:</label>
-                <h1>IMBA</h1>
+                <h1>{{ user1.dept_code }}</h1>
          </ion-item>
          <ion-item class =username> 
             <label>Alloted bus:</label>
-            <h1>Bus no</h1>
+            <h1>{{ user1.bus_no }}</h1>
           </ion-item>
         <ion-item class =username>
             <label>Phone no:</label>
-                <h1>9798766777</h1>
+                <h1>{{ user1.cell_no }}</h1>
+         </ion-item>
+         <ion-item class =username>
+            <label>Registration date:</label>
+                <h1>{{ user1.registration_date }}</h1>
          </ion-item>
    
         <ion-card-content>

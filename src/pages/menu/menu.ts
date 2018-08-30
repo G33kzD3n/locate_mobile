@@ -11,6 +11,7 @@ import { StudentPage} from '../student/student';
 import { LoginPage } from '../login/login';
 import { LocationPage } from '../location/location';
 import { CalenderPage } from '../calender/calender';
+import { MybusPage } from '../mybus/mybus';
 
 
 
@@ -32,6 +33,8 @@ export class MenuPage {
   constructor(public platform: Platform,public app:AppServiceProvider , public navCtrl: NavController,public http: Http, public navParams: NavParams, public storage: Storage) {
     
 }
+isActive()
+{}
 openPage(p:any)
 {
   this.nav.setRoot(p.component);
@@ -39,8 +42,11 @@ openPage(p:any)
 } 
 openProfile()
 {
-     this.nav.setRoot(ProfilePage, {
-      user: this.navParams.get('user')});
+    this.app.showLoader("'Loading your profile...'")
+    this.nav.setRoot(ProfilePage, {
+     // user: this.navParams.get('user')
+    });
+      
 
 }
 
@@ -52,6 +58,7 @@ showMenu(){
       
       { title: 'Home', component: StudentPage, icon:'home', index: 0 },
       { title: 'Locate Bus', component: LocationPage, icon:'bus', index: 0 },
+      { title: 'My Bus', component: MybusPage, icon:'bus', index: 0 },
       { title: 'Feedetails', component: FeedetailsPage, icon:'cash', index: 0 },
       { title: 'University Calender', component: CalenderPage, icon:'calendar', index: 0 },
     ];
@@ -74,27 +81,9 @@ ionViewWillEnter(){
 }
 ionViewDidEnter()
   {
-    
-    this.user1= this.navParams.get('user');
-    //console.log(this.user1);
-    // this.http.get(this.app.getUrl() + '/users/')
-    //       .map(res => res.json())
-    //       .subscribe(
-  
-    //         result => {
-    //           this.user=result;
-    //           // console.log(this.user);
-    //           // console.log(this.user[0]);        
-
-    //         },
-    //         error => {
-    //           this.user=(JSON.parse(error._body));
-
-    //         },
-    //         () => {
-    //         //this.app.showToast('logged in', 'top');
-    //        // this.navCtrl.setRoot(MenuPage);
-    //       });
+    this.storage.get('user').then((user)=>{
+      this.user1 = this.app.getToken(user);
+    });
   }
 
 
@@ -103,6 +92,8 @@ ionViewDidEnter()
    return p == this.activepage;
   }
 logOut(){
+  this.storage.clear();
   this.navCtrl.setRoot(LoginPage);
+  this.app.showToast('Logout successfull!','top');
 }
 }

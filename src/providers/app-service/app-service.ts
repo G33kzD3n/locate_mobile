@@ -12,23 +12,29 @@ import 'rxjs/add/operator/map';
 @Injectable()
 export class AppServiceProvider {
   private baseUrl: string = "http://192.168.43.58:9000/api/1.0";
+  public loader:any ;
 
   constructor(public http: Http, public loadingCtrl: LoadingController, public toastCtrl: ToastController) {
 
+    this.loader = this.loadingCtrl.create({
+      content: ''
+    });
   }
 
 
-loader()
+showLoader(message:string)
 {
-  let loading = this.loadingCtrl.create({
-    content: 'Please wait...'
+   this.loader = this.loadingCtrl.create({
+    content: message
   });
-  
-  loading.present();
+  this.loader.present();         
+}
 
-  setTimeout(() => {
-    loading.dismiss();
-  }, 100);       
+removeLoader(timmer:number=0){
+  setTimeout(() => {   
+    this.loader.dismiss();
+  }, timmer);
+
 }
 
 showToast(data: string, position: string,delay:number=0) {
@@ -61,4 +67,5 @@ getUrl() {
     
     return token;
   }
+  
 }

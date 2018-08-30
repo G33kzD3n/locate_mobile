@@ -16,10 +16,12 @@ export class ProfilePage {
   public rootpage:any = TabsPage;
   @ViewChild(Nav) nav: Nav;
   public user1:any;
+  title:string= "Profile";
+  
   
   constructor(public navCtrl: NavController,public storage: Storage,public app:AppServiceProvider,public http:Http, public navParams: NavParams) {
   
-
+    this.user1="";
     
   }
 
@@ -28,36 +30,36 @@ ionViewDidEnter()
   {
     let user;
     let userToken:any;
-    this.user1= this.navParams.get('user');
-    console.log(this.user1);   
-    // this.user1= this.navParams.get('user');
-     this.storage.get('token').then((token)=>{
-     userToken = this.app.getToken(token);
-     console.log(userToken);
-     });
-    // console.log(user);
-    let headers = new Headers({'Content-Type':  'application/json'});
-    headers.append('Authorization', 'Bearer' + userToken);
+    
+    //  this.storage.get('token').then((token)=>{
+    //  userToken = this.app.getToken(token);
+    this.storage.get('user').then((user)=>{
+    user = this.app.getToken(user);
+    
+  
+    let headers = new Headers({'Content-Type': 'application/json'});
+    // headers.append('Authorization', 'Bearer ' + userToken);
     let options = new RequestOptions({ headers: headers });
-    this.http.get(this.app.getUrl() + '/users/' + this.user1, options)
-          .map(res => res.json())
-          .subscribe(
-  
-            result => {
-              user=result; 
-              //console.log(user);
-              //  console.log(user[0]);        
-
-            },
-            error => {
-               //user=(JSON.parse(error._body));
-
-            },
-            () => {
-            this.app.showToast('profile', 'top');
-           // this.navCtrl.setRoot(MenuPage);
-          });
-  
+    //console.log(user);
+    // console.log(userToken);
+    this.http.get(this.app.getUrl() + '/users/' + user, options)
+      .map(res => res.json())
+      .subscribe(
+          
+      result => {
+        this.user1=result.data; 
+      },
+      error => {
+        error=(JSON.parse(error._body));
+        if(error){
+          this.app.showToast('error.error.error_message','top');
+          this.app.removeLoader();
+          //user=(JSON.parse(error._body));
+        }
+      },
+      () => {
+        this.app.removeLoader();
+    });
+  });
   }
-
 }
