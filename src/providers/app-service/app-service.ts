@@ -3,12 +3,8 @@ import { Injectable } from '@angular/core';
 import { ToastController, LoadingController } from 'ionic-angular';
 import 'rxjs/add/operator/map';
 
-/*
-  Generated class for the AppServiceProvider provider.
 
-  See https://angular.io/guide/dependency-injection for more info on providers
-  and Angular DI.
-*/
+
 @Injectable()
 export class AppServiceProvider {
   private baseUrl: string = "http://192.168.43.58:9000/api/1.0";
@@ -67,5 +63,6 @@ getUrl() {
     
     return token;
   }
+ 
   
 }

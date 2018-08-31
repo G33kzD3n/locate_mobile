@@ -4,19 +4,26 @@
   display: inline;
  }
  #username-value{
-   color:#00b1b3; 
-    font-size: 18px;
-    margin-bottom: .1em;
-    display: inline-block;
+  color:#00b1b3; 
+  font-size: 18px;
+  margin-bottom: .1em;
+  display: inline-block;
  }
 
  .edit-button{
-    font-size: 12px;
+  font-size: 12px;
   color:gray;
   margin-left :300px;
   margin-right:0px;
   margin-bottom:0px;
   //margin-top: 100px;
+ }
+ .bg{
+  background-image: url(/assets/imgs/33.JPG);
+  //ackground-repeat: no-repeat;
+  background-image: center;
+  
+  background-size: contain;
  }
  .image {
   height: 25vw; 

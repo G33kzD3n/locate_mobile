@@ -14,3 +14,35 @@
 .activehighlight{
     background-color:  #ffff99;
 }
+.scroll-content {
+    overflow-y: auto;
+  }
+  .alert-message{
+    overflow-y: auto;
+  }
+// .custom {
+//     background-color: #454545 !important; /* This sets the background color*/
+//    }
+//    .custom .item {
+//     background-color: transparent;
+//     border:none;   /*Removes all borders*/
+//     border-top: 1px solid;   /*Top Border for each menu item*/
+//     border-bottom:2px solid;   /*Bottom border for each menu item*/
+//     border-color: #666;   /*Sets colors for top and bottom border*/
+//     color: white;    /*Text color for each item*/
+//   }
+// .custom .item:last-child {
+//     border-bottom: 1px solid #666;
+//   }
+   
+//   .custom .item-complex .item-content, .dark .item-radio .item-content {
+//     background-color: transparent;
+//   }
+   
+//   /*Just makes the type white*/
+//   .custom h2,
+//   .custom h3,
+//   .custom p,
+//   .custom a {
+//     color: white;  /*Text color for each item, overrides the color property above*/
+//   }

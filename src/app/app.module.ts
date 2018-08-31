@@ -1,6 +1,5 @@
 import { HttpClientModule } from '@angular/common/http';
 import { HttpModule } from '@angular/http';
-import { Http } from '@angular/http';
 import { BrowserModule } from '@angular/platform-browser';
 import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
@@ -10,6 +9,8 @@ import { FormsModule } from '@angular/forms';
 
 import { MyApp } from './app.component';
 import { LoginPage } from '../pages/login/login';
+import { PassengersPage } from '../pages/passengers/passengers';
+import { DriverprofilePage } from '../pages/driverprofile/driverprofile';
 import { TabsPage } from '../pages/tabs/tabs';
 import { LocationPage } from '../pages/location/location';
 import { RoutePage } from '../pages/route/route';
@@ -24,6 +25,7 @@ import { MybusPage } from '../pages/mybus/mybus';
 import { FeedetailsPage } from '../pages/feedetails/feedetails';
 import { AppServiceProvider } from '../providers/app-service/app-service';
 import { IonicStorageModule } from '@ionic/storage';
+import { BreakdownPage } from '../pages/breakdown/breakdown';
 
 @NgModule({
   declarations: [
@@ -39,7 +41,10 @@ import { IonicStorageModule } from '@ionic/storage';
     FeedetailsPage,
     CalenderPage,
     MybusPage,
-    NotificationPage
+    NotificationPage,
+    PassengersPage,
+    DriverprofilePage,
+    BreakdownPage
   ],
   imports: [
     BrowserModule,
@@ -64,7 +69,10 @@ import { IonicStorageModule } from '@ionic/storage';
     FeedetailsPage,
     CalenderPage,
     MybusPage,
-    NotificationPage
+    NotificationPage,
+    PassengersPage,
+    DriverprofilePage,
+    BreakdownPage
   ],
   providers: [
     StatusBar,

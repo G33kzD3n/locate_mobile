@@ -5,7 +5,6 @@ import { RequestOptions, Headers, Http } from '@angular/http';
 import { AppServiceProvider } from '../../providers/app-service/app-service';
 
 import { TabsPage } from '../tabs/tabs'
-import { LoginPage } from '../login/login'
 
 @IonicPage()
 @Component({

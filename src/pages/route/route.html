@@ -13,47 +13,17 @@
 
 
 <ion-content padding>
-    <page-login></page-login>
-    <!--ion-item *ngFor="let job of jobs">
-        <!h2>name: {{job.job_name}}</h2>
-        <!h3>Desc : {{job.job_desc}}</h3>
-      </ion-item-->
-    <ion-card>
-        <img src="img/nin-live.png"/>
-        <ion-card-content>
-          <ion-card-title>
-            {{ firstRoute.driverName }}
-            </ion-card-title>
-          <p>
-              {{ firstRoute.driverRoute }}
-          </p>
-        </ion-card-content>
-      </ion-card>
+    <ion-grid>
 
-      <ion-card>
-          <img src="img/nin-live.png"/>
-          <ion-card-content>
-            <ion-card-title>
-              Nine Inch Nails Live
-              </ion-card-title>
-            <p>
-              The most popular industrial group ever, and largely
-              responsible for bringing the music to a mass audience.
-            </p>
-          </ion-card-content>
-        </ion-card>
+        <ion-row wrap *ngFor="let res of ResArray">
 
-        <ion-card>
-            <img src="img/nin-live.png"/>
-            <ion-card-content>
-              <ion-card-title>
-              dkashdkhaskhdhask
-                </ion-card-title>
-                
-              <p>
-                The most popular industrial group ever, and largely
-                responsible for bringing the music to a mass audience.
-              </p>
-            </ion-card-content>
-          </ion-card>
+          <ion-col width-25> hhhshhshsh</ion-col>
+          <ion-col width-25> sadasdasdas</ion-col>
+          <ion-col width-25> dasdasdasd</ion-col>
+          <ion-col width-25> <button ion-button small color="danger" (click)="gotoDetails(res)"> Details</button></ion-col>
+        </ion-row>
+      </ion-grid>
+   
+
+     
 </ion-content>

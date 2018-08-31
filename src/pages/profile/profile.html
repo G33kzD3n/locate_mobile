@@ -12,34 +12,43 @@
 
 <ion-content>
     <ion-card>
+      <ion-grid class="bg">
         <ion-avatar item-start>
             <img class="image" src="assets/imgs/12.jpg">
           </ion-avatar>
-         
-        <ion-item class=username> 
+      </ion-grid>   
+        <ion-item class="username"> 
           <label>Name:</label>
           <h1>{{ user1.name }}</h1>
         </ion-item>
-        <ion-item class =username> 
+        <ion-item class ="username"> 
             <label>Department Name:</label>
                 <h1>{{ user1.dept_code }}</h1>
          </ion-item>
-         <ion-item class =username> 
+         <ion-item class ="username"> 
             <label>Alloted bus:</label>
             <h1>{{ user1.bus_no }}</h1>
           </ion-item>
-        <ion-item class =username>
+        <ion-item class ="username">
             <label>Phone no:</label>
                 <h1>{{ user1.cell_no }}</h1>
          </ion-item>
-         <ion-item class =username>
+         <ion-item class ="username">
             <label>Registration date:</label>
                 <h1>{{ user1.registration_date }}</h1>
          </ion-item>
    
-        <ion-card-content>
-          <ion-card-title>
-            </ion-card-title>
-         </ion-card-content>
+         <ion-card>
+     
+            <h2 style="text-align:left;float:left;">Bus Fee/Month:</h2> 
+            <h2 style="text-align:right;float:right;">2000</h2> 
+            <hr style="clear:both;"/>
+            <h2 style="text-align:left;float:left;">No. of Months Unpaid:</h2> 
+            <h2 style="text-align:right;float:right;">10</h2> 
+            <hr style="clear:both;"/>
+            <h2 style="text-align:left;float:left;">Total Amount:</h2> 
+            <h2 style="text-align:right;float:right;">3000</h2> 
+             
+          </ion-card>
       </ion-card>
 </ion-content>
