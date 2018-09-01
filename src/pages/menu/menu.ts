@@ -15,6 +15,7 @@ import { MybusPage } from '../mybus/mybus';
 import { PassengersPage } from '../passengers/passengers';
 import { BreakdownPage } from '../breakdown/breakdown';
 import { DriverprofilePage } from '../driverprofile/driverprofile';
+import { DriverhomepagePage } from '../driverhomepage/driverhomepage';
 
 
 @IonicPage()
@@ -75,7 +76,7 @@ showMenu(){
   if ( data === 1 )
   {
     this.pages = [
-      { title: 'Home', component: StudentPage, icon:'home', index: 0 },
+      { title: 'Home', component: DriverhomepagePage, icon:'home', index: 0 },
       { title: 'Passengers', component: PassengersPage, icon:'people', index: 0 },
       { title: 'Breakdown', component: BreakdownPage, icon:'hand', index: 0 },
       { title: 'University Calender', component: CalenderPage, icon:'calendar', index: 0 },

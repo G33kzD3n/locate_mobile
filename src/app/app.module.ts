@@ -26,6 +26,7 @@ import { FeedetailsPage } from '../pages/feedetails/feedetails';
 import { AppServiceProvider } from '../providers/app-service/app-service';
 import { IonicStorageModule } from '@ionic/storage';
 import { BreakdownPage } from '../pages/breakdown/breakdown';
+import { DriverhomepagePage } from '../pages/driverhomepage/driverhomepage';
 
 @NgModule({
   declarations: [
@@ -44,7 +45,8 @@ import { BreakdownPage } from '../pages/breakdown/breakdown';
     NotificationPage,
     PassengersPage,
     DriverprofilePage,
-    BreakdownPage
+    BreakdownPage,
+    DriverhomepagePage
   ],
   imports: [
     BrowserModule,
@@ -72,7 +74,8 @@ import { BreakdownPage } from '../pages/breakdown/breakdown';
     NotificationPage,
     PassengersPage,
     DriverprofilePage,
-    BreakdownPage
+    BreakdownPage,
+    DriverhomepagePage
   ],
   providers: [
     StatusBar,

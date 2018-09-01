@@ -8,6 +8,7 @@ import 'rxjs/add/operator/map';
 @Injectable()
 export class AppServiceProvider {
   private baseUrl: string = "http://192.168.43.58:9000/api/1.0";
+  //private baseUrl: string = "http://127.0.0.1:8000/api/1.0";
   public loader:any ;
 
   constructor(public http: Http, public loadingCtrl: LoadingController, public toastCtrl: ToastController) {

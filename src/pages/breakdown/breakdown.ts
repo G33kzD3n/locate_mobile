@@ -22,4 +22,10 @@ export class BreakdownPage {
     console.log('ionViewDidLoad BreakdownPage');
   }
 
+    
+  message:string;
+  sendBreakdown(data:{name:string}){
+    console.log(data);
+    this.message = "Message sent " + data.name;
+  }
 }

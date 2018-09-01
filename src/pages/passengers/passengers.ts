@@ -1,12 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-
-/**
- * Generated class for the PassengersPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+import { Http } from '@angular/http';
 
 @IonicPage()
 @Component({
@@ -15,7 +9,21 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class PassengersPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  users:any[];
+  constructor(public navCtrl: NavController, public navParams: NavParams, public http: Http) {
+    this.getdata()
+  }
+
+  getdata(){
+    this.http.get("http://192.168.43.58:9000/api/1.0")
+    .subscribe((data)=>{
+      console.log(data.json());
+      this.users = data.json();
+
+    },(error)=>{
+      console.log(error);
+
+    })
   }
 
   ionViewDidLoad() {
