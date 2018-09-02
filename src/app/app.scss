@@ -14,3 +14,13 @@
 // To declare rules for a specific mode, create a child rule
 // for the .md, .ios, or .wp mode classes. The mode class is
 // automatically applied to the <body> element in the app.
+// @import url('https://fonts.googleapis.com/css?family=Lato');
+@font-face{
+   font-family: Lato , serif;
+   src:url('../assests/fonts/lato.woff2');
+}
+
+// $font-family-base: "Lato";
+// $font-family-md-base: "Lato";
+// $font-family-ios-base: "Lato";
+// $font-family-wp-base: "Lato";

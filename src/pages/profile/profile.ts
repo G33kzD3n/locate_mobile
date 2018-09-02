@@ -1,9 +1,9 @@
 import { Component, ViewChild } from '@angular/core';
-import { IonicPage, NavController, NavParams, Nav, Platform} from 'ionic-angular';
+import { IonicPage, NavController, NavParams, Nav, Platform } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 import { RequestOptions, Headers, Http } from '@angular/http';
 import { AppServiceProvider } from '../../providers/app-service/app-service';
-
+import "rxjs/add/operator/map";
 import { TabsPage } from '../tabs/tabs'
 import { LoginPage } from '../login/login'
 
@@ -13,51 +13,47 @@ import { LoginPage } from '../login/login'
   templateUrl: 'profile.html',
 })
 export class ProfilePage {
-  public rootpage:any = TabsPage;
+  public rootpage: any = TabsPage;
   @ViewChild(Nav) nav: Nav;
-  public user1:any;
-  
-  constructor(public navCtrl: NavController,public storage: Storage,public app:AppServiceProvider,public http:Http, public navParams: NavParams) {
-  
+  public user1: any;
 
-    
+  constructor(public navCtrl: NavController, public storage: Storage, public app: AppServiceProvider, public http: Http, public navParams: NavParams) {
+
+
+
   }
 
- 
-ionViewDidEnter()
-  {
-    let user;
-    let userToken:any;
-    this.user1= this.navParams.get('user');
-    console.log(this.user1);   
+
+  ionViewDidEnter() {
+
+    let userToken: any;
+    this.user1 = this.navParams.get('user');
+    console.log(this.user1);
     // this.user1= this.navParams.get('user');
-     this.storage.get('token').then((token)=>{
-     userToken = this.app.getToken(token);
-     console.log(userToken);
-     });
-    // console.log(user);
-    let headers = new Headers({'Content-Type':  'application/json'});
-    headers.append('Authorization', 'Bearer' + userToken);
-    let options = new RequestOptions({ headers: headers });
-    this.http.get(this.app.getUrl() + '/users/' + this.user1, options)
-          .map(res => res.json())
-          .subscribe(
-  
-            result => {
-              user=result; 
-              //console.log(user);
-              //  console.log(user[0]);        
+    this.storage.get('token').then((token) => {
+      userToken = this.app.getToken(token);
+      //console.log(userToken);
+    });
+    console.log(this.navParams.get('token'));
+    let headers = new Headers({ 'Content-Type': 'application/json' });
+    headers.append('Authorization', 'Bearer ' + this.navParams.get('token'));
+    let url = this.app.getUrl() + '/users/' + this.user1;
+    console.log(url);
+    this.http.get(url, { headers: headers })
+      .map(res => res.json())
+      .subscribe(
+        result => {
+          let user = result;
+          console.log(user);
+        },
+        error => {
+          console.log(error);
+        },
+        () => {
+          this.app.showToast('profile', 'top');
+          // this.navCtrl.setRoot(MenuPage);
+        });
 
-            },
-            error => {
-               //user=(JSON.parse(error._body));
-
-            },
-            () => {
-            this.app.showToast('profile', 'top');
-           // this.navCtrl.setRoot(MenuPage);
-          });
-  
   }
 
 }

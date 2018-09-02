@@ -4,7 +4,7 @@
   display: inline;
  }
  #username-value{
-   color:#00b1b3; 
+   color:#00b1b3;
     font-size: 18px;
     margin-bottom: .1em;
     display: inline-block;
@@ -18,18 +18,17 @@
   margin-bottom:0px;
   //margin-top: 100px;
  }
- .image {
-  height: 25vw; 
-  width: 25vw; 
- border: 1px solid #fff;
- border-radius: 50%;
- box-shadow: 0 0 5px gray;
- display: inline-block;
- margin-left: auto;
- display: block;
- margin-top: 30px;
- margin-bottom: 30px;
- margin-right: auto;
- align-content: center;
+ #avatar {
+  height: 60%;
+  width: 60%;
+  size:60%;
+  border-radius: 90%;
+  border: 1px solid #fff;
+  box-shadow: 0 0 5px gray;
+  display: inline-block;
+  margin-left: 5px;
+  display: block;
+  margin-top:10px;
+  align-content: center;
+  margin:auto;
 }
- 

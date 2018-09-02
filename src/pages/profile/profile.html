@@ -1,5 +1,5 @@
-<ion-header>
-  <ion-navbar>
+<ion-header color="header-color">
+  <ion-navbar color="header-color">
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
@@ -8,31 +8,55 @@
 </ion-header>
 
 <ion-content>
-    <ion-card>
-        <ion-avatar item-start>
-            <img class="image" src="assets/imgs/12.jpg">
-          </ion-avatar>
-         
-        <ion-item class=username> 
-          <label>Name:</label>
-          <h1>John Doe</h1>
-        </ion-item>
-        <ion-item class =username> 
-            <label>Department Name:</label>
-                <h1>IMBA</h1>
-         </ion-item>
-         <ion-item class =username> 
-            <label>Alloted bus:</label>
-            <h1>Bus no</h1>
-          </ion-item>
-        <ion-item class =username>
-            <label>Phone no:</label>
-                <h1>9798766777</h1>
-         </ion-item>
-   
-        <ion-card-content>
-          <ion-card-title>
-            </ion-card-title>
-         </ion-card-content>
-      </ion-card>
+  <ion-card>
+    <img id="avatar" src="assets/imgs/12.jpg">
+    <ion-card-content>
+      <ion-row>
+        <ion-col>
+          <span style="margin-right:3px;
+          font-family:'Lato',serif; font-weight: 700;font-size: 14px;">Name:</span>
+          <span style="  font-family:'Lato',serif; font-weight: 400;font-size: 16px;">
+            Nadeem Hilal
+          </span>
+        </ion-col>
+        <ion-col>
+          <span style="margin-left:20%;margin-right:3px;
+                  font-family:'Lato',serif; font-weight: 700;font-size: 14px; position: relative;">Dept:</span>
+          <span style="  font-family:'Lato',serif; font-weight: 400;font-size: 16px;float:right">
+            PGDC
+          </span>
+        </ion-col>
+      </ion-row>
+      <hr>
+      <ion-row>
+        <ion-col>
+        </ion-col>
+        <ion-col>
+        </ion-col>
+      </ion-row>
+    </ion-card-content>
+  </ion-card>
+  <!-- <ion-card>
+    <ion-avatar item-start>
+
+    </ion-avatar>
+
+    <ion-item style="border:solid red 1px; margin-left:20%;
+    margin-top:-50%; padding-left:40%; background:none;">
+
+      <label>Name:</label>
+      <h1>John Doe</h1>
+      <label>Department Name:</label>
+      <h1>IMBA</h1>
+      <label>Alloted bus:</label>
+      <h1>Bus no</h1>
+      <label>Phone no:</label>
+      <h1>9798766777</h1>
+    </ion-item>
+
+    <ion-card-content>
+      <ion-card-title>
+      </ion-card-title>
+    </ion-card-content>
+  </ion-card> -->
 </ion-content>
