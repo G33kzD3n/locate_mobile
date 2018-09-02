@@ -1,0 +1,19 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Driver Home</ion-title>
+    <ion-buttons end>
+        <button ion-button icon-only><ion-icon name="notifications"></ion-icon></button>
+      </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding class="body">
+  <button class="ignition" ion-button (click)="onClickIgnition()" 
+  [ngStyle]="{'background-color': buttonColor}"center><ion-icon
+      name="md-power"></ion-icon></button><br>
+  <h3 class="head3">{{text}}</h3><br>
+
+</ion-content>

@@ -3,60 +3,54 @@
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>Profile</ion-title>
+    <ion-title>{{ title }}</ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only>
+        <ion-icon name="notifications"></ion-icon>
+      </button>
+    </ion-buttons>
   </ion-navbar>
 </ion-header>
 
 <ion-content>
   <ion-card>
-    <img id="avatar" src="assets/imgs/12.jpg">
-    <ion-card-content>
-      <ion-row>
-        <ion-col>
-          <span style="margin-right:3px;
-          font-family:'Lato',serif; font-weight: 700;font-size: 14px;">Name:</span>
-          <span style="  font-family:'Lato',serif; font-weight: 400;font-size: 16px;">
-            Nadeem Hilal
-          </span>
-        </ion-col>
-        <ion-col>
-          <span style="margin-left:20%;margin-right:3px;
-                  font-family:'Lato',serif; font-weight: 700;font-size: 14px; position: relative;">Dept:</span>
-          <span style="  font-family:'Lato',serif; font-weight: 400;font-size: 16px;float:right">
-            PGDC
-          </span>
-        </ion-col>
-      </ion-row>
-      <hr>
-      <ion-row>
-        <ion-col>
-        </ion-col>
-        <ion-col>
-        </ion-col>
-      </ion-row>
-    </ion-card-content>
-  </ion-card>
-  <!-- <ion-card>
-    <ion-avatar item-start>
-
-    </ion-avatar>
-
-    <ion-item style="border:solid red 1px; margin-left:20%;
-    margin-top:-50%; padding-left:40%; background:none;">
-
+    <ion-grid class="bg">
+      <ion-avatar item-start>
+        <img class="image" src="assets/imgs/12.jpg">
+      </ion-avatar>
+    </ion-grid>
+    <ion-item class="username">
       <label>Name:</label>
-      <h1>John Doe</h1>
+      <h1>{{ user1.name }}</h1>
+    </ion-item>
+    <ion-item class="username">
       <label>Department Name:</label>
-      <h1>IMBA</h1>
+      <h1>{{ user1.dept_code }}</h1>
+    </ion-item>
+    <ion-item class="username">
       <label>Alloted bus:</label>
-      <h1>Bus no</h1>
+      <h1>{{ user1.bus_no }}</h1>
+    </ion-item>
+    <ion-item class="username">
       <label>Phone no:</label>
-      <h1>9798766777</h1>
+      <h1>{{ user1.cell_no }}</h1>
+    </ion-item>
+    <ion-item class="username">
+      <label>Registration date:</label>
+      <h1>{{ user1.registration_date }}</h1>
     </ion-item>
 
-    <ion-card-content>
-      <ion-card-title>
-      </ion-card-title>
-    </ion-card-content>
-  </ion-card> -->
+    <ion-card>
+
+      <h2 style="text-align:left;float:left;">Bus Fee/Month:</h2>
+      <h2 style="text-align:right;float:right;">2000</h2>
+      <hr style="clear:both;" />
+      <h2 style="text-align:left;float:left;">No. of Months Unpaid:</h2>
+      <h2 style="text-align:right;float:right;">10</h2>
+      <hr style="clear:both;" />
+      <h2 style="text-align:left;float:left;">Total Amount:</h2>
+      <h2 style="text-align:right;float:right;">3000</h2>
+
+    </ion-card>
+  </ion-card>
 </ion-content>

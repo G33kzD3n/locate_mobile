@@ -4,31 +4,38 @@
   display: inline;
  }
  #username-value{
-   color:#00b1b3;
-    font-size: 18px;
-    margin-bottom: .1em;
-    display: inline-block;
+  color:#00b1b3;
+  font-size: 18px;
+  margin-bottom: .1em;
+  display: inline-block;
  }
 
  .edit-button{
-    font-size: 12px;
+  font-size: 12px;
   color:gray;
   margin-left :300px;
   margin-right:0px;
   margin-bottom:0px;
   //margin-top: 100px;
  }
- #avatar {
-  height: 60%;
-  width: 60%;
-  size:60%;
-  border-radius: 90%;
-  border: 1px solid #fff;
-  box-shadow: 0 0 5px gray;
-  display: inline-block;
-  margin-left: 5px;
-  display: block;
-  margin-top:10px;
-  align-content: center;
-  margin:auto;
+ .bg{
+  background-image: url(/assets/imgs/33.JPG);
+  //ackground-repeat: no-repeat;
+  background-image: center;
+
+  background-size: contain;
+ }
+ .image {
+  height: 25vw;
+  width: 25vw;
+ border: 1px solid #fff;
+ border-radius: 50%;
+ box-shadow: 0 0 5px gray;
+ display: inline-block;
+ margin-left: auto;
+ display: block;
+ margin-top: 30px;
+ margin-bottom: 30px;
+ margin-right: auto;
+ align-content: center;
 }
