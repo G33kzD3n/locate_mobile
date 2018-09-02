@@ -11,7 +11,6 @@ import { MyApp } from './app.component';
 import { LoginPage } from '../pages/login/login';
 import { PassengersPage } from '../pages/passengers/passengers';
 import { DriverprofilePage } from '../pages/driverprofile/driverprofile';
-import { TabsPage } from '../pages/tabs/tabs';
 import { LocationPage } from '../pages/location/location';
 import { RoutePage } from '../pages/route/route';
 import { SignupPage } from '../pages/signup/signup';
@@ -34,7 +33,6 @@ import { DriverhomepagePage } from '../pages/driverhomepage/driverhomepage';
     LoginPage,
     SignupPage,
     StudentPage,
-    TabsPage,
     LocationPage,
     RoutePage,
     MenuPage,
@@ -55,7 +53,7 @@ import { DriverhomepagePage } from '../pages/driverhomepage/driverhomepage';
     HttpModule,
     IonicModule.forRoot(MyApp),
     IonicStorageModule.forRoot(),
-    
+
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -63,7 +61,6 @@ import { DriverhomepagePage } from '../pages/driverhomepage/driverhomepage';
     LoginPage,
     SignupPage,
     StudentPage,
-    TabsPage,
     LocationPage,
     RoutePage,
     MenuPage,
@@ -80,9 +77,9 @@ import { DriverhomepagePage } from '../pages/driverhomepage/driverhomepage';
   providers: [
     StatusBar,
     SplashScreen,
-    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    { provide: ErrorHandler, useClass: IonicErrorHandler },
     AuthServiceProvider,
     AppServiceProvider
   ]
 })
-export class AppModule {}
+export class AppModule { }

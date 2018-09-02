@@ -1,9 +1,9 @@
 <ion-header>
-  <ion-navbar>
+  <ion-navbar color="header-color">
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>{{ title }}</ion-title>
+    <ion-title id="title">{{ title }}</ion-title>
   </ion-navbar>
 </ion-header>
 
@@ -15,42 +15,42 @@
 
 
 <ion-content padding class="bg-style">
-		      
-                    <div class="header padding text-center">
-                        <img src="assets/imgs/bus.jpg"/>
-                    </div>
-          <form [formGroup]="loginForm" (ngSubmit)="gotoprofile(loginForm.value)">
-            <ion-list>
 
-            <ion-item>
-            <ion-label floating>Enter ur roll no:</ion-label>
-            <ion-input type="number"  name="username" id="username" formControlName="username" required></ion-input>
-            </ion-item>
-              <div class="errorBox" *ngIf="loginForm.controls['username'].hasError('required')  && loginForm.controls['username'].touched">*roll no is required.
-              </div>
-              <div class="errorBox" *ngIf="loginForm.controls['username'].hasError('pattern') && loginForm.controls['username'].touched">*roll no not valid.
-              </div>
-              <div class="errorBox" *ngIf="loginForm.controls['username'].hasError('minlength') || loginForm.controls['username'].hasError('maxlength')  && loginForm.controls['username'].touched">
-              *Enter valid Roll No.
-            </div>
+  <div class="header padding text-center">
+    <img id="my-img" src="assets/imgs/bus.jpg" style="background: transparent; background-color:#424242" />
+  </div>
+  <form [formGroup]="loginForm" (ngSubmit)="gotoprofile(loginForm.value)">
+    <ion-list>
 
-            <ion-item>
-            <ion-label floating>Enter ur date of birth:</ion-label>
-            <ion-input type="text"  name="password" id="password" formControlName="password" required></ion-input>
-              </ion-item>
-              <div class="errorBox" *ngIf="loginForm.controls['password'].hasError('required')  && loginForm.controls['password'].touched">*date of birth is required 
-              </div>
+      <ion-item>
+        <ion-label floating>Enter ur roll no:</ion-label>
+        <ion-input type="number" name="username" id="username" formControlName="username" required></ion-input>
+      </ion-item>
+      <div class="errorBox" *ngIf="loginForm.controls['username'].hasError('required')  && loginForm.controls['username'].touched">*roll no is required.
+      </div>
+      <div class="errorBox" *ngIf="loginForm.controls['username'].hasError('pattern') && loginForm.controls['username'].touched">*roll no not valid.
+      </div>
+      <div class="errorBox" *ngIf="loginForm.controls['username'].hasError('minlength') || loginForm.controls['username'].hasError('maxlength')  && loginForm.controls['username'].touched">
+        *Enter valid Roll No.
+      </div>
 
-              <div class="errorBox" *ngIf="loginForm.controls['password'].hasError('pattern') || loginForm.controls['password'].hasError('maxlength')  && loginForm.controls['password'].touched">*not valid date of birth             </div>
+      <ion-item>
+        <ion-label floating>Enter ur date of birth:</ion-label>
+        <ion-input type="text" name="password" id="password" formControlName="password" required></ion-input>
+      </ion-item>
+      <div class="errorBox" *ngIf="loginForm.controls['password'].hasError('required')  && loginForm.controls['password'].touched">*date of birth is required
+      </div>
 
-            
-          </ion-list>
+      <div class="errorBox" *ngIf="loginForm.controls['password'].hasError('pattern') || loginForm.controls['password'].hasError('maxlength')  && loginForm.controls['password'].touched">*not valid date of birth </div>
 
- 
-<button ion-button [disabled]="!loginForm.valid" round color="dark" class="submit-btn" type="submit">log in
-</button>
 
-<a (click)="gotopage()" >Apply for registration</a>
-</form>
+    </ion-list>
+
+
+    <button ion-button [disabled]="!loginForm.valid" round color="dark" class="submit-btn" type="submit">log in
+    </button>
+
+    <a (click)="gotopage()">Apply for registration</a>
+  </form>
 
 </ion-content>

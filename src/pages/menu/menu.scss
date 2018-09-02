@@ -1,48 +1,48 @@
-.imagex {
-    //height: 70; 
-    //width: 70%; 
-    height: 70%; 
-    width: 70%;
-
+#imagex {
+    // height: 45%;
+    // width: 45%;
    border: 1px solid #fff;
-   border-radius: 50%;
+   border-radius: 90%;
    box-shadow: 0 0 5px gray;
    display: inline-block;
-   margin-left: auto;
-   margin-right: auto;
+   margin: 1px auto 1px auto;
+
+}
+#title-username{
+       // border:solid red 2px;
+        font-size: 12px;
+        padding-right: 20px;
+        text-decoration-style: solid;
+}
+.pages-title{
+        // border:solid red 2px;
+        font-family: 'Lato';
+        font-weight: 400;
+        font-size: 20px;
+        background-color: #424242;
+        color:#b3b2b2;
+        transition-delay: 100ms;
+
+}
+button.pages-title.item.item-block.item-md.activehighlight {
+    background-color: #424242;
+    color:red;
+}
+#logout{
+    color:#420202;
+    font-family: 'Lato';
+    font-weight: 400;
+    font-size: 18px;
+    border: none;
+}
+#bottom{
+    color:#424242;
 }
 .activehighlight{
-    background-color:  #ffff99;
+    // background-color:  #202020;
+    color:#202020;
 }
-.scroll-content {
-    overflow-y: auto;
-  }
-  .alert-message{
-    overflow-y: auto;
-  }
-// .custom {
-//     background-color: #454545 !important; /* This sets the background color*/
-//    }
-//    .custom .item {
-//     background-color: transparent;
-//     border:none;   /*Removes all borders*/
-//     border-top: 1px solid;   /*Top Border for each menu item*/
-//     border-bottom:2px solid;   /*Bottom border for each menu item*/
-//     border-color: #666;   /*Sets colors for top and bottom border*/
-//     color: white;    /*Text color for each item*/
-//   }
-// .custom .item:last-child {
-//     border-bottom: 1px solid #666;
-//   }
-   
-//   .custom .item-complex .item-content, .dark .item-radio .item-content {
-//     background-color: transparent;
-//   }
-   
-//   /*Just makes the type white*/
-//   .custom h2,
-//   .custom h3,
-//   .custom p,
-//   .custom a {
-//     color: white;  /*Text color for each item, overrides the color property above*/
-//   }
+#my-title{
+    font-size: 28px;
+    margin-left:auto;
+}

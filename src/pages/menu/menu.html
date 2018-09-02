@@ -1,35 +1,30 @@
-<ion-menu class="menu" [content]="content">  
-    <ion-header>
-     
-      <ion-navbar>
-          <ion-segment (click)="openProfile()">
-          <ion-avatar item-start>
-              <img class="imagex" src="assets/imgs/12.jpg">
-            </ion-avatar>
-        <ion-title>{{ user1 }}</ion-title>
-        <p></p>
-      </ion-segment>
-      </ion-navbar>
-      
+<ion-menu [content]="content">
+    <ion-header color="header-color">
+        <ion-navbar color="header-color">
+            <ion-segment (click)="openProfile()">
+                <ion-avatar item-start>
+                    <img id="imagex" style="width:68%; height:68%; border:solid red 1px;" src="assets/imgs/12.jpg">
+                </ion-avatar>
+                <ion-title id="title-username" style="border:solid red 1px; margin:auto">{{ username }}</ion-title>
+                <p></p>
+            </ion-segment>
+        </ion-navbar>
     </ion-header>
- 
-    
-    <ion-content>
-  <ion-list>
-    <button ion-item menuClose *ngFor="let p of pages" [class.activehighlight]="checkActive(p)" (click)="openPage(p)">
-      <ion-icon item-start [name]="p.icon" [color]="isActive(p)"></ion-icon>
-    {{ p.title }}
-      </button> 
-  </ion-list>
-      </ion-content>
-      <ion-footer>
-          <ion-toolbar>
-              <button ion-button full outline>
-                  <ion-icon name="ios-log-out"></ion-icon>
-           <ion-title name="log-out" (click)="logOut()">LogOut</ion-title>
-          </button>
-          </ion-toolbar>
-        </ion-footer>
-    </ion-menu>
-    
-    <ion-nav [root]="rootpage" #content swipeBackEnabled="false"></ion-nav>
+
+    <ion-content style="background-color: #424242">
+        <ion-list>
+            <button class="pages-title" ion-item menuClose *ngFor="let p of pages" [class.activehighlight]="checkActive(p)" (click)="openPage(p)">
+                <ion-icon item-start [name]="p.icon" [color]="checkActive(p)"></ion-icon> {{ p.title }} </button>
+        </ion-list>
+    </ion-content>
+    <ion-footer>
+        <ion-toolbar color="header-color">
+            <button ion-button full outline color="header-color" style="border:none;width:50%; margin:0 auto;">
+                <ion-icon name="log-out" style="font-size:2em; float: left;" color="danger"></ion-icon>
+                <ion-title style="margin:auto" id="logout" name="log-out" (click)="logOut()">Logout</ion-title>
+            </button>
+        </ion-toolbar>
+    </ion-footer>
+</ion-menu>
+
+<ion-nav [root]="rootpage" #content swipeBackEnabled="false"></ion-nav>

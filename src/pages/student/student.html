@@ -1,53 +1,47 @@
 <ion-header>
-  <ion-navbar>
+  <ion-navbar color="header-color">
     <button ion-button menuToggle>
-      <ion-icon name="menu"></ion-icon>
+      <ion-icon name="menu" color="danger"></ion-icon>
     </button>
     <ion-title>Trackbus</ion-title>
     <ion-buttons end>
-    <button ion-button icon-only><ion-icon name="notifications"></ion-icon></button>
-  </ion-buttons>
+      <button ion-button icon-only>
+        <ion-icon name="notifications" color="danger"></ion-icon>
+      </button>
+    </ion-buttons>
   </ion-navbar>
 </ion-header>
 
+<ion-content class="bg-style">
+  <ion-card style=" border:solid red 1px; width:100%; margin:5px 0 0 0">
+    <div id="map" style="border:solid green 1px;height:500px">
 
-
-
-
-
-<ion-content padding class=bg-style>
-<ion-card>
-
-  <img src="assets/imgs/s.png">
-  <ion-fab right top>
-    <button ion-fab>
-      <ion-icon name="pin"></ion-icon>
-    </button>
-  </ion-fab>
-
-
-<ion-item>
-    <ion-icon name="football" item-start large></ion-icon>
-    <h2>North Campus</h2>
-    <p>Delina Baramulla</p>
-  </ion-item>
-
-  <ion-item>
-    <ion-icon name="wine" item-start large ></ion-icon>
-    <h2>Srinagar</h2>
-    <p>nawa kadal</p>
-  </ion-item>
-
-  <ion-item class=span>
-    <span item-start>30 min To Reach (8km)</span>
-    <span item-start>ETA: 9:15 AM</span>
-    <!--button ion-button icon-start clear item-end>
+    </div>
+    <ion-fab right top>
+      <button ion-fab>
+        <ion-icon name="pin"></ion-icon>
+      </button>
+    </ion-fab>
+    <ion-item>
+      <ion-icon name="football" item-start large></ion-icon>
+      <h2>North Campus</h2>
+      <p>Delina Baramulla</p>
+    </ion-item>
+    <ion-item>
+      <ion-icon name="wine" item-start large></ion-icon>
+      <h2>Srinagar</h2>
+      <p>nawa kadal</p>
+    </ion-item>
+    <ion-item class=span>
+      <span item-start>30 min To Reach (8km)</span>
+      <span item-start>ETA: 9:15 AM</span>
+      <!--button ion-button icon-start clear item-end>
       <ion-icon name="navigate"></ion-icon>
       Start
     </button-->
-  </ion-item>
+    </ion-item>
 
-</ion-card>
+  </ion-card>
 
 
 </ion-content>
