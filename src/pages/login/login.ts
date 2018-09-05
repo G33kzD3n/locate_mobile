@@ -19,7 +19,7 @@ import { MenuPage } from '../menu/menu';
 })
 
 export class LoginPage {
-  title = "LocaTe";
+  title = "LOCATE";
   loader:any;
   loginForm: FormGroup;
   

@@ -1,13 +1,29 @@
 page-login {
 
+    .nav{
+        text-decoration: red;
+        text-align: center;
+        font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif, bold;
+       // background: linear-gradient(to bottom, #0a06ff 0%, #fff 100%);
+        
+    }
+
 .errorBox{
         color : black;
         padding-top: 10px;
-        padding-left: 70px;
+        padding-left: 10px;
 
     }
-.bg-style {
-    background-color: #fcb040;
+    .bg{
+        background-image: url('../assets/imgs/bg.png') ;
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: 100% 100%;
+        
+    }
+ion-card{
+   // background-color: #c81b1b;
+   border-top: 2px blue solid ;
+   border-top-style: ridge;
 }
-
 }
