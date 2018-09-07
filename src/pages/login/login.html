@@ -1,61 +1,46 @@
-<ion-header no-border>
-  <ion-navbar class="nav" transparent>
-    <button ion-button menuToggle>
-      <ion-icon name="menu"></ion-icon>
-    </button>
-    <!-- <ion-title>{{ title }}</ion-title> -->
-  </ion-navbar>
-</ion-header>
-
 <ion-content padding class="bg">
 
   <div class="header padding text-center">
-    <img src="assets/imgs/bus.png" />
+    <img class="img" src="assets/imgs/bus.png" />
   </div>
-  <form [formGroup]="loginForm" (ngSubmit)="gotoprofile(loginForm.value)">
-      
-    <ion-card>
-      <ion-card-content no-padding >
-        
-          <ion-item class="item">
-            <ion-label floating>User ID</ion-label>
-            <ion-input type="number" name="username" id="username" formControlName="username" required></ion-input>
-          </ion-item>
-          <div class="errorBox" *ngIf="loginForm.controls['username'].hasError('required')  && loginForm.controls['username'].touched">*User
-            ID Required.
-          </div>
-          <div class="errorBox" *ngIf="loginForm.controls['username'].hasError('pattern') && loginForm.controls['username'].touched">*Password
-            Is Required.
-          </div>
-          <div class="errorBox" *ngIf="loginForm.controls['username'].hasError('minlength') || loginForm.controls['username'].hasError('maxlength')  && loginForm.controls['username'].touched">
-            *Enter Valid ID.
-          </div>
-        </ion-card-content>
-      </ion-card>
 
-          <ion-card>
-              <ion-card-content no-padding>
+  <form class="list-form" [formGroup]="loginForm" (ngSubmit)="gotoprofile(loginForm.value)">
+    <ion-item>
+      <ion-label floating class="ilb">
+        <ion-icon name="md-person" item-start class="text-primary"></ion-icon>
+        User ID
+      </ion-label>
+      <ion-input type="number" name="username" id="username" formControlName="username" required></ion-input>
+    </ion-item>
 
-          <ion-item>
-            <ion-label floating>Password</ion-label>
-            <ion-input type="text" name="password" id="password" formControlName="password" required></ion-input>
-          </ion-item>
+    <div class="errorBox" *ngIf="loginForm.controls['username'].hasError('required')  && loginForm.controls['username'].touched">*User
+      ID Required.
+    </div>
+    <div class="errorBox" *ngIf="loginForm.controls['username'].hasError('pattern') && loginForm.controls['username'].touched">*Password
+      Is Required.
+    </div>
+    <div class="errorBox" *ngIf="loginForm.controls['username'].hasError('minlength') || loginForm.controls['username'].hasError('maxlength')  && loginForm.controls['username'].touched">
+      *Enter Valid ID.
+    </div>
 
-          <div class="errorBox" *ngIf="loginForm.controls['password'].hasError('required')  && loginForm.controls['password'].touched">*Password
-            Is Required
-          </div>
+    <ion-item>
+      <ion-label floating class="ilb">
+        <ion-icon name="lock" item-start class="text-primary"></ion-icon>
+        Password
+      </ion-label>
+      <ion-input type="text" name="password" id="password" formControlName="password" required></ion-input>
+    </ion-item>
 
-          <div class="errorBox" *ngIf="loginForm.controls['password'].hasError('pattern') || loginForm.controls['password'].hasError('maxlength')  && loginForm.controls['password'].touched">*Invalid
-          </div>
-       
-      </ion-card-content>
-    </ion-card>
-  
+    <div class="errorBox" *ngIf="loginForm.controls['password'].hasError('required')  && loginForm.controls['password'].touched">*Password
+      Is Required
+    </div>
 
-    <button ion-button [disabled]="!loginForm.valid" round block color="danger" class="submit-btn" type="submit">Sign In
-    </button>
+    <div class="errorBox" *ngIf="loginForm.controls['password'].hasError('pattern') || loginForm.controls['password'].hasError('maxlength')  && loginForm.controls['password'].touched">*Invalid
+    </div>
 
-    <!-- <a (click)="gotopage()">Apply for registration</a> -->
+    <br><br>
+    <button ion-button icon-start block round color="danger" [disabled]="!loginForm.valid">
+      <ion-icon name="log-in"></ion-icon>SIGN IN</button>
   </form>
 
 </ion-content>

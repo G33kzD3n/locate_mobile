@@ -1,12 +1,27 @@
 page-login {
 
-    .nav{
-        text-decoration: red;
-        text-align: center;
-        font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif, bold;
-       // background: linear-gradient(to bottom, #0a06ff 0%, #fff 100%);
-        
-    }
+    .text-primary {
+        color: color($colors, light);
+      }
+
+    .list-form {
+        padding: 0;
+        margin-bottom: 0;
+
+        ion-item {
+          background:none;
+          padding: 0;
+
+         .ilb {
+            font-size: 1em;
+            color: color($colors, light) !important;
+          }
+
+          input {
+            color: color($colors, light);
+          }
+        }
+      }
 
 .errorBox{
         color : black;
@@ -18,12 +33,8 @@ page-login {
         background-image: url('../assets/imgs/bg.png') ;
         background-repeat: no-repeat;
         background-position: center;
-        background-size: 100% 100%;
+        background-size: 100% 100% ;
+
         
     }
-ion-card{
-   // background-color: #c81b1b;
-   border-top: 2px blue solid ;
-   border-top-style: ridge;
-}
 }
