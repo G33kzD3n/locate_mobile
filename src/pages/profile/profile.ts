@@ -4,7 +4,6 @@ import { Storage } from '@ionic/storage';
 import { RequestOptions, Headers, Http } from '@angular/http';
 import { AppServiceProvider } from '../../providers/app-service/app-service';
 
-import { TabsPage } from '../tabs/tabs'
 
 @IonicPage()
 @Component({
@@ -12,7 +11,6 @@ import { TabsPage } from '../tabs/tabs'
   templateUrl: 'profile.html',
 })
 export class ProfilePage {
-  public rootpage:any = TabsPage;
   @ViewChild(Nav) nav: Nav;
   public user1:any;
   title:string= "Profile";
