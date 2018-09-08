@@ -24,7 +24,8 @@ import { DriverhomepagePage } from '../driverhomepage/driverhomepage';
   templateUrl: 'menu.html',
 })
 export class MenuPage {
-  public rootpage: any = StudentPage;
+ 
+  public rootpage: any;
   @ViewChild(Nav) nav: Nav;
   public level: any;
   public pages: Array<{ title: string, component: any, icon: any, index:any}>;
@@ -60,9 +61,11 @@ openProfile()
 }
 
 showMenu(){
+
   this.storage.get('level') .then((data) =>{
  if ( data === 0 )
    {
+     this.rootpage=StudentPage;
     this.pages = [
       
       { title: 'Home', component: StudentPage, icon:'home', index: 0 },
@@ -75,6 +78,7 @@ showMenu(){
   }
   if ( data === 1 )
   {
+    this.rootpage= DriverhomepagePage;
     this.pages = [
       { title: 'Home', component: DriverhomepagePage, icon:'home', index: 0 },
       { title: 'Passengers', component: PassengersPage, icon:'people', index: 0 },
