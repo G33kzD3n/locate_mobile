@@ -4,7 +4,7 @@ import { Storage } from '@ionic/storage';
 import { Http } from '@angular/http';
 import { AppServiceProvider } from '../../providers/app-service/app-service';
 
-import { TabsPage } from '../tabs/tabs';
+
 import { ProfilePage} from '../profile/profile';
 import { FeedetailsPage} from '../feedetails/feedetails';
 import { StudentPage} from '../student/student';
@@ -24,7 +24,7 @@ import { DriverhomepagePage } from '../driverhomepage/driverhomepage';
   templateUrl: 'menu.html',
 })
 export class MenuPage {
-  public rootpage: any = TabsPage;
+  public rootpage: any = StudentPage;
   @ViewChild(Nav) nav: Nav;
   public level: any;
   public pages: Array<{ title: string, component: any, icon: any, index:any}>;

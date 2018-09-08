@@ -1,12 +1,18 @@
 <ion-header>
   <ion-navbar>
-    <button ion-button menuToggle>
-      <ion-icon name="menu"></ion-icon>
+    
+    <button  ion-button menuToggle>
+      <ion-icon name="menu" id="menu1" ></ion-icon>
     </button>
-    <ion-title>Trackbus</ion-title>
-    <ion-buttons end>
-    <button ion-button icon-only><ion-icon name="notifications"></ion-icon></button>
-  </ion-buttons>
+    
+    <ion-title >Trackbus</ion-title>
+
+    
+    <button ion-button menuToggle end>
+      <ion-icon name="notifications" id="menu2" menuClose="menu2"></ion-icon>
+    </button>
+    
+  
   </ion-navbar>
 </ion-header>
 
@@ -15,17 +21,13 @@
 
 
 
-<ion-content padding class="contentbg">
-<ion-card>
-
-  <img src="assets/imgs/s.png">
-  <ion-fab right top>
-    <button ion-fab>
-      <ion-icon name="pin"></ion-icon>
-    </button>
-  </ion-fab>
-
-
+<ion-content>
+    <div #map id="map"></div>
+    
+<ion-card style=" border:solid red 1px; width:100%; margin:5px 0 0 0">
+    
+    <!-- <div #map id="map" style="border:solid green 1px;height:500px">
+</div> -->
 <ion-item>
     <ion-icon name="football" item-start large></ion-icon>
     <h2>North Campus</h2>
