@@ -15,6 +15,7 @@ declare var google: any;
 export class StudentPage {
   @ViewChild('map') mapRef: ElementRef;
   map: any;
+  loc: any;
   public stops: any = [
     [34.127998, 74.83688],
     [34.095828, 74.79851],
@@ -32,23 +33,65 @@ export class StudentPage {
     this.showmap();
   }
   showmap() {
+    let infoWindow: any;
     const location = new google.maps.LatLng(34.100, 74.800);
-    let i,j;
     const options = {
       center: location,
       zoom: 15,
-      disableDefaultUI: true
+      disableDefaultUI: true,
+      zoomControl: true,
+      scaleControl: true,
+      rotateControl: false,
+      fullscreenControl: false
     }
+    this.map = new google.maps.Map(document.getElementById('map'), {
+      center: { lat: 34.100, lng: 74.800 },
+      zoom: 10
+    });
+    infoWindow = new google.maps.InfoWindow;
 
-    this.map = new google.maps.Map(this.mapRef.nativeElement, options);
+    // Try HTML5 geolocation.
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition((position) => {
+        var pos = {
+          lat: position.coords.latitude,
+          lng: position.coords.longitude
+        };
+
+        infoWindow.setPosition(pos);
+        infoWindow.setContent('Location found.');
+        // var mark = new google.maps.Marker({ pos, map:'map' });
+        // mark.setPosition({lat: pos.lat, lng: pos.lng});
+        infoWindow.open(this.map);
+        this.map.setCenter(pos);
+      }, () => {
+        this.handleLocationError(true, infoWindow, this.map.getCenter());
+      });
+    } else {
+      // Browser doesn't support Geolocation
+      this.handleLocationError(false, infoWindow, this.map.getCenter());
+    }
   }
+
+  handleLocationError(browserHasGeolocation, infoWindow, pos) {
+    infoWindow.setPosition(pos);
+    infoWindow.setContent(browserHasGeolocation ?
+      'Error: The Geolocation service failed.' :
+      'Error: Your browser doesn\'t support geolocation.');
+    infoWindow.open(this.map);
+  }
+
+  // this.map = new google.maps.Map(this.mapRef.nativeElement, options);
+  //this.loc = new LatLng(location.getLatitude(), location.getLongitude());
+  //this.addMarker(location,this.map); 
+
   addMarker(position, map) {
     return new google.maps.Marker({
       position,
       map
     })
-
+  }
   }
 
 
-}
+// }

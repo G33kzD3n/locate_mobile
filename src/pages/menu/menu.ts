@@ -6,7 +6,6 @@ import { AppServiceProvider } from '../../providers/app-service/app-service';
 
 
 import { ProfilePage} from '../profile/profile';
-import { FeedetailsPage} from '../feedetails/feedetails';
 import { StudentPage} from '../student/student';
 import { LoginPage } from '../login/login';
 import { LocationPage } from '../location/location';
@@ -69,9 +68,8 @@ showMenu(){
     this.pages = [
       
       { title: 'Home', component: StudentPage, icon:'home', index: 0 },
-      { title: 'Locate Bus', component: LocationPage, icon:'bus', index: 0 },
       { title: 'My Bus', component: MybusPage, icon:'bus', index: 0 },
-      { title: 'Feedetails', component: FeedetailsPage, icon:'cash', index: 0 },
+      { title: 'Buses', component: LocationPage, icon:'bus', index: 0 },
       { title: 'University Calender', component: CalenderPage, icon:'calendar', index: 0 },
     ];
     this.activepage=this.pages[0];
@@ -83,6 +81,18 @@ showMenu(){
       { title: 'Home', component: DriverhomepagePage, icon:'home', index: 0 },
       { title: 'Passengers', component: PassengersPage, icon:'people', index: 0 },
       { title: 'Breakdown', component: BreakdownPage, icon:'hand', index: 0 },
+      { title: 'University Calender', component: CalenderPage, icon:'calendar', index: 0 },
+    ];
+    this.activepage=this.pages[0];
+  }
+  if ( data === 2 )
+  {
+    this.rootpage=StudentPage;
+    this.pages = [
+      
+      { title: 'Home', component: StudentPage, icon:'home', index: 0 },
+      { title: 'Locate Bus', component: LocationPage, icon:'bus', index: 0 },
+      { title: 'My Bus', component: MybusPage, icon:'bus', index: 0 },
       { title: 'University Calender', component: CalenderPage, icon:'calendar', index: 0 },
     ];
     this.activepage=this.pages[0];

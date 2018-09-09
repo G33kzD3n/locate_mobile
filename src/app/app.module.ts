@@ -21,7 +21,6 @@ import { MenuPage } from '../pages/menu/menu';
 import { CalenderPage } from '../pages/calender/calender';
 import { ProfilePage } from '../pages/profile/profile';
 import { MybusPage } from '../pages/mybus/mybus';
-import { FeedetailsPage } from '../pages/feedetails/feedetails';
 import { AppServiceProvider } from '../providers/app-service/app-service';
 import { IonicStorageModule } from '@ionic/storage';
 import { BreakdownPage } from '../pages/breakdown/breakdown';
@@ -37,7 +36,6 @@ import { DriverhomepagePage } from '../pages/driverhomepage/driverhomepage';
     RoutePage,
     MenuPage,
     ProfilePage,
-    FeedetailsPage,
     CalenderPage,
     MybusPage,
     NotificationPage,
@@ -65,7 +63,6 @@ import { DriverhomepagePage } from '../pages/driverhomepage/driverhomepage';
     RoutePage,
     MenuPage,
     ProfilePage,
-    FeedetailsPage,
     CalenderPage,
     MybusPage,
     NotificationPage,

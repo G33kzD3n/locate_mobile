@@ -16,10 +16,15 @@
 				  <ion-thumbnail item-start>
 					<img src="assets/imgs/bus.jpg">
 				  </ion-thumbnail >
-				  <h2>Bus no:jko1n 8789</h2>
-				  <h2>Routes:</h2>
-				  <p text-wrap>KU: Kanitar: Lal Bazaar: Mill stop: Hawal: Nawa Kadal: Qamarwari: Shalteng: North campus</p>
-
+				  <h2>Bus no: {{ bus?.bus_no }}</h2>
+					<h2>Routes:</h2>
+					<ul>
+						<li *ngFor="let stops of bus?.stops;">{{ stops[0] }}
+					</li>
+					</ul>
+					<!-- <li *ngFor="let hero of heroes">
+						{{ hero }}
+					</li> -->
 				  
 				</ion-item>
 			  </ion-list>
@@ -29,8 +34,8 @@
 						<img src="assets/imgs/11.JPG">
 					  </ion-thumbnail>
 					  <h2>Cordinator Name:</h2>
-					  <h2>Omer Farooq</h2>
-					  <p>Phone no:7868686757</p>
+					  <h2>{{ bus?.cordinator?.name }}</h2>
+					  <p>{{ bus?.cordinator?.cell_no }}</p>
 					  
 					</ion-item>
 				  </ion-list>
@@ -40,8 +45,8 @@
 							<img src="assets/imgs/11.JPG">
 						  </ion-thumbnail>
 						  <h2>Driver Name:</h2>
-						  <h2>Abdul Wahid</h2>
-						  <p>phone no: 9999889786</p>
+						  <h2>{{ bus?.driver?.name }}</h2>
+						  <p>{{ bus?.driver?.cell_no }}</p>
 						 
 						</ion-item>
 						</ion-list>
@@ -51,37 +56,40 @@
 									<ion-avatar item-start>
 										<img src="assets/imgs/11.JPG">
 									</ion-avatar>
-									<h2>Bus no: JK01N 8829</h2>
-									<p>Driver name: ahsok pandit</p>
+									<h2>Bus no: {{ bus?.bus_no }}</h2>
+									<p>Driver name:{{ bus?.driver?.name }}</p>
 								</ion-item>
 							
 								
 								<ion-card-content>
-									<p text-wrap>KU: Kanitar: Lal Bazaar: Mill stop: Hawal: Nawa Kadal: Qamarwari: Shalteng: North campus</p>
-								</ion-card-content>
+										<ul>
+												<li *ngFor="let stops of bus?.stops;">{{ stops[0] }}
+											</li>
+											</ul>
+														</ion-card-content>
 								<ion-item>
 										<ion-avatar item-start>
 											<img src="assets/imgs/11.JPG">
 										</ion-avatar>
-										<h2>Bus no: JK01N 8829</h2>
-										<p>Driver name: ahsok pandit</p>
+										<h2>Bus no: {{ bus?.bus_no }}</h2>
+										<p>Driver name:{{ bus?.driver?.name }}</p>
 									</ion-item>
 								
 									
 									<ion-card-content>
-										<p text-wrap>KU: Kanitar: Lal Bazaar: Mill stop: Hawal: Nawa Kadal: Qamarwari: Shalteng: North campus</p>
+										
 									</ion-card-content>
 									<ion-item>
 											<ion-avatar item-start>
 												<img src="assets/imgs/11.JPG">
 											</ion-avatar>
-											<h2>Bus no: JK01N 8829</h2>
-											<p>Driver name: ahsok pandit</p>
+											<h2>Bus no: {{ bus?.bus_no }}</h2>
+											<p>Driver name:{{ bus?.driver?.name }}</p>
 										</ion-item>
 									
 										
 										<ion-card-content>
-											<p text-wrap>KU: Kanitar: Lal Bazaar: Mill stop: Hawal: Nawa Kadal: Qamarwari: Shalteng: North campus</p>
+									
 										</ion-card-content>
 </ion-card>	
 </ion-content>
