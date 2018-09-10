@@ -25,7 +25,7 @@ import { AppServiceProvider } from '../providers/app-service/app-service';
 import { IonicStorageModule } from '@ionic/storage';
 import { BreakdownPage } from '../pages/breakdown/breakdown';
 import { DriverhomepagePage } from '../pages/driverhomepage/driverhomepage';
-
+import { Geolocation } from '@ionic-native/geolocation';
 @NgModule({
   declarations: [
     MyApp,
@@ -51,7 +51,7 @@ import { DriverhomepagePage } from '../pages/driverhomepage/driverhomepage';
     HttpModule,
     IonicModule.forRoot(MyApp),
     IonicStorageModule.forRoot(),
-    
+
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -74,9 +74,10 @@ import { DriverhomepagePage } from '../pages/driverhomepage/driverhomepage';
   providers: [
     StatusBar,
     SplashScreen,
-    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    { provide: ErrorHandler, useClass: IonicErrorHandler },
     AuthServiceProvider,
-    AppServiceProvider
+    AppServiceProvider,
+    Geolocation
   ]
 })
-export class AppModule {}
+export class AppModule { }

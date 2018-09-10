@@ -1,18 +1,18 @@
 <ion-header>
   <ion-navbar>
-    
-    <button  ion-button menuToggle>
-      <ion-icon name="menu" id="menu1" ></ion-icon>
-    </button>
-    
-    <ion-title >Trackbus</ion-title>
 
-    
+    <button ion-button menuToggle>
+      <ion-icon name="menu" id="menu1"></ion-icon>
+    </button>
+
+    <ion-title>Trackbus</ion-title>
+
+
     <button ion-button menuToggle end>
       <ion-icon name="notifications" id="menu2" menuClose="menu2"></ion-icon>
     </button>
-    
-  
+
+
   </ion-navbar>
 </ion-header>
 
@@ -22,30 +22,27 @@
 
 
 <ion-content>
-    
-    
-<ion-card > 
-  <div #map id="map" style=" border:solid green 1px; height:500px;"> </div>
-    <!-- <div #map id="map" style="border:solid green 1px;height:500px">
-</div> -->
-<ion-item>
-    <ion-icon name="football" item-start large></ion-icon>
-    <h2>North Campus</h2>
-    <p>Delina Baramulla</p>
-  </ion-item>
 
-  <ion-item>
-    <ion-icon name="wine" item-start large ></ion-icon>
-    <h2>Srinagar</h2>
-    <p>nawa kadal</p>
-  </ion-item>
+
+  <ion-card>
+    <div #map id="map" style=" border:solid green 1px; height:500px;"> </div>
+    <ion-item>
+      <ion-icon name="football" item-start large></ion-icon>
+      <h2>{{lat}}</h2>
+      <p>{{long}}</p>
+    </ion-item>
+
+    <ion-item>
+      <ion-icon name="wine" item-start large></ion-icon>
+      <h2>Srinagar</h2>
+      <p>nawa kadal</p>
+    </ion-item>
 
 
 
-</ion-card>
-<ion-card>
-  <span item-start>30 min To Reach (8km)</span>
+  </ion-card>
+  <ion-card>
+    <span item-start>30 min To Reach (8km)</span>
     <span item-start>ETA: 9:15 AM</span>
-</ion-card>
+  </ion-card>
 </ion-content>
-
