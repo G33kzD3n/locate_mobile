@@ -17,7 +17,7 @@
 					<img src="assets/imgs/bus.jpg">
 				  </ion-thumbnail >
 				  <h2>Bus no: {{ bus?.bus_no }}</h2>
-					<h2>Routes:</h2>
+					<label>Routes:</label>
 					<ul>
 						<li *ngFor="let stops of bus?.stops;">{{ stops[0] }}
 					</li>

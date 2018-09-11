@@ -24,7 +24,8 @@ export class StudentPage {
     [34.232416, 74.415789]
   ];
 
-  constructor(public navCtrl: NavController, public menu: MenuController, public navParams: NavParams, public app: AppServiceProvider) {
+  constructor(public navCtrl: NavController, public menu: MenuController, 
+    public navParams: NavParams, public app: AppServiceProvider) {
   }
 
 
