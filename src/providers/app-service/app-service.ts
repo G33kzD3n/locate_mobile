@@ -1,22 +1,43 @@
 import { Http } from '@angular/http';
 import { Injectable } from '@angular/core';
-import { ToastController, LoadingController } from 'ionic-angular';
+import { Network } from '@ionic-native/network';
+import { Platform } from 'ionic-angular';
+import { ToastController, LoadingController, AlertController } from 'ionic-angular';
 import 'rxjs/add/operator/map';
 
 
 
 @Injectable()
 export class AppServiceProvider {
-  private baseUrl: string = "http://192.168.225.108:9000/api/1.0";
-  //private baseUrl: string = "http://127.0.0.1:8000/api/1.0";
+  private baseUrl: string = "http://192.168.43.58:9000/api/1.0";
+
   public loader: any;
+  networkConn: any;
 
-  constructor(public http: Http, public loadingCtrl: LoadingController, public toastCtrl: ToastController) {
-
+  constructor(public plat: Platform, public alert: AlertController, public network: Network, public http: Http, public loadingCtrl: LoadingController, public toastCtrl: ToastController) {
     this.loader = this.loadingCtrl.create({
       content: ''
     });
+
   }
+  conn() {
+    this.plat.ready().then(() => {
+      this.network.onDisconnect().subscribe(() => {
+        this.networkConn = false;
+        console.log('hell');
+      });
+    });
+    this.network.onConnect().subscribe(() => {
+      console.log("network");
+      this.networkConn = true;
+      // setTimeout(() => {
+      //   if (this.network.type === 'wifi') {
+      //     console.log('wifi');
+      //   }
+      // }, 5);
+    });
+  }
+
 
 
   showLoader(message: string) {
@@ -54,6 +75,5 @@ export class AppServiceProvider {
 
     return token;
   }
-
 
 }

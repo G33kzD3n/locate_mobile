@@ -5,26 +5,28 @@
     </button>
     <ion-title>Locate Bus</ion-title>
     <ion-buttons end>
-        <button ion-button icon-only><ion-icon name="notifications"></ion-icon></button>
-      </ion-buttons>
-      </ion-navbar>
+      <button ion-button icon-only>
+        <ion-icon name="notifications"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
 </ion-header>
 
 <ion-content class="contentbg">
-         
-      <ion-card *ngFor="let bus of buses;">
-          <ion-card-header>
-            <ion-icon name="bus" item-start></ion-icon>
-            Bus Number: {{ bus?.bus_no }}<br><br>
-          </ion-card-header>
-          <p>Route:</p>
-          <p *ngFor="let stop of bus?.stops;">
-             {{ stop[0] }}           
-          </p>
-        </ion-card>
-        
 
-      
-                 
-          
+  <ion-card *ngFor="let bus of buses;">
+    <ion-card-header>
+      <ion-icon name="bus" item-start></ion-icon>
+      Bus Number: {{ bus?.bus_no }}<br><br>
+    </ion-card-header>
+    <p>Route:</p>
+    <p *ngFor="let stop of bus?.stops;">
+      {{ stop[0] }}
+    </p>
+  </ion-card>
+
+
+
+
+
 </ion-content>

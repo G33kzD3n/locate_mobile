@@ -13,15 +13,15 @@ import { RequestOptions, Headers, Http } from '@angular/http'
 export class LocationPage {
   public buses: any;
 
-  constructor(public http: Http, public app: AppServiceProvider, public storage: Storage,public navCtrl: NavController, public navParams: NavParams) {
-    this.buses="";
+  constructor(public http: Http, public app: AppServiceProvider, public storage: Storage, public navCtrl: NavController, public navParams: NavParams) {
+    this.buses = "";
   }
 
   ionViewDidLoad() {
     this.locatebuses();
   }
   locatebuses() {
-    
+
     this.storage.get('bus_no').then((bus_no) => {
       bus_no = this.app.getToken(bus_no);
 
@@ -34,11 +34,11 @@ export class LocationPage {
 
           result => {
             this.buses = result.buses;
-            for(let i=0 ; i<3 ; i++){
-            console.log(this.buses);
-            console.log(this.buses[i].stops[i][0]);
+            for (let i = 0; i < 3; i++) {
+              console.log(this.buses);
+              console.log(this.buses[i].stops[i][0]);
 
-           // console.log(this.data.stops[i]);
+              // console.log(this.data.stops[i]);
             }
           },
           error => {
@@ -48,7 +48,7 @@ export class LocationPage {
             }
           },
           () => {
-
+            this.app.removeLoader();
           });
     });
   }

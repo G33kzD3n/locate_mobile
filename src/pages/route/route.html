@@ -5,25 +5,27 @@
     </button>
     <ion-title>{{ title }}</ion-title>
     <ion-buttons end>
-        <button ion-button icon-only><ion-icon name="notifications"></ion-icon></button>
-      </ion-buttons>
+      <button ion-button icon-only>
+        <ion-icon name="notifications"></ion-icon>
+      </button>
+    </ion-buttons>
     <input type="text" [(ngModel)]="title">
   </ion-navbar>
 </ion-header>
 
 
 <ion-content padding class="contentbg">
-    <ion-grid>
+  <ion-grid>
 
-        <ion-row wrap *ngFor="let res of ResArray">
+    <ion-row wrap *ngFor="let res of ResArray">
 
-          <ion-col width-25> hhhshhshsh</ion-col>
-          <ion-col width-25> sadasdasdas</ion-col>
-          <ion-col width-25> dasdasdasd</ion-col>
-          <ion-col width-25> <button ion-button small color="danger" (click)="gotoDetails(res)"> Details</button></ion-col>
-        </ion-row>
-      </ion-grid>
-   
+      <ion-col width-25> hhhshhshsh</ion-col>
+      <ion-col width-25> sadasdasdas</ion-col>
+      <ion-col width-25> dasdasdasd</ion-col>
+      <ion-col width-25> <button ion-button small color="danger" (click)="gotoDetails(res)"> Details</button></ion-col>
+    </ion-row>
+  </ion-grid>
 
-     
+
+
 </ion-content>

@@ -5,50 +5,83 @@
     </button>
     <ion-title>{{ title }}</ion-title>
     <ion-buttons end>
-        <button ion-button icon-only><ion-icon name="notifications"></ion-icon></button>
-      </ion-buttons>
+      <button ion-button icon-only>
+        <ion-icon name="notifications"></ion-icon>
+      </button>
+    </ion-buttons>
   </ion-navbar>
 </ion-header>
 
-<ion-content class="contentbg">
-    <ion-card>
-      <ion-grid class="bg">
-        <ion-avatar item-start>
-            <img class="image" src="assets/imgs/12.jpg">
-          </ion-avatar>
-      </ion-grid>   
-        <ion-item class="username"> 
-          <label>Name:</label>
-          <h1>{{ user1.name }}</h1>
-        </ion-item>
-        <ion-item class ="username"> 
-            <label>Department Name:</label>
-                <h1>{{ user1.dept_code }}</h1>
-         </ion-item>
-         <ion-item class ="username"> 
-            <label>Alloted bus:</label>
-            <h1>{{ user1.bus_no }}</h1>
-          </ion-item>
-        <ion-item class ="username">
-            <label>Phone no:</label>
-                <h1>{{ user1.cell_no }}</h1>
-         </ion-item>
-         <ion-item class ="username">
-            <label>Registration date:</label>
-                <h1>{{ user1.registration_date }}</h1>
-         </ion-item>
-   
-         <ion-card>
-     
-            <h2 style="text-align:left;float:left;">Bus Fee/Month:</h2> 
-            <h2 style="text-align:right;float:right;">{{ data.monthly_fee }}</h2> 
-            <hr style="clear:both;"/>
-            <h2 style="text-align:left;float:left;">No. of Months Unpaid:</h2> 
-            <h2 style="text-align:right;float:right;">{{ data.unpaid_months }}</h2> 
-            <hr style="clear:both;"/>
-            <h2 style="text-align:left;float:left;">Total Amount:</h2> 
-            <h2 style="text-align:right;float:right;">{{ data.total_unpaid_fee }}</h2> 
-             
-          </ion-card>
-      </ion-card>
+<ion-content class="contentbg" no-padding>
+
+  <ion-grid class="profilebg"> </ion-grid>
+
+  <ion-avatar item-start>
+    <img class="image" src="assets/imgs/12.jpg">
+  </ion-avatar>
+
+
+  <ion-label class="user">{{user1.name}}</ion-label>
+
+
+  <ion-card class="pcard">
+    <ion-card-content>
+      <ion-grid>
+        <ion-row>
+          <ion-col>
+            <ion-icon name="md-home"></ion-icon><label> Department</label><br>
+            <h2>{{ user1.dept_code }}</h2>
+          </ion-col>
+          <ion-col>
+            <ion-icon name="md-bus"></ion-icon><label> Alloted Bus</label><br>
+            <h2>{{ user1.bus_no }}</h2>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <ion-icon name="md-call" item-start></ion-icon> <label> Phone Number</label><br>
+            <h2>{{ user1.cell_no }}</h2>
+          </ion-col>
+          <ion-col>
+            <ion-icon name="md-calendar"></ion-icon><label> Registration Date</label><br>
+            <h2>{{ user1.registration_date }}</h2>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-card-content>
+  </ion-card>
+  <br>
+
+  <ion-card class="pcard">
+    <h2 style="text-align:center; font-weight: bolder">Bus Fee Details</h2>
+
+    <ion-grid>
+      <ion-row>
+        <ion-col><label> Bus Fee/Month:</label></ion-col>
+        <ion-col>
+          <h2>{{ data.monthly_fee }} INR</h2>
+          <hr />
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <label>Months Unpaid:</label>
+        </ion-col>
+        <ion-col>
+          <h2>{{ data.unpaid_months }}</h2>
+          <hr style="clear:both;" />
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <label>Total Amount:</label>
+        </ion-col>
+        <ion-col>
+          <h2>{{ data.total_unpaid_fee }}</h2>
+          <hr style="clear:both;" />
+        </ion-col>
+      </ion-row>
+
+    </ion-grid>
+  </ion-card>
 </ion-content>

@@ -1,42 +1,68 @@
- .username{
-  text-align: center;
-  font-family: Operator;
-  display: inline;
- }
- #username-value{
-  color:#00b1b3; 
-  font-size: 18px;
-  margin-bottom: .1em;
-  display: inline-block;
- }
+//  .username{
+//   text-align: center;
+//   font-family: Operator;
+//   display: inline;
+//  }
+//  #username-value{
+//   color:#00b1b3; 
+//   font-size: 18px;
+//   margin-bottom: .1em;
+//   display: inline-block;
+//  }
 
- .edit-button{
-  font-size: 12px;
-  color:gray;
-  margin-left :300px;
-  margin-right:0px;
-  margin-bottom:0px;
-  //margin-top: 100px;
- }
- .bg{
-  background-image: url(/assets/imgs/33.JPG);
-  //ackground-repeat: no-repeat;
+.pcard{
+   background: transparent;
+   margin: auto;
+   text-align: left;
+line-height: 20px;
+   
+
+   label{
+    font-weight: bolder;
+    font-size: 15px;
+    text-shadow: 2em;
+}
+
+    ion-grid{
+
+    }
+   ion-label{
+       //text-align: end;
+      // float: right;
+   }
+  background: linear-gradient(0.40turn, #c2d8e7 , #fdfffb ,#bbd2e2 );
+   // background-image: url("../assets/imgs/card.jpg");
+
+
+}
+
+ .profilebg{
+  background-image: url(/assets/imgs/02.jpg);
+  background-repeat: no-repeat;
   background-image: center;
-  
-  background-size: contain;
+  height: 130px;
+  background-size: 100% 100%;
  }
  .image {
-  height: 25vw; 
-  width: 25vw; 
+  height: 30vw; 
+  width: 30vw; 
  border: 1px solid #fff;
  border-radius: 50%;
- box-shadow: 0 0 5px gray;
- display: inline-block;
+ //display: inline-block;
  margin-left: auto;
- display: block;
- margin-top: 30px;
- margin-bottom: 30px;
+// display: block;
+ margin-top: -50px;
  margin-right: auto;
- align-content: center;
+ //align-content: center;
+}
+
+.user{
+    text-align: center;
+    margin-top: 0px;
+    background: transparent;
+    font-weight: bolder;
+    font-size: 17px;
+   
+    color: rgb(4, 132, 236);
 }
  

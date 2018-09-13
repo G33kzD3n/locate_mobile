@@ -1,12 +1,8 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-
-/**
- * Generated class for the DriverprofilePage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+import { Storage } from '@ionic/storage';
+import { RequestOptions, Headers, Http } from '@angular/http';
+import { AppServiceProvider } from '../../providers/app-service/app-service';
 
 @IonicPage()
 @Component({
@@ -14,12 +10,42 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
   templateUrl: 'driverprofile.html',
 })
 export class DriverprofilePage {
+  public user1:any;
+  public title= "Profile";
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController, public storage: Storage, public app: AppServiceProvider, public http: Http, public navParams: NavParams) {
+
+    this.user1 = "";
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad DriverprofilePage');
+    this.storage.get('user').then((user) => {
+      user = this.app.getToken(user);
+
+
+      let headers = new Headers({ 'Content-Type': 'application/json' });
+      // headers.append('Authorization', 'Bearer ' + userToken);
+      let options = new RequestOptions({ headers: headers });
+
+      this.http.get(this.app.getUrl() + '/users/' + user, options)
+        .map(res => res.json())
+        .subscribe(
+
+          result => {
+            this.user1 = result.data;
+          },
+          error => {
+            error = (JSON.parse(error._body));
+            if (error) {
+              this.app.showToast('error.error.error_message', 'top');
+              this.app.removeLoader();
+              //user=(JSON.parse(error._body));
+            }
+          },
+          () => {
+            this.app.removeLoader();
+          });
+    });
   }
 
 }

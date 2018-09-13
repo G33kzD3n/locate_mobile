@@ -1,16 +1,87 @@
 <ion-header>
-    <ion-navbar>
-      <button ion-button menuToggle>
-        <ion-icon name="menu"></ion-icon>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>{{ title }}</ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only>
+        <ion-icon name="notifications"></ion-icon>
       </button>
-      <ion-title>Profile</ion-title>
-      <ion-buttons end>
-          <button ion-button icon-only><ion-icon name="notifications"></ion-icon></button>
-        </ion-buttons>
-    </ion-navbar>
-  </ion-header>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content class="contentbg" no-padding>
+
+  <ion-grid class="profilebg"> </ion-grid>
+
+  <ion-avatar item-start>
+    <img class="image" src="assets/imgs/12.jpg">
+  </ion-avatar>
 
 
-<ion-content padding class="contentbg">
+  <ion-label class="user">{{user1.name}}</ion-label>
 
+
+  <ion-card class="pcard">
+    <ion-card-content>
+      <ion-grid>
+        <ion-row>
+          <ion-col>
+            <ion-icon name="md-home"></ion-icon><label> Department</label><br>
+            <h2>{{ user1.dept_code }}</h2>
+          </ion-col>
+          <ion-col>
+            <ion-icon name="md-bus"></ion-icon><label> Alloted Bus</label><br>
+            <h2>{{ user1.bus_no }}</h2>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <ion-icon name="md-call" item-start></ion-icon> <label> Phone Number</label><br>
+            <h2>{{ user1.cell_no }}</h2>
+          </ion-col>
+          <ion-col>
+            <ion-icon name="md-calendar"></ion-icon><label> Registration Date</label><br>
+            <h2>{{ user1.registration_date }}</h2>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-card-content>
+  </ion-card>
+  <br>
+
+  <ion-card class="pcard">
+    <h2 style="text-align:center; font-weight: bolder">Bus Fee Details</h2>
+
+    <ion-grid>
+      <ion-row>
+        <ion-col><label> Bus Fee/Month:</label></ion-col>
+        <ion-col>
+          <h2> INR</h2>
+          <hr />
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <label>Months Unpaid:</label>
+        </ion-col>
+        <ion-col>
+          <h2></h2>
+          <hr style="clear:both;" />
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <label>Total Amount:</label>
+        </ion-col>
+        <ion-col>
+          <h2></h2>
+          <hr style="clear:both;" />
+        </ion-col>
+      </ion-row>
+
+    </ion-grid>
+  </ion-card>
 </ion-content>

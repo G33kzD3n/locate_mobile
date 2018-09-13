@@ -26,6 +26,9 @@ import { IonicStorageModule } from '@ionic/storage';
 import { BreakdownPage } from '../pages/breakdown/breakdown';
 import { DriverhomepagePage } from '../pages/driverhomepage/driverhomepage';
 import { Geolocation } from '@ionic-native/geolocation';
+import { Network } from '@ionic-native/network';
+import { DatePipe } from '@angular/common';
+
 @NgModule({
   declarations: [
     MyApp,
@@ -72,12 +75,16 @@ import { Geolocation } from '@ionic-native/geolocation';
     DriverhomepagePage
   ],
   providers: [
+    Geolocation,
     StatusBar,
     SplashScreen,
     { provide: ErrorHandler, useClass: IonicErrorHandler },
     AuthServiceProvider,
     AppServiceProvider,
-    Geolocation
+    Geolocation,
+    Network,
+    DatePipe,
+    SplashScreen
   ]
 })
 export class AppModule { }

@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController } from 'ionic-angular';
-import { FormGroup, Validators, FormControl} from '@angular/forms';
+import { FormGroup, Validators, FormControl } from '@angular/forms';
 import { AppServiceProvider } from '../../providers/app-service/app-service';
 import { RequestOptions, Headers, Http } from '@angular/http';
 import { Storage } from '@ionic/storage';
+import { Network } from '@ionic-native/network';
 import "rxjs/add/operator/map";
-
 
 import { SignupPage } from '../signup/signup';
 import { MenuPage } from '../menu/menu';
@@ -15,88 +15,93 @@ import { MenuPage } from '../menu/menu';
 @Component({
   selector: 'page-login',
   templateUrl: 'login.html',
-  
+
 })
 
 export class LoginPage {
   title = "LOCATE";
-  loader:any;
+  loader: any;
   loginForm: FormGroup;
-  
 
-  constructor(public navCtrl: NavController, private app: AppServiceProvider, public http: Http,public storage: Storage) 
-            {
-             }
 
-  ngOnInit(){
+  constructor(public network: Network, public navCtrl: NavController, private app: AppServiceProvider, public http: Http, public storage: Storage) {
+  }
+
+  ngOnInit() {
     this.loginForm = new FormGroup({
 
-        'username' : new FormControl('',  Validators.compose([
-                                          Validators.required,
-                                          Validators.minLength(11),
-                                          Validators.maxLength(11),
-                                          Validators.pattern(/[0-9]*/)])),
+      'username': new FormControl('', Validators.compose([
+        Validators.required,
+        Validators.minLength(11),
+        Validators.maxLength(11),
+        Validators.pattern(/[0-9]*/)])),
 
-        'password' : new FormControl('',  Validators.compose([
-                                          Validators.required,
-                                          Validators.pattern(/^(19|20)\d\d([- /.])(0[1-9]|1[012])\2(0[1-9]|[12][0-9]|3[01])$/)])),
-                              });
-            }
-gotopage(){
-  	this.app.loader();
-  	this.navCtrl.push(SignupPage);
-}
+      'password': new FormControl('', Validators.compose([
+        Validators.required,
+        Validators.pattern(/^(19|20)\d\d([- /.])(0[1-9]|1[012])\2(0[1-9]|[12][0-9]|3[01])$/)])),
+    });
+  }
+  gotopage() {
+    this.app.loader();
+    this.navCtrl.push(SignupPage);
+  }
 
-gotoprofile(){  
-        this.app.showLoader('Wait logging in..');
-        let user : any; 
-        let error :any;
-      
-        let payload ={
-          username : this.loginForm.controls['username'].value,
-          password : this.loginForm.controls['password'].value
-        };
+  gotoprofile() {
+    if (this.app.networkConn == true) {
+      console.log("network connected");
+    }
+    else {
+      console.log("network not connected");
+    }
+    this.app.showLoader('Wait logging in..');
+    let user: any;
 
-        let headers = new Headers({'Content-Type':  'application/json'});
-        let options = new RequestOptions({ headers: headers });
+    let payload = {
+      username: this.loginForm.controls['username'].value,
+      password: this.loginForm.controls['password'].value
+    };
 
-         //this.http.get("http://localhost:8000/api/user")
-         
-        this.http.post(this.app.getUrl() + '/login',payload, options)
-          .map(res => res.json())
-          .subscribe(
-  
+    let headers = new Headers({ 'Content-Type': 'application/json' });
+    let options = new RequestOptions({ headers: headers });
+
+    //this.http.get("http://localhost:8000/api/user")
+
+    this.http.post(this.app.getUrl() + '/login', payload, options)
+      .map(res => res.json())
+      .subscribe(
+
         result => {
 
-          user=result.data;
-          console.log(user);
-          this.storage.set('bus_no',user.bus_no);
+          user = result.data;
+          this.storage.set('bus_no', user.bus_no);
           this.storage.set('level', user.level);
-          this.storage.set('token', user.token); 
-          this.storage.set('user', payload.username);           
-          // this.storage.get('token').then((token)=>{console.log(token);});
+          this.storage.set('token', user.token);
+          this.storage.set('user', payload.username);
+          
         },
         error => {
-          // console.log(JSON.parse(error._body));
-          error=(JSON.parse(error._body));
-          if(error){
+          
+          error = (JSON.parse(error._body));
+          if (error) {
             this.app.removeLoader();
             this.app.showToast(error.error.error_message, 'top');
           }
         },
-        
+
         () => {
           this.app.removeLoader();
           this.navCtrl.setRoot(MenuPage, {
-          user: this.loginForm.controls['username'].value
+            user: this.loginForm.controls['username'].value
+          });
         });
-      });
-   }
+  }
 
-ionViewDidEnter(){
-      this.storage.get('token').then((token)=>{
-      if (token){
-        this.navCtrl.setRoot(MenuPage);}
-      });
+  ionViewDidEnter() {
+
+    this.storage.get('token').then((token) => {
+      if (token) {
+        this.navCtrl.setRoot(MenuPage);
+      }
+    });
   }
 }

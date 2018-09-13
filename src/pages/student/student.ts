@@ -2,7 +2,7 @@ import { Component, ViewChild, ElementRef } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { AppServiceProvider } from '../../providers/app-service/app-service';
 import { MenuController } from 'ionic-angular';
-
+import { DatePipe } from '@angular/common'
 import { Geolocation } from "@ionic-native/geolocation";
 declare var google: any;
 
@@ -18,15 +18,21 @@ export class StudentPage {
   // loc: any;
   lat: any;
   long: any;
+  myDate: any = new Date().toISOString();
 
-  constructor(public navCtrl: NavController, public menu: MenuController, public navParams: NavParams, public app: AppServiceProvider, public geolocation: Geolocation) {
+  constructor(public datepipe: DatePipe, public navCtrl: NavController, public menu: MenuController, public navParams: NavParams, public app: AppServiceProvider, public geolocation: Geolocation) {
   }
 
   ionViewDidLoad() {
+    this.myDate = new Date();
+    let latest_date = this.datepipe.transform(this.myDate, 'yyyy-MM-dd');
+    console.log(latest_date);
     this.showmap();
   }
 
+
   showmap() {
+
     this.geolocation.getCurrentPosition({ enableHighAccuracy: true, timeout: 2000, maximumAge: 0 }).
       then((resp) => {
         //your position.
@@ -42,14 +48,15 @@ export class StudentPage {
         this.map = new google.maps.Map(this.mapRef.nativeElement, options);
         //add marker at that location.
         this.addMarker(location, this.map);
+
+
       }).catch((err) => {
         console.log(err);
+
       });
   }
   addMarker(position, map) {
-    return new google.maps.Marker({
-      position,
-      map
-    });
+
+    return new google.maps.Marker({ position, map });
   }
 }
