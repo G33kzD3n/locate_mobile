@@ -42,7 +42,6 @@ export class LoginPage {
     });
   }
   gotopage() {
-    this.app.loader();
     this.navCtrl.push(SignupPage);
   }
 
@@ -77,10 +76,10 @@ export class LoginPage {
           this.storage.set('level', user.level);
           this.storage.set('token', user.token);
           this.storage.set('user', payload.username);
-          
+
         },
         error => {
-          
+
           error = (JSON.parse(error._body));
           if (error) {
             this.app.removeLoader();

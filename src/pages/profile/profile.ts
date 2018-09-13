@@ -25,7 +25,11 @@ export class ProfilePage {
 
 
   ionViewDidEnter() {
-
+    this.app.showLoader("Loading your Profile...");
+    this.openuser();
+    this.opnefee();
+  }
+  openuser() {
     this.storage.get('user').then((user) => {
       user = this.app.getToken(user);
 
@@ -50,9 +54,11 @@ export class ProfilePage {
             }
           },
           () => {
-            this.app.removeLoader();
+
           });
     });
+  }
+  opnefee() {
     this.storage.get('user').then((user) => {
       user = this.app.getToken(user);
 
@@ -70,10 +76,10 @@ export class ProfilePage {
             this.data = result.data;
           },
           error => {
-            
+
           },
           () => {
-            //this.app.removeLoader();
+            this.app.removeLoader();
           });
     });
   }

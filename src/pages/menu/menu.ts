@@ -38,19 +38,15 @@ export class MenuPage {
   }
   isActive() { }
   openPage(p: any) {
-    //this.app.showLoader("Please wait.. .");
     this.nav.setRoot(p.component);
     this.activepage = p;
   }
   openProfile() {
     this.storage.get('level').then((data) => {
       if (data === 0) {
-
-        this.app.showLoader("'Loading your profile...'")
         this.nav.setRoot(ProfilePage);
       }
       else {
-        this.app.showLoader("'Loading your profile...'")
         this.nav.setRoot(DriverprofilePage);
       }
     })

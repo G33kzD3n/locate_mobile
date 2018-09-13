@@ -1,3 +1,36 @@
 page-mybus {
 
+    #map{
+        height: 70%;
+    }
+
+.buscard{
+
+    background: linear-gradient(0.40turn, #c2d8e7 , #fdfffb ,#bbd2e2 );
+   
+
+    img{
+        height: 150px;;
+    }
+    h2{
+        text-align: center;
+        
+    }
+}
+
+ion-card-header{
+    
+    text-align: center;
+    margin-top: -12px;
+    margin-bottom: -12px;
+    background: linear-gradient(0.50turn, #0083ff , #fdfffb  );
+    font-weight: bolder;
+}
+
+ .thumb{
+    
+    width: 120px;
+    height: 120px;
+   
+}
 }

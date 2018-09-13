@@ -24,7 +24,7 @@ export class LocationPage {
 
     this.storage.get('bus_no').then((bus_no) => {
       bus_no = this.app.getToken(bus_no);
-
+      this.app.showLoader("Loading");
       let headers = new Headers({ 'Content-Type': 'application/json' });
       let options = new RequestOptions({ headers: headers });
 
