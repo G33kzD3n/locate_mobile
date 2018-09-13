@@ -1,95 +1,99 @@
 <ion-header>
-    <ion-navbar>
-      <button ion-button menuToggle>
-        <ion-icon name="menu"></ion-icon>
-      </button>
-      <ion-title>My Bus</ion-title>
-      <ion-buttons end>
-          <button ion-button icon-only><ion-icon name="notifications"></ion-icon></button>
-        </ion-buttons>
-        </ion-navbar>
-  </ion-header>
+	<ion-navbar>
+		<button ion-button menuToggle>
+			<ion-icon name="menu"></ion-icon>
+		</button>
+		<ion-title>My Bus</ion-title>
+		<ion-buttons end>
+			<button ion-button icon-only><ion-icon name="notifications"></ion-icon></button>
+		</ion-buttons>
+	</ion-navbar>
+</ion-header>
 
-<ion-content padding class="contentbg">
-		<ion-list>
-				<ion-item>
-				  <ion-thumbnail item-start>
+<ion-content no-padding class="contentbg">
+
+	<ion-card no-padding class="buscard">
+		<ion-card-header color="dark">Bus no: {{ bus?.bus_no }}</ion-card-header>
+		<ion-card-content no-padding>
+
+			<ion-list>
+				<ion-item style="background: linear-gradient(0.40turn, #c2d8e7 , #fdfffb ,#bbd2e2 );">
 					<img src="assets/imgs/bus.jpg">
-				  </ion-thumbnail >
-				  <h2>Bus no: {{ bus?.bus_no }}</h2>
-					<label>Routes:</label>
-					<ul>
-						<li *ngFor="let stops of bus?.stops;">{{ stops[0] }}
-					</li>
-					</ul>
-					<!-- <li *ngFor="let hero of heroes">
-						{{ hero }}
-					</li> -->
-				  
-				</ion-item>
-			  </ion-list>
-			  <ion-list>
-					<ion-item>
-					  <ion-thumbnail item-start>
-						<img src="assets/imgs/11.JPG">
-					  </ion-thumbnail>
-					  <h2>Cordinator Name:</h2>
-					  <h2>{{ bus?.cordinator?.name }}</h2>
-					  <p>{{ bus?.cordinator?.cell_no }}</p>
-					  
-					</ion-item>
-				  </ion-list>
-				  <ion-list>
-						<ion-item>
-						  <ion-thumbnail item-start>
-							<img src="assets/imgs/11.JPG">
-						  </ion-thumbnail>
-						  <h2>Driver Name:</h2>
-						  <h2>{{ bus?.driver?.name }}</h2>
-						  <p>{{ bus?.driver?.cell_no }}</p>
-						 
-						</ion-item>
-						</ion-list>
-						<ion-card>
 
-								<ion-item>
-									<ion-avatar item-start>
-										<img src="assets/imgs/11.JPG">
-									</ion-avatar>
-									<h2>Bus no: {{ bus?.bus_no }}</h2>
-									<p>Driver name:{{ bus?.driver?.name }}</p>
-								</ion-item>
-							
-								
-								<ion-card-content>
-										<ul>
-												<li *ngFor="let stops of bus?.stops;">{{ stops[0] }}
-											</li>
-											</ul>
-														</ion-card-content>
-								<ion-item>
-										<ion-avatar item-start>
-											<img src="assets/imgs/11.JPG">
-										</ion-avatar>
-										<h2>Bus no: {{ bus?.bus_no }}</h2>
-										<p>Driver name:{{ bus?.driver?.name }}</p>
-									</ion-item>
-								
-									
-									<ion-card-content>
-										
-									</ion-card-content>
-									<ion-item>
-											<ion-avatar item-start>
-												<img src="assets/imgs/11.JPG">
-											</ion-avatar>
-											<h2>Bus no: {{ bus?.bus_no }}</h2>
-											<p>Driver name:{{ bus?.driver?.name }}</p>
-										</ion-item>
-									
-										
-										<ion-card-content>
-									
-										</ion-card-content>
-</ion-card>	
+
+
+					<div>
+						<!-- <ul>
+									<li *ngFor="let stops of bus?.stops;">{{ stops[0] }} {{stops[1]}} {{stops[2]}}
+									</li>
+								</ul> -->
+
+					</div>
+				</ion-item>
+			</ion-list>
+			<button ion-button block clear (click)="showroute()">{{button}}</button>
+			<div *ngIf="hideMe">
+				<div #map style=" border:solid #000 1px; height:500px;">
+				</div><br>
+			</div>
+
+		</ion-card-content>
+	</ion-card>
+
+
+	<ion-card no-padding>
+		<ion-card-header color="dark">Coordinator</ion-card-header>
+		<ion-card-content no-padding>
+			<ion-list>
+				<ion-item-sliding #item>
+					<ion-item style="background: linear-gradient(0.40turn, #c2d8e7 , #fdfffb ,#bbd2e2 );">
+						
+							<img class="thumb" src="assets/imgs/11.JPG" item-left>
+						
+						<h2>
+							<ion-icon name="md-person"></ion-icon>  {{ bus?.cordinator?.name }}
+						</h2><br>
+
+						<h2>
+							<ion-icon name="md-call"></ion-icon> {{ bus?.cordinator?.cell_no }}
+						</h2>
+
+					</ion-item>
+					<ion-item-options side="right">
+						<button ion-button round color="secondary" (click)="share(item)"><ion-icon name="md-call" large> Call</ion-icon></button>
+					</ion-item-options>
+
+				</ion-item-sliding>
+			</ion-list>
+		</ion-card-content>
+	</ion-card>
+
+	<ion-card no-padding>
+		<ion-card-header color="dark">Driver</ion-card-header>
+		<ion-card-content no-padding>
+			<ion-list>
+				<ion-item-sliding #item>
+					<ion-item style="background: linear-gradient(0.40turn, #c2d8e7 , #fdfffb ,#bbd2e2 );">
+						
+							<img class="thumb" src="assets/imgs/11.JPG" item-left>
+						
+						<h2>
+							<ion-icon name="md-person"></ion-icon> {{ bus?.driver?.name }}
+						</h2><br>
+
+						<h2>
+							<ion-icon name="md-call"></ion-icon> {{ bus?.driver?.cell_no }}
+						</h2>
+
+					</ion-item>
+					<ion-item-options side="right">
+						<button ion-button round color="secondary" (click)="share(item)"><ion-icon name="md-call" large> Call</ion-icon></button>
+					</ion-item-options>
+
+				</ion-item-sliding>
+			</ion-list>
+		</ion-card-content>
+	</ion-card>
+
+
 </ion-content>
