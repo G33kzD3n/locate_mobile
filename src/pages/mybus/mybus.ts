@@ -31,6 +31,8 @@ export class MybusPage {
   public hideMe: boolean = false;
   public button: string = "See Route Plan";
 
+   image = "/assets/imgs/icon.png";
+
   constructor(public http: Http, public geolocation: Geolocation, public app: AppServiceProvider, public storage: Storage, public navCtrl: NavController, public navParams: NavParams) {
     this.bus = "";
   }
@@ -38,7 +40,6 @@ export class MybusPage {
 
 
   ionViewDidLoad() {
-    this.hideMe = false;
     this.gotomybus();
   }
 
@@ -62,8 +63,9 @@ export class MybusPage {
     for (let i = 0; i < points.length; i++) {
       var position = new google.maps.LatLng(this.points[i][1], this.points[i][2]);
 
-      var showMarkers = new google.maps.Marker({ position: position, title: this.points[i][0] });
+      var showMarkers = new google.maps.Marker({ position: position, title: this.points[i][0], icon: this.image });
       showMarkers.setMap(this.map);
+      
     }
   }
 

@@ -36,18 +36,18 @@
   </ion-header>
 
 
-  <ion-content>
+  <ion-content class="contentbg">
     <ion-list>
       <button ion-item menuClose *ngFor="let p of pages" [class.activehighlight]="checkActive(p)" (click)="openPage(p)">
-        <ion-icon item-start [name]="p.icon" [color]="isActive(p)"></ion-icon>
-        {{ p.title }}
+        <label> <ion-icon item-start [name]="p.icon" [color]="isActive(p)" ></ion-icon>
+       {{ p.title }}</label> 
       </button>
     </ion-list>
   </ion-content>
   <ion-footer>
     <ion-toolbar>
       <button ion-button full outline color="header-color" style="border:none;width:50%; margin:0 auto;">
-        <ion-icon name="log-out" style="font-size:2em; float: left;" color="danger"></ion-icon>
+        <ion-icon name="log-out" style="font-size:2em; float: left;" color="dark"></ion-icon>
         <ion-title style="margin:auto" id="logout" name="log-out" (click)="logOut()">Logout</ion-title>
       </button>
     </ion-toolbar>

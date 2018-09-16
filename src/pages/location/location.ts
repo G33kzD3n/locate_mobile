@@ -11,14 +11,39 @@ import { RequestOptions, Headers, Http } from '@angular/http'
   templateUrl: 'location.html',
 })
 export class LocationPage {
-  public buses: any;
 
-  constructor(public http: Http, public app: AppServiceProvider, public storage: Storage, public navCtrl: NavController, public navParams: NavParams) {
+
+  public buses: any;
+  public On :Boolean= false;
+  public hideMe: number;
+  public button: string = "Show Route";
+  image = "/assets/imgs/icon.png";
+
+
+
+  constructor(public http: Http,
+    public app: AppServiceProvider, public storage: Storage,
+    public navCtrl: NavController, public navParams: NavParams) {
     this.buses = "";
   }
 
   ionViewDidLoad() {
     this.locatebuses();
+
+
+  }
+
+
+
+  showroute(i:number) {
+    this.hideMe=i;
+    if(this.On){
+      this.On = false;
+      this.button ="Show Route";
+    }else{
+      this.button ="Hide";
+      this.On =true;
+    }
   }
   locatebuses() {
 

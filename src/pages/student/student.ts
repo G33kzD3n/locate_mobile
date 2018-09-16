@@ -38,7 +38,7 @@ export class StudentPage {
         //your position.
         this.lat = resp.coords.latitude;
         this.long = resp.coords.longitude;
-        const location = new google.maps.LatLng(this.lat, this.long);
+        const location = new google.maps.LatLng(34.100, 74.800);
         let options = {
           center: location,
           zoom: 15,

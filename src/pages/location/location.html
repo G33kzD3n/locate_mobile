@@ -14,16 +14,38 @@
 
 <ion-content class="contentbg">
 
-  <ion-card *ngFor="let bus of buses;">
+  <ion-card *ngFor="let bus of buses; let i=index" no-padding class="buscard">
     <ion-card-header>
       <ion-icon name="bus" item-start></ion-icon>
-      Bus Number: {{ bus?.bus_no }}<br><br>
+      Bus Number: {{ bus?.bus_no }}
+
     </ion-card-header>
-    <p>Route:</p>
-    <p *ngFor="let stop of bus?.stops;">
-      {{ stop[0] }}
-    </p>
+    <img class="bus" src="assets/imgs/bus.jpg" alt="bus">
+    <ion-grid>
+      <ion-row>
+        <ion-col><button ion-button block outline (click)="showroute(i)">{{hideMe === i? button :"Show Route" }}</button></ion-col>
+        <ion-col>
+          <button ion-button block outline>Live Track</button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+   
+    <div *ngIf="hideMe == i  && On === true">
+        {{bus.stops}}
+    </div>
+   
+    <!-- <div *ngIf="hideMe">
+      <div style=" border:solid #000 1px; height:500px;">
+          <p *ngFor="let stop of bus?.stops;">
+            <label>Route</label><br>
+            {{ stop[0] }}
+            </p>
+       
+      </div><br> -->
+     
   </ion-card>
+
+  
 
 
 
