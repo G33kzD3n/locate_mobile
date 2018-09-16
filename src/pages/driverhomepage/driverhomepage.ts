@@ -1,12 +1,12 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild, ElementRef } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-
-/**
- * Generated class for the DriverhomepagePage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+import { AppServiceProvider } from '../../providers/app-service/app-service';
+import { Http } from '@angular/http';
+import { MenuController } from 'ionic-angular';
+import { DatePipe } from '@angular/common'
+import { Geolocation } from "@ionic-native/geolocation";
+import { Storage } from '@ionic/storage';
+import { LocationServiceProvider } from '../../providers/location-service/location-service';
 
 @IonicPage()
 @Component({
@@ -14,10 +14,16 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
   templateUrl: 'driverhomepage.html',
 })
 export class DriverhomepagePage {
-
+  @ViewChild('map') mapRef: ElementRef;
   isOn: boolean = false;
   buttonColor: string;
   text: string = "Start Engine";
+  myDate: any = new Date().toLocaleString();
+  map: any;
+  lat: any;
+  long: any;
+  id: any;
+  myLocation: any;
 
   onClickIgnition() {
     if (this.isOn == false) {
@@ -34,11 +40,69 @@ export class DriverhomepagePage {
     }
   }
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(
+    public http: Http, public storage: Storage,
+    public datepipe: DatePipe,
+    public navCtrl: NavController, public menu: MenuController,
+    public navParams: NavParams, public app: AppServiceProvider,
+    public geolocation: Geolocation, public locationService: LocationServiceProvider) {
   }
-
   ionViewDidLoad() {
-    console.log('ionViewDidLoad DriverhomepagePage');
+    this.id = setInterval(() => {
+      this.storewhereabouts();
+    }, 3000);
   }
 
+  storewhereabouts() {
+    this.geolocation.getCurrentPosition({ enableHighAccuracy: true, timeout: 10000, maximumAge: 0 }).
+      then((resp) => {
+        this.lat = resp.coords.latitude;
+        this.long = resp.coords.longitude;
+        this.storage.get('bus_no').then((bus_no) => {
+
+          let payload = {
+            busno: bus_no,
+            lat: this.lat,
+            long: this.long,
+            time: this.calDate()
+          };
+          this.locationService.storeLocation(payload)
+            .subscribe(
+              res => {
+                this.getLocation();
+              },
+              err => {
+                console.log(err);
+              }
+            );
+        });
+
+      }).catch((err) => {
+        console.log(err);
+      });
+  }
+  calDate() {
+    this.myDate = new Date();
+    let latest_date: String = this.datepipe.transform(this.myDate, 'yyyy-MM-dd hh:mm:ss');
+    return latest_date;
+  }
+  getLocation() {
+    this.storage.get('bus_no').then((bus_no) => {
+      let payload = {
+        busno: bus_no,
+
+      };
+      this.locationService.getLocation(payload.busno)
+        .subscribe(
+          res => {
+            let data: any;
+            data = res;
+            this.myLocation = data.bus;
+          },
+          err => {
+
+          }
+        );
+    });
+  }
 }
