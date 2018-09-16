@@ -5,15 +5,24 @@
     </button>
     <ion-title>Driver Home</ion-title>
     <ion-buttons end>
-        <button ion-button icon-only><ion-icon name="notifications"></ion-icon></button>
-      </ion-buttons>
+      <button ion-button icon-only>
+        <ion-icon name="notifications"></ion-icon>
+      </button>
+    </ion-buttons>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding class="contentbg">
-  <button class="ignition" ion-button (click)="onClickIgnition()" 
-  [ngStyle]="{'background-color': buttonColor}"center><ion-icon
-      name="md-power"></ion-icon></button><br>
+  <button class="ignition" ion-button (click)="onClickIgnition()" [ngStyle]="{'background-color': buttonColor}" center>
+    <ion-icon name="md-power"></ion-icon>
+  </button><br>
   <h3 class="head3">{{text}}</h3><br>
 
+  <ion-card>
+       <ion-item>
+      <ion-icon name="map" item-start large></ion-icon>
+      <h2>{{myLocation?.lat}}</h2>
+      <p>{{myLocation?.lng}}</p>
+    </ion-item>
+  </ion-card>
 </ion-content>

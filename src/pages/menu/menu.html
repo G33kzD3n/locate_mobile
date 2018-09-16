@@ -12,7 +12,7 @@
     </ion-navbar>
 
   </ion-header> -->
-  <ion-header>
+  <ion-header (click)="openProfile()">
     <ion-toolbar class="user-profile">
 
       <ion-grid>
@@ -22,7 +22,7 @@
               <img src="assets/imgs/12.jpg">
             </div>
           </ion-col>
-          <ion-col (click)="openProfile()" padding-top col-8>
+          <ion-col  padding-top col-8>
             <h2 ion-text class="no-margin bold text-white">
               {{ user1 }}
             </h2>
@@ -44,11 +44,11 @@
       </button>
     </ion-list>
   </ion-content>
-  <ion-footer>
+  <ion-footer (click)="logOut()">
     <ion-toolbar>
       <button ion-button full outline color="header-color" style="border:none;width:50%; margin:0 auto;">
         <ion-icon name="log-out" style="font-size:2em; float: left;" color="danger"></ion-icon>
-        <ion-title style="margin:auto" id="logout" name="log-out" (click)="logOut()">Logout</ion-title>
+        <ion-title style="margin:auto" id="logout" name="log-out" >Logout</ion-title>
       </button>
     </ion-toolbar>
   </ion-footer>

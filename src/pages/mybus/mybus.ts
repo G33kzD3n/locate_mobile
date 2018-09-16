@@ -64,26 +64,28 @@ export class MybusPage {
 
       var showMarkers = new google.maps.Marker({ position: position, title: this.points[i][0] });
       showMarkers.setMap(this.map);
+      // var flightPath = new google.maps.Polyline({path:points,geodesic:true,});
+      // flightPath.setMap(this.map);
     }
   }
 
   showroute() {
-    
+
     if (this.hideMe === false) {
       this.app.showLoader('Loading Route...');
-       this.hideMe = true;
+      this.hideMe = true;
       this.button = "Hide";
       setTimeout(() => {
         this.showmap();
       }, 300);
 
     } else {
-      
+
       this.hideMe = false;
       this.button = "Show Route Plan";
 
     }
-  
+
   }
 
   gotomybus(): any {

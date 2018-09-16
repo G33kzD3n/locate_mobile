@@ -25,11 +25,11 @@
 
 
   <ion-card>
-    <div #map id="map" style=" border:solid green 1px; height:500px;"> </div>
+    <div #map id="map" style="height:500px;"> </div>
     <ion-item>
       <ion-icon name="football" item-start large></ion-icon>
-      <h2>{{lat}}</h2>
-      <p>{{long}}</p>
+      <h2>{{ bus?.bus?.lat }}</h2>
+      <p>{{ bus?.bus?.lng }}</p>
     </ion-item>
 
     <ion-item>

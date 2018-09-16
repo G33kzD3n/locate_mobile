@@ -28,6 +28,7 @@ import { DriverhomepagePage } from '../pages/driverhomepage/driverhomepage';
 import { Geolocation } from '@ionic-native/geolocation';
 import { Network } from '@ionic-native/network';
 import { DatePipe } from '@angular/common';
+import { LocationServiceProvider } from '../providers/location-service/location-service';
 
 @NgModule({
   declarations: [
@@ -84,7 +85,8 @@ import { DatePipe } from '@angular/common';
     Geolocation,
     Network,
     DatePipe,
-    SplashScreen
+    SplashScreen,
+    LocationServiceProvider
   ]
 })
 export class AppModule { }

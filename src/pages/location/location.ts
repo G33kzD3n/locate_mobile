@@ -28,18 +28,12 @@ export class LocationPage {
       let headers = new Headers({ 'Content-Type': 'application/json' });
       let options = new RequestOptions({ headers: headers });
 
-      this.http.get(this.app.getUrl() + '/buses/', options)
+      this.http.get(this.app.getUrl() + '/buses', options)
         .map(res => res.json())
         .subscribe(
 
           result => {
             this.buses = result.buses;
-            for (let i = 0; i < 3; i++) {
-              console.log(this.buses);
-              console.log(this.buses[i].stops[i][0]);
-
-              // console.log(this.data.stops[i]);
-            }
           },
           error => {
             error = (JSON.parse(error._body));
