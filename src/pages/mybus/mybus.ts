@@ -4,6 +4,7 @@ import { Storage } from '@ionic/storage';
 import { AppServiceProvider } from '../../providers/app-service/app-service';
 import { RequestOptions, Headers, Http } from '@angular/http';
 import { Geolocation } from "@ionic-native/geolocation";
+import { CallNumber } from '@ionic-native/call-number';
 
 declare var google: any;
 
@@ -33,7 +34,10 @@ export class MybusPage {
 
    image = "/assets/imgs/icon.png";
 
-  constructor(public http: Http, public geolocation: Geolocation, public app: AppServiceProvider, public storage: Storage, public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public http: Http, public geolocation: Geolocation, 
+    public app: AppServiceProvider, public storage: Storage, 
+    public navCtrl: NavController, public navParams: NavParams,
+  public callNumber: CallNumber) {
     this.bus = "";
   }
 
@@ -43,6 +47,13 @@ export class MybusPage {
     this.gotomybus();
   }
 
+  call(num){
+    console.log(num);
+    this.callNumber.callNumber(num, true)
+  .then(res => console.log('Launched dialer!', res))
+  .catch(err => console.log('Error launching dialer', err));
+  }
+  
   showmap() {
     const location = new google.maps.LatLng(34.129881, 74.836936);
 

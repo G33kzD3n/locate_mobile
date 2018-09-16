@@ -29,6 +29,7 @@ import { Geolocation } from '@ionic-native/geolocation';
 import { Network } from '@ionic-native/network';
 import { DatePipe } from '@angular/common';
 import { LocationServiceProvider } from '../providers/location-service/location-service';
+import { CallNumber } from '@ionic-native/call-number';
 
 @NgModule({
   declarations: [
@@ -86,7 +87,8 @@ import { LocationServiceProvider } from '../providers/location-service/location-
     Network,
     DatePipe,
     SplashScreen,
-    LocationServiceProvider
+    LocationServiceProvider,
+    CallNumber
   ]
 })
 export class AppModule { }

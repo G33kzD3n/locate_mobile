@@ -19,16 +19,6 @@
 			<ion-list>
 				<ion-item style="background: linear-gradient(0.40turn, #c2d8e7 , #fdfffb ,#bbd2e2 );">
 					<img src="assets/imgs/bus.jpg">
-
-
-
-					<div>
-						<!-- <ul>
-									<li *ngFor="let stops of bus?.stops;">{{ stops[0] }} {{stops[1]}} {{stops[2]}}
-									</li>
-								</ul> -->
-
-					</div>
 				</ion-item>
 			</ion-list>
 			<button ion-button block clear (click)="showroute()">{{button}}</button>
@@ -60,7 +50,8 @@
 
 					</ion-item>
 					<ion-item-options side="right">
-						<button ion-button round color="secondary" (click)="share(item)"><ion-icon name="md-call" large> Call</ion-icon></button>
+						<button ion-button round color="secondary" (click)="call(bus?.cordinator?.cell_no)"><ion-icon name="md-call" large>
+							Call</ion-icon></button>
 					</ion-item-options>
 
 				</ion-item-sliding>
@@ -87,7 +78,7 @@
 
 					</ion-item>
 					<ion-item-options side="right">
-						<button ion-button round color="secondary" (click)="share(item)"><ion-icon name="md-call" large> Call</ion-icon></button>
+						<button ion-button round color="secondary" (click)="call(bus?.driver?.cell_no)"><ion-icon name="md-call" large> Call</ion-icon></button>
 					</ion-item-options>
 
 				</ion-item-sliding>
