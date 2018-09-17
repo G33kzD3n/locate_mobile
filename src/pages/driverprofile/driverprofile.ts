@@ -10,8 +10,8 @@ import { AppServiceProvider } from '../../providers/app-service/app-service';
   templateUrl: 'driverprofile.html',
 })
 export class DriverprofilePage {
-  public user1:any;
-  public title= "Profile";
+  public user1: any;
+  public title = "Profile";
 
   constructor(public navCtrl: NavController, public storage: Storage, public app: AppServiceProvider, public http: Http, public navParams: NavParams) {
 
@@ -19,6 +19,10 @@ export class DriverprofilePage {
   }
 
   ionViewDidLoad() {
+    this.app.showLoader("Loading your profile...")
+    this.showprofile();
+  }
+  showprofile() {
     this.storage.get('user').then((user) => {
       user = this.app.getToken(user);
 
@@ -37,9 +41,8 @@ export class DriverprofilePage {
           error => {
             error = (JSON.parse(error._body));
             if (error) {
-              this.app.showToast('error.error.error_message', 'top');
               this.app.removeLoader();
-              //user=(JSON.parse(error._body));
+              this.app.showToast("No data found in the database", 'top', 'error');
             }
           },
           () => {

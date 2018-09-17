@@ -115,7 +115,7 @@ export class MenuPage {
           handler: () => {
             this.storage.clear();
             this.navCtrl.setRoot(LoginPage);
-            this.app.showToast('Logout successfull!', 'top');
+            this.app.showToast('Logout successfull!', 'top', "success");
           }
         },
         {
@@ -130,3 +130,4 @@ export class MenuPage {
     alert.present();
   }
 }
+

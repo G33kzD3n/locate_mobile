@@ -14,7 +14,7 @@ export class LocationPage {
 
 
   public buses: any;
-  public On :Boolean= false;
+  public On: Boolean = false;
   public hideMe: number;
   public button: string = "Show Route";
   image = "/assets/imgs/icon.png";
@@ -29,20 +29,18 @@ export class LocationPage {
 
   ionViewDidLoad() {
     this.locatebuses();
-
-
   }
 
 
 
-  showroute(i:number) {
-    this.hideMe=i;
-    if(this.On){
+  showroute(i: number) {
+    this.hideMe = i;
+    if (this.On) {
       this.On = false;
-      this.button ="Show Route";
-    }else{
-      this.button ="Hide";
-      this.On =true;
+      this.button = "Show Route";
+    } else {
+      this.button = "Hide";
+      this.On = true;
     }
   }
   locatebuses() {
@@ -63,7 +61,8 @@ export class LocationPage {
           error => {
             error = (JSON.parse(error._body));
             if (error) {
-              this.app.showToast('error.error.error_message', 'top');
+              this.app.removeLoader();
+              this.app.showToast('No data found in the database', 'top', 'error');
             }
           },
           () => {

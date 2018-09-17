@@ -32,12 +32,12 @@ export class MybusPage {
   public hideMe: boolean = false;
   public button: string = "See Route Plan";
 
-   image = "/assets/imgs/icon.png";
+  image = "/assets/imgs/icon.png";
 
-  constructor(public http: Http, public geolocation: Geolocation, 
-    public app: AppServiceProvider, public storage: Storage, 
+  constructor(public http: Http, public geolocation: Geolocation,
+    public app: AppServiceProvider, public storage: Storage,
     public navCtrl: NavController, public navParams: NavParams,
-  public callNumber: CallNumber) {
+    public callNumber: CallNumber) {
     this.bus = "";
   }
 
@@ -47,13 +47,13 @@ export class MybusPage {
     this.gotomybus();
   }
 
-  call(num){
+  call(num) {
     console.log(num);
     this.callNumber.callNumber(num, true)
-  .then(res => console.log('Launched dialer!', res))
-  .catch(err => console.log('Error launching dialer', err));
+      .then(res => console.log('Launched dialer!', res))
+      .catch(err => console.log('Error launching dialer', err));
   }
-  
+
   showmap() {
     const location = new google.maps.LatLng(34.129881, 74.836936);
 
@@ -69,14 +69,10 @@ export class MybusPage {
   }
 
   addMarkers(points: any) {
-    console.log(points.length);
-
     for (let i = 0; i < points.length; i++) {
       var position = new google.maps.LatLng(this.points[i][1], this.points[i][2]);
-
       var showMarkers = new google.maps.Marker({ position: position, title: this.points[i][0], icon: this.image });
       showMarkers.setMap(this.map);
-
     }
   }
 
@@ -113,15 +109,13 @@ export class MybusPage {
           result => {
             this.bus = result.bus;
             this.points = this.bus.stops;
-            console.log(this.bus);
-            console.log(this.points[0][2]);
           },
           error => {
             error = (JSON.parse(error._body));
             if (error) {
-              this.app.showToast('error.error.error_message', 'top');
+              this.app.removeLoader();
+              this.app.showToast("No data found in the database", 'top', 'error');
             }
-            this.app.removeLoader();
           },
           () => {
             this.app.removeLoader();

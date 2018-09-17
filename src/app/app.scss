@@ -31,5 +31,46 @@
         background-repeat: no-repeat;
         background-position: center;
         background-size: 100% 100% ;
+
+    }
+//     .mytoast{
+//         $toast-md-background	: black;
+// }
+// .mytoasts{
+//     $toast-md-background	: red;
+// }
+.success.toast-md {
+    .toast-wrapper.toast-top  {
+        position: absolute;
+        right: 0;
+        left: 0;
+        z-index: 10;
+        display: block;
+        margin: auto;
+        width: 50%;
+        max-width: 700px;
+        border-radius: 30px;
+        background: black;
         
+    }
+}
+.error.toast-md {
+    .toast-wrapper.toast-top  {
+        position: absolute;
+        right: 0;
+        left: 0;
+        z-index: 10;
+        display: block;
+        margin: auto;
+        width: 50%;
+        max-width: 700px;
+        border-radius: 30px;
+        background: red;
+    }
+}
+.toast-md .toast-message {
+    padding: 19px 16px 17px;
+    font-size: 1.5rem;
+    /* color: #fff; */
+    text-align: center;
 }

@@ -1,7 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
-import { RequestOptions, Headers } from '@angular/http';
 import { AppServiceProvider } from '../app-service/app-service';
 
 

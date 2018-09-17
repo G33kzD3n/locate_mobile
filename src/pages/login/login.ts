@@ -52,7 +52,6 @@ export class LoginPage {
     else {
       console.log("network not connected");
     }
-    this.app.showLoader('Wait logging in..');
     let user: any;
 
     let payload = {
@@ -79,11 +78,10 @@ export class LoginPage {
 
         },
         error => {
-
           error = (JSON.parse(error._body));
           if (error) {
             this.app.removeLoader();
-            this.app.showToast(error.error.error_message, 'top');
+            this.app.showToast("Username or Password doesn't match", 'top', 'error');
           }
         },
 

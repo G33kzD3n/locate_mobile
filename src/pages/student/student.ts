@@ -3,7 +3,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { AppServiceProvider } from '../../providers/app-service/app-service';
 import { MenuController } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
-import { RequestOptions, Headers, Http } from '@angular/http';
+import { Http } from '@angular/http';
 import { DatePipe } from '@angular/common'
 import { Geolocation } from "@ionic-native/geolocation";
 import { LocationServiceProvider } from '../../providers/location-service/location-service';
@@ -43,7 +43,7 @@ export class StudentPage {
     //create map
     this.map = new google.maps.Map(this.mapRef.nativeElement, options);
     this.app.removeLoader();
-    var id = setInterval(() => {
+    setInterval(() => {
       this.getlocation();
     }, 15000);
   }
@@ -63,7 +63,11 @@ export class StudentPage {
             this.addMarker(loc, this.map);
           },
           err => {
-            console.log(err);
+            //err = (JSON.parse(err._body));
+            if (err.status = 429) {
+              console.log(err);
+              this.app.showToast("Something went wrong...Kindly reload or try after Sometime", "top", 'error')
+            }
           },
           () => {
             //this.app.removeLoader();

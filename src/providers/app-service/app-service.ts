@@ -12,7 +12,7 @@ export class AppServiceProvider {
   private baseUrl: string = "https://laravel-5j3c.frb.io/api/1.0";
   public loader: any;
   networkConn: any;
-
+  public style: any;
   constructor(public plat: Platform, public alert: AlertController, public network: Network, public http: Http, public loadingCtrl: LoadingController, public toastCtrl: ToastController) {
     this.loader = this.loadingCtrl.create({
       content: ''
@@ -48,16 +48,16 @@ export class AppServiceProvider {
 
   }
 
-  showToast(data: string, position: string, delay: number = 0) {
+  showToast(data: string, position: string, style: string) {
     let toast = this.toastCtrl.create({
       message: data,
       duration: 3000,
       position: position,
-      cssClass: 'mytoast'
+      cssClass: style
     });
     setTimeout(() => {
       toast.present();
-    }, delay);
+    });
 
   }
   getUrl() {

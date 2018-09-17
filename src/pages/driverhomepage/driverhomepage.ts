@@ -48,6 +48,7 @@ export class DriverhomepagePage {
     public geolocation: Geolocation, public locationService: LocationServiceProvider) {
   }
   ionViewDidLoad() {
+    //this.app.showLoader("Loading... please wait");
     this.id = setInterval(() => {
       this.storewhereabouts();
     }, 3000);
@@ -72,13 +73,17 @@ export class DriverhomepagePage {
                 this.getLocation();
               },
               err => {
-                console.log(err);
+                this.app.removeLoader();
+                err = (JSON.parse(err._body));
+                console.log("Database error");
               }
             );
         });
 
       }).catch((err) => {
+        // this.app.removeLoader();
         console.log(err);
+        //this.app.showToast("Error! reload the app",'top','error');
       });
   }
   calDate() {
@@ -100,7 +105,9 @@ export class DriverhomepagePage {
             this.myLocation = data.bus;
           },
           err => {
-
+            err = (JSON.parse(err._body));
+            this.app.removeLoader();
+            console.log("");
           }
         );
     });

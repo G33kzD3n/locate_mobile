@@ -27,7 +27,7 @@ export class ProfilePage {
   ionViewDidEnter() {
     this.app.showLoader("Loading your Profile...");
     this.openuser();
-    this.opnefee();
+    this.openfee();
   }
   openuser() {
     this.storage.get('user').then((user) => {
@@ -48,9 +48,8 @@ export class ProfilePage {
           error => {
             error = (JSON.parse(error._body));
             if (error) {
-              this.app.showToast('error.error.error_message', 'top');
               this.app.removeLoader();
-              //user=(JSON.parse(error._body));
+              this.app.showToast("No data found in the database", 'top','error');
             }
           },
           () => {
@@ -58,7 +57,7 @@ export class ProfilePage {
           });
     });
   }
-  opnefee() {
+  openfee() {
     this.storage.get('user').then((user) => {
       user = this.app.getToken(user);
 
@@ -76,7 +75,11 @@ export class ProfilePage {
             this.data = result.data;
           },
           error => {
-
+            error = (JSON.parse(error._body));
+            if (error) {
+              this.app.removeLoader();
+              this.app.showToast("No data found in the database", 'top', 'error');
+            }
           },
           () => {
             this.app.removeLoader();
