@@ -31,7 +31,6 @@ export class PassengersPage {
 
         result => {
           this.passengers = result.passengers;
-          console.log(this.passengers);
         },
         error => {
           error = (JSON.parse(error._body));

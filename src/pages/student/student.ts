@@ -26,9 +26,10 @@ export class StudentPage {
     public storage: Storage, public http: Http, public datepipe: DatePipe, public navCtrl: NavController, public menu: MenuController, public navParams: NavParams, public app: AppServiceProvider, public geolocation: Geolocation) {
   }
 
-  ionViewDidLoad() {
-    
+  ngOnInit() {
     this.showmap();
+  }
+  ionViewDidLoad() {
   }
 
 
@@ -43,7 +44,7 @@ export class StudentPage {
     //create map
     this.map = new google.maps.Map(this.mapRef.nativeElement, options);
     this.app.removeLoader();
-    setInterval(() => {
+    this.locationService.id=setInterval(() => {
       this.getlocation();
     }, 15000);
   }
@@ -74,5 +75,8 @@ export class StudentPage {
           }
         );
     });
+  }
+  ionViewDidLeave() {
+    clearInterval(this.locationService.id);
   }
 }

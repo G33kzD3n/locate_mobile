@@ -47,11 +47,14 @@ export class DriverhomepagePage {
     public navParams: NavParams, public app: AppServiceProvider,
     public geolocation: Geolocation, public locationService: LocationServiceProvider) {
   }
-  ionViewDidLoad() {
+  ngOnInit() {
     //this.app.showLoader("Loading... please wait");
-    this.id = setInterval(() => {
+    this.locationService.id = setInterval(() => {
       this.storewhereabouts();
     }, 13000);
+  }
+  ionViewOnLoad() {
+
   }
 
   storewhereabouts() {
@@ -84,7 +87,7 @@ export class DriverhomepagePage {
       }).catch((err) => {
         // this.app.removeLoader();
         console.log(err);
-        this.app.showToast("Error!!!",'top','error');
+        this.app.showToast("Error!!!", 'top', 'error');
       });
   }
   calDate() {
@@ -112,5 +115,8 @@ export class DriverhomepagePage {
           }
         );
     });
+  }
+  ionViewDidLeave() {
+    clearInterval(this.locationService.id);
   }
 }

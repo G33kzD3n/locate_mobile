@@ -3,7 +3,7 @@ import { IonicPage, NavController, NavParams, Nav, Platform, AlertController } f
 import { Storage } from '@ionic/storage';
 import { Http } from '@angular/http';
 import { AppServiceProvider } from '../../providers/app-service/app-service';
-
+import { LocationServiceProvider } from '../../providers/location-service/location-service';
 
 import { ProfilePage } from '../profile/profile';
 import { StudentPage } from '../student/student';
@@ -33,7 +33,7 @@ export class MenuPage {
   activepage: any;
 
 
-  constructor(public platform: Platform, public alert: AlertController, public app: AppServiceProvider, public navCtrl: NavController, public http: Http, public navParams: NavParams, public storage: Storage) {
+  constructor(public location:LocationServiceProvider ,public platform: Platform, public alert: AlertController, public app: AppServiceProvider, public navCtrl: NavController, public http: Http, public navParams: NavParams, public storage: Storage) {
 
   }
   isActive() { }
@@ -103,6 +103,7 @@ export class MenuPage {
     return p == this.activepage;
   }
   logOut() {
+    clearInterval(this.location.id);
     this.Confirm();
   }
   Confirm() {
