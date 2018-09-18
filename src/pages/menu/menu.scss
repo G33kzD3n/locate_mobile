@@ -1,18 +1,25 @@
+
 .user-profile {
 
   height: 170px;
  
 
   .user-avatar {
-    width: 68px;
-    height: 68px;
-    display: inline-block;
+    width: 90px;
+    height: 90px;
+    margin-top: 10px;
+   margin-left: 33%;
+   margin-right: 33%;
     border-radius: 50%;
     box-shadow: inset 0 0 10rem rgba(0,0,0,.25), 0 0 4rem rgba(255,255,255,.45);
     img {
       border-radius: 50%;
     }
   }}
+
+    ion-header{ h2{
+      text-align: center;
+    }}
 
  
 ion-menu{
@@ -21,18 +28,14 @@ ion-menu{
   
 }
 
-
-.menu{
-  //width: 70% !important;
-  //background-color: aqua;
-}
-
 ion-button{
   padding: 0%;
 }
 
 .activehighlight{
-    background-color:  #268fe6;
+  //  background-color:  #268fe6;
+  background: linear-gradient(to bottom, #e4e0e0 70%, #ffffff );
+  color: #268fe6;
 }
 .scroll-content {
     overflow-y: auto;
@@ -40,29 +43,3 @@ ion-button{
   .alert-message{
     overflow-y: auto;
   }
-// .custom {
-//     background-color: #454545 !important; /* This sets the background color*/
-//    }
-//    .custom .item {
-//     background-color: transparent;
-//     border:none;   /*Removes all borders*/
-//     border-top: 1px solid;   /*Top Border for each menu item*/
-//     border-bottom:2px solid;   /*Bottom border for each menu item*/
-//     border-color: #666;   /*Sets colors for top and bottom border*/
-//     color: white;    /*Text color for each item*/
-//   }
-// .custom .item:last-child {
-//     border-bottom: 1px solid #666;
-//   }
-   
-//   .custom .item-complex .item-content, .dark .item-radio .item-content {
-//     background-color: transparent;
-//   }
-   
-//   /*Just makes the type white*/
-//   .custom h2,
-//   .custom h3,
-//   .custom p,
-//   .custom a {
-//     color: white;  /*Text color for each item, overrides the color property above*/
-//   }

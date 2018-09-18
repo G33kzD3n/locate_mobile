@@ -1,41 +1,29 @@
 <ion-menu side="left" class="menu" [content]="content">
   <ion-header (click)="openProfile()">
     <ion-toolbar class="user-profile">
+      <div class="user-avatar">
+        <img src="assets/imgs/12.jpg">
+      </div>
 
-      <ion-grid>
-        <ion-row>
-          <ion-col col-4>
-            <div class="user-avatar">
-              <img src="assets/imgs/12.jpg">
-            </div>
-          </ion-col>
-          <ion-col  padding-top col-8>
-            <h2 ion-text class="no-margin bold text-white">
-              {{ user1 }}
-            </h2>
-          </ion-col>
-        </ion-row>
-
-
-      </ion-grid>
+      <h2> {{ user1 }}  </h2>
 
     </ion-toolbar>
   </ion-header>
 
-
   <ion-content class="contentbg">
-    <ion-list>
-      <button ion-item menuClose *ngFor="let p of pages" [class.activehighlight]="checkActive(p)" (click)="openPage(p)">
-        <label> <ion-icon item-start [name]="p.icon" [color]="isActive(p)" ></ion-icon>
-       {{ p.title }}</label> 
+    <ion-list no-lines>
+    <button ion-item menuClose *ngFor="let p of pages" [class.activehighlight]="checkActive(p)" (click)="openPage(p)">
+        <ion-icon item-start [name]="p.icon" [color]="isActive(p)"></ion-icon>
+          {{ p.title }}
       </button>
     </ion-list>
   </ion-content>
+  
   <ion-footer (click)="logOut()">
     <ion-toolbar>
       <button ion-button full outline color="header-color" style="border:none;width:50%; margin:0 auto;">
-        <ion-icon name="log-out" style="font-size:2em; float: left;" color="danger"></ion-icon>
-        <ion-title style="margin:auto" id="logout" name="log-out" >Logout</ion-title>
+        <ion-icon name="log-out" style="font-size:2em; float: left;" color="dark"></ion-icon>
+        <ion-title style="margin:auto" id="logout" name="log-out">Logout</ion-title>
       </button>
     </ion-toolbar>
   </ion-footer>

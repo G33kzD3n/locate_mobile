@@ -9,7 +9,8 @@ import 'rxjs/add/operator/map';
 
 @Injectable()
 export class AppServiceProvider {
-  private baseUrl: string = "https://laravel-5j3c.frb.io/api/1.0";
+  // private baseUrl: string = "https://laravel-5j3c.frb.io/api/1.0";
+  private baseUrl: string = "http://192.168.43.220:8000/api/1.0";
   public loader: any;
   networkConn: any;
   public style: any;
