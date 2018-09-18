@@ -75,6 +75,7 @@ export class LoginPage {
           this.storage.set('level', user.level);
           this.storage.set('token', user.token);
           this.storage.set('user', payload.username);
+          
 
         },
         error => {

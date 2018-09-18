@@ -21,7 +21,7 @@ export class DriverhomepagePage {
   myDate: any = new Date().toLocaleString();
   map: any;
   lat: any;
-  long: any;
+  lng: any;
   id: any;
   myLocation: any;
 
@@ -51,22 +51,23 @@ export class DriverhomepagePage {
     //this.app.showLoader("Loading... please wait");
     this.id = setInterval(() => {
       this.storewhereabouts();
-    }, 3000);
+    }, 13000);
   }
 
   storewhereabouts() {
     this.geolocation.getCurrentPosition({ enableHighAccuracy: true, timeout: 10000, maximumAge: 0 }).
       then((resp) => {
         this.lat = resp.coords.latitude;
-        this.long = resp.coords.longitude;
+        this.lng = resp.coords.longitude;
         this.storage.get('bus_no').then((bus_no) => {
 
           let payload = {
             busno: bus_no,
             lat: this.lat,
-            long: this.long,
+            lng: this.lng,
             time: this.calDate()
           };
+          console.log(payload.time);
           this.locationService.storeLocation(payload)
             .subscribe(
               res => {
@@ -83,7 +84,7 @@ export class DriverhomepagePage {
       }).catch((err) => {
         // this.app.removeLoader();
         console.log(err);
-        //this.app.showToast("Error! reload the app",'top','error');
+        this.app.showToast("Error!!!",'top','error');
       });
   }
   calDate() {
@@ -107,7 +108,7 @@ export class DriverhomepagePage {
           err => {
             err = (JSON.parse(err._body));
             this.app.removeLoader();
-            console.log("");
+            console.log("error in get location");
           }
         );
     });

@@ -1,36 +1,50 @@
 <ion-header>
-    <ion-navbar>
-      <button ion-button menuToggle>
-        <ion-icon name="menu"></ion-icon>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Students</ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only>
+        <ion-icon name="notifications"></ion-icon>
       </button>
-      <ion-title>Students</ion-title>
-      <ion-buttons end>
-          <button ion-button icon-only><ion-icon name="notifications"></ion-icon></button>
-        </ion-buttons>
-    </ion-navbar>
-  </ion-header>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+<ion-content padding class="contentbg">
 
+  <ion-card *ngFor="let passenger of passengers; let i=index" no-padding>
+    <ion-card-header color="dark">Passenger no: {{i}}</ion-card-header>
+    <ion-card-content no-padding>
+      <ion-list>
+        <ion-item style="background: linear-gradient(0.40turn, #c2d8e7 , #fdfffb ,#bbd2e2 );">
 
+          <img class="thumb" src="assets/imgs/11.JPG" item-left>
 
+          <h2>
+            <ion-icon name="md-person"></ion-icon> {{ passenger?.username}}
+          </h2>
 
-  <ion-content padding class="contentbg">
-    <ion-card>
-        <ion-card-content>
-          <h2>Passengers</h2>
-            </ion-card-content>
-      </ion-card>
-      
-            <ion-list>
-              <ion-item *ngFor="let user of users">
-                  <ion-card no-margin>
-                      <ion-card-content>
-               Name: {{user.name}}<br>
-                <p>Roll No:{{user.username}}</p>
-                <p>Phone: {{user.phone_no}}</p>
-                
-              </ion-card-content>
-            </ion-card>
-              </ion-item>
-            </ion-list>
+          <h2>
+            <ion-icon name="md-person"></ion-icon> {{passenger?.name}}
+          </h2>
+
+          <h2>
+            <ion-icon name="md-call"></ion-icon> {{passenger?.cell_no}}
+          </h2>
+
+          <h2>
+            <ion-icon name="md-build"></ion-icon> {{passenger?.course_code}}
+          </h2>
           
+          <h2>
+            <ion-icon name="md-home"></ion-icon> {{passenger?.dept_code}}
+          </h2>
+
+        </ion-item>
+      </ion-list>
+    </ion-card-content>
+  </ion-card>
+
+
 </ion-content>

@@ -47,6 +47,12 @@
             <h2>{{ user1.registration_date }}</h2>
           </ion-col>
         </ion-row>
+        <ion-row>
+          <ion-col>
+            <ion-icon name="md-warning"></ion-icon><label> Assigned Stop</label><br>
+            <h2>{{ user1.stop?.name }}</h2>
+          </ion-col>
+        </ion-row>
       </ion-grid>
     </ion-card-content>
   </ion-card>

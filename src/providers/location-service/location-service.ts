@@ -7,14 +7,14 @@ import { AppServiceProvider } from '../app-service/app-service';
 @Injectable()
 export class LocationServiceProvider {
 
-  constructor(public http: HttpClient, public app:AppServiceProvider) {
+  constructor(public http: HttpClient, public app: AppServiceProvider) {
     console.log('Hello LocationServiceProvider Provider');
   }
 
 
 
-  storeLocation(payload:any):Observable<any>{
-    
+  storeLocation(payload: any): Observable<any> {
+
     let url = this.app.getUrl() + '/buses/' + payload.busno + '/store';
     console.log(url);
     // let headers = new Headers({ 'Content-Type': 'application/json' });
@@ -23,9 +23,8 @@ export class LocationServiceProvider {
   }
 
 
-  getLocation(busno:number){
+  getLocation(busno: number) {
     let url = this.app.getUrl() + '/buses/' + busno + '/location';
     return this.http.get(url);
-
   }
 }

@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { Storage } from '@ionic/storage';
+import { AppServiceProvider } from '../../providers/app-service/app-service';
 import { Http } from '@angular/http';
 
 @IonicPage()
@@ -9,25 +11,38 @@ import { Http } from '@angular/http';
 })
 export class PassengersPage {
 
-  users:any[];
-  constructor(public navCtrl: NavController, public navParams: NavParams, public http: Http) {
-    this.getdata()
+  passengers: any;
+  constructor(public storage: Storage, public app:AppServiceProvider ,public navCtrl: NavController, public navParams: NavParams, public http: Http) {
+
   }
-
-  getdata(){
-    this.http.get("http://192.168.43.58:9000/api/1.0")
-    .subscribe((data)=>{
-      console.log(data.json());
-      this.users = data.json();
-
-    },(error)=>{
-      console.log(error);
-
-    })
-  }
-
   ionViewDidLoad() {
     console.log('ionViewDidLoad PassengersPage');
+    this.getdata();
   }
+
+
+  getdata() {
+    this.storage.get('bus_no').then((bus_no) => {
+    bus_no = this.app.getToken(bus_no);
+
+    this.http.get(this.app.getUrl() + '/buses/' + bus_no + '/passengers')
+      .map(res => res.json())
+      .subscribe(
+
+        result => {
+          this.passengers = result.passengers;
+          console.log(this.passengers);
+        },
+        error => {
+          error = (JSON.parse(error._body));
+          if (error) {
+            this.app.showToast("No data found in the database", 'top', 'error');
+          }
+        },
+        () => {
+          //this.app.removeLoader();
+        });
+  });
+}
 
 }

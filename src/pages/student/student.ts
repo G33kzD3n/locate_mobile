@@ -19,7 +19,7 @@ export class StudentPage {
   @ViewChild('map') mapRef: ElementRef;
   map: any;
   lat: any;
-  long: any;
+  lng: any;
   bus: any;
 
   constructor(public locationService: LocationServiceProvider,
@@ -27,7 +27,7 @@ export class StudentPage {
   }
 
   ionViewDidLoad() {
-    this.app.showLoader("Loading...");
+    
     this.showmap();
   }
 
