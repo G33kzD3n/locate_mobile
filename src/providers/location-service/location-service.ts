@@ -8,7 +8,7 @@ import { AppServiceProvider } from '../app-service/app-service';
 export class LocationServiceProvider {
   public id :any;
   constructor(public http: HttpClient, public app: AppServiceProvider) {
-    console.log('Hello LocationServiceProvider Provider');
+    
   }
 
 

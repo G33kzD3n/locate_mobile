@@ -44,7 +44,6 @@ export class ProfilePage {
 
           result => {
             this.user1 = result.data;
-            console.log(this.user1);
           },
           error => {
             error = (JSON.parse(error._body));

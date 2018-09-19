@@ -70,10 +70,21 @@ export class MybusPage {
 
   addMarkers(points: any) {
     for (let i = 0; i < points.length; i++) {
-      var position = new google.maps.LatLng(this.points[i][1], this.points[i][2]);
+      var position = new google.maps.LatLng(this.points[i][0], this.points[i][1]);
       var showMarkers = new google.maps.Marker({ position: position, title: this.points[i][0], icon: this.image });
       showMarkers.setMap(this.map);
+      
     }
+    var flightPathCord = this.points;
+    console.log(flightPathCord);
+    var flightPath = new google.maps.Polyline({
+      path: flightPathCord,
+      geodesic: true,
+      strokeColor: '#FF0000',
+      strokeOpacity: 1.0,
+      strokeWeight: 2
+    });
+    flightPath.setMap(this.map);
   }
 
   showroute() {
@@ -108,7 +119,7 @@ export class MybusPage {
 
           result => {
             this.bus = result.bus;
-            this.points = this.bus.stops;
+            this.points = this.bus.stops.latLngs;
           },
           error => {
             error = (JSON.parse(error._body));
