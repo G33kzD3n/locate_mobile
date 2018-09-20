@@ -6,12 +6,10 @@ import { AppServiceProvider } from '../app-service/app-service';
 
 @Injectable()
 export class LocationServiceProvider {
-  public id :any;
+  public id: any;
   constructor(public http: HttpClient, public app: AppServiceProvider) {
-    
+
   }
-
-
 
   storeLocation(payload: any): Observable<any> {
 
@@ -22,9 +20,13 @@ export class LocationServiceProvider {
     return this.http.post(url, payload);
   }
 
-
-  getLocation(busno: number) {
+  getLocation(busno: number): Observable<any> {
     let url = this.app.getUrl() + '/buses/' + busno + '/location';
+    return this.http.get(url);
+  }
+
+  getProfile(user: number): Observable<any> {
+    let url = this.app.getUrl() + '/users/' + user;
     return this.http.get(url);
   }
 }

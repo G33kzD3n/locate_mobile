@@ -93,9 +93,10 @@ export class MenuPage {
     this.showMenu();
   }
   ionViewDidEnter() {
-    this.storage.get('user').then((user) => {
+    this.storage.get('name').then((user) => {
       this.user1 = this.app.getToken(user);
     });
+    
   }
 
 

@@ -88,7 +88,7 @@ import { CallNumber } from '@ionic-native/call-number';
     DatePipe,
     SplashScreen,
     LocationServiceProvider,
-    CallNumber
+    CallNumber,
   ]
 })
 export class AppModule { }

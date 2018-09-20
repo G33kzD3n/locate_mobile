@@ -5,7 +5,7 @@ import { AppServiceProvider } from '../../providers/app-service/app-service';
 import { RequestOptions, Headers, Http } from '@angular/http';
 import { Geolocation } from "@ionic-native/geolocation";
 import { CallNumber } from '@ionic-native/call-number';
-
+import { LocationServiceProvider } from '../../providers/location-service/location-service';
 declare var google: any;
 
 
@@ -27,14 +27,15 @@ export class MybusPage {
   mark: any;
 
   public points: any = [];
-
+  public places;
   public bus: any;
   public hideMe: boolean = false;
   public button: string = "See Route Plan";
-
+  assignedstop: any;
   image = "/assets/imgs/icon.png";
+  image1 = "/assets/imgs/bus11.ico";
 
-  constructor(public http: Http, public geolocation: Geolocation,
+  constructor(public locationService: LocationServiceProvider, public http: Http, public geolocation: Geolocation,
     public app: AppServiceProvider, public storage: Storage,
     public navCtrl: NavController, public navParams: NavParams,
     public callNumber: CallNumber) {
@@ -45,6 +46,7 @@ export class MybusPage {
 
   ionViewDidLoad() {
     this.gotomybus();
+    this.getAssignedStop();
   }
 
   call(num) {
@@ -69,16 +71,25 @@ export class MybusPage {
   }
 
   addMarkers(points: any) {
-    for (let i = 0; i < points.length; i++) {
-      var position = new google.maps.LatLng(this.points[i][0], this.points[i][1]);
-      var showMarkers = new google.maps.Marker({ position: position, title: this.points[i][0], icon: this.image });
-      showMarkers.setMap(this.map);
-      
+      var arr = this.places.split(';');
+      for (let i = 0; i < points.length; i++) {
+      if (this.points[i][0] != this.assignedstop.lat && this.points[i][1] != this.assignedstop.lng) {
+        var position = new google.maps.LatLng(this.points[i][0], this.points[i][1]);
+        var showMarkers = new google.maps.Marker({ position: position, title:arr[i], icon: this.image });
+        showMarkers.setMap(this.map);
+      }
+      else {
+        const loc = new google.maps.LatLng(this.assignedstop.lat, this.assignedstop.lng);
+        var showMarkers = new google.maps.Marker({ position: loc, title: this.assignedstop.name, icon: this.image1 });
+        showMarkers.setMap(this.map);
+      }
     }
+
     var flightPathCord = this.points;
-    console.log(flightPathCord);
+    //console.log(flightPathCord);
     var flightPath = new google.maps.Polyline({
-      path: flightPathCord,
+      path: [{ lat: flightPathCord[0], lng: flightPathCord[0] },
+      { lat: flightPathCord[0], lng: flightPathCord[1] }],
       geodesic: true,
       strokeColor: '#FF0000',
       strokeOpacity: 1.0,
@@ -119,6 +130,8 @@ export class MybusPage {
 
           result => {
             this.bus = result.bus;
+            this.places = this.bus.stops.names;
+            console.log(this.places);
             this.points = this.bus.stops.latLngs;
           },
           error => {
@@ -133,6 +146,23 @@ export class MybusPage {
           });
     });
   }
+  getAssignedStop() {
+    this.storage.get('user').then((user) => {
+      this.locationService.getProfile(user)
+        .subscribe(
+          res => {
+            //console.log(result);
+            this.assignedstop = res.data.stop;
+            console.log(this.assignedstop);
+          },
+          err => {
 
+          },
+          () => {
+
+          }
+        )
+    })
+  }
 
 }
