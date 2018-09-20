@@ -11,21 +11,19 @@
     </ion-buttons>
   </ion-navbar>
 </ion-header>
-<ion-content padding class="contentbg">
+<ion-content no-padding class="contentbg">
 
   <ion-card *ngFor="let passenger of passengers; let i=index" no-padding>
-    <ion-card-header color="dark">Passenger no: {{i}}</ion-card-header>
+    <!-- <ion-card-header color="dark">Passenger no: {{i}}</ion-card-header> -->
     <ion-card-content no-padding>
-      <ion-list>
+      
         <ion-item style="background: linear-gradient(0.40turn, #c2d8e7 , #fdfffb ,#bbd2e2 );">
 
           <img class="thumb" src="assets/imgs/11.JPG" item-left>
 
-          <h2>
-            <ion-icon name="md-person"></ion-icon> {{ passenger?.username}}
-          </h2>
+          <label>  <ion-icon name="md-person"></ion-icon>  {{ passenger?.username}}</label>
 
-          <h2>
+                 <h2>
             <ion-icon name="md-person"></ion-icon> {{passenger?.name}}
           </h2>
 
@@ -42,7 +40,7 @@
           </h2>
 
         </ion-item>
-      </ion-list>
+      
     </ion-card-content>
   </ion-card>
 

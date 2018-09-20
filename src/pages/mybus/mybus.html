@@ -12,7 +12,11 @@
 
 <ion-content no-padding class="contentbg">
 
-	<ion-card no-padding class="buscard">
+		
+		<!-- <div #map style=" border:solid #000 1px; height:500px;"></div> -->
+		<!-- <div #directionsPanel></div> -->
+
+	  <ion-card no-padding class="buscard">
 		<ion-card-header color="dark">Bus no: {{ bus?.bus_no }}</ion-card-header>
 		<ion-card-content no-padding>
 
@@ -22,16 +26,17 @@
 				</ion-item>
 			</ion-list>
 			<button ion-button block clear (click)="showroute()">{{button}}</button>
-			<div *ngIf="hideMe">
+			 <div *ngIf="hideMe">
 				<div #map style=" border:solid #000 1px; height:500px;">
+						<div #directionsPanel></div>
 				</div><br>
-			</div>
+			</div> 
 
 		</ion-card-content>
-	</ion-card>
+	</ion-card> 
 
 
-	<ion-card no-padding>
+	  <ion-card no-padding> 
 		<ion-card-header color="dark">Coordinator</ion-card-header>
 		<ion-card-content no-padding>
 			<ion-list>
@@ -87,4 +92,4 @@
 	</ion-card>
 
 
-</ion-content>
+</ion-content> 

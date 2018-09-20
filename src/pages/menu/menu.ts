@@ -30,6 +30,8 @@ export class MenuPage {
   public pages: Array<{ title: string, component: any, icon: any, index: any }>;
   public user = "";
   public user1: any;
+  public name1:any;
+  public name = "";
   activepage: any;
 
 
@@ -93,11 +95,16 @@ export class MenuPage {
     this.showMenu();
   }
   ionViewDidEnter() {
-    this.storage.get('user').then((user) => {
+    this.storage.get('name').then((user) => {
       this.user1 = this.app.getToken(user);
-    });
+        });
+        
+        // this.storage.get('name').then((name) => {
+        //   this.name1 = this.app.getToken(name);
+        //     });
+   
+   
   }
-
 
   checkActive(p) {
     return p == this.activepage;

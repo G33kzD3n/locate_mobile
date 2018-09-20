@@ -14,6 +14,7 @@ export class ProfilePage {
   @ViewChild(Nav) nav: Nav;
   public user1: any;
   public data: any;
+  public stopid: any;
   title: string = "Profile";
 
 
@@ -21,6 +22,7 @@ export class ProfilePage {
 
     this.user1 = "";
     this.data = "";
+
   }
 
 
@@ -44,7 +46,9 @@ export class ProfilePage {
 
           result => {
             this.user1 = result.data;
-          },
+            this.stopid = this.user1.stop.name;
+            console.log(this.stopid);
+                },
           error => {
             error = (JSON.parse(error._body));
             if (error) {

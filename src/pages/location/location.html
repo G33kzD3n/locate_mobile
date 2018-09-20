@@ -23,17 +23,27 @@
     <img class="bus" src="assets/imgs/bus.jpg" alt="bus">
     <ion-grid>
       <ion-row>
-        <ion-col><button ion-button color="dark" block outline (click)="showroute(i)">{{hideMe === i? button :"Show Route" }}</button></ion-col>
+        <ion-col>
+          <button ion-button color="dark" block outline (click)="showroute(i)">{{hideMe === i? button :"Show Route" }}
+          </button>
+        </ion-col>
         <ion-col>
           <button ion-button block outline color="dark">Live Track</button>
         </ion-col>
       </ion-row>
     </ion-grid>
-   
+
     <div *ngIf="hideMe == i  && On === true">
-        {{bus.stops.names}}
+      <ul>
+          <ion-list class="xyz">{{bus.stops.names.split(';',20)}}</ion-list>
+      </ul>
+     
+     
+      
+      
+      
     </div>
-   
+
     <!-- <div *ngIf="hideMe">
       <div style=" border:solid #000 1px; height:500px;">
           <p *ngFor="let stop of bus?.stops;">
@@ -42,10 +52,11 @@
             </p>
        
       </div><br> -->
-     
+      <!-- {{stops.split(';',20)}}<br> -->
   </ion-card>
+   
 
-  
+
 
 
 

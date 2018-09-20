@@ -18,6 +18,7 @@ declare var google: any;
 export class MybusPage {
 
   @ViewChild('map') mapRef: ElementRef;
+  @ViewChild('directionsPanel') directionsPanel: ElementRef;
 
 
   map: any;
@@ -26,7 +27,12 @@ export class MybusPage {
   i: any;
   mark: any;
 
+  waypts:['34.1205, 74.8069'];
+
+  public poly: any;
+
   public points: any = [];
+  public stopid: any;
 
   public bus: any;
   public hideMe: boolean = false;
@@ -45,6 +51,8 @@ export class MybusPage {
 
   ionViewDidLoad() {
     this.gotomybus();
+   
+    
   }
 
   call(num) {
@@ -60,7 +68,9 @@ export class MybusPage {
     const options = {
       center: location,
       zoom: 13,
-      disableDefaultUI: true
+      disableDefaultUI: true,
+      mapTypeId: google.maps.MapTypeId.ROADMAP
+
     }
 
     this.map = new google.maps.Map(this.mapRef.nativeElement, options);
@@ -71,22 +81,57 @@ export class MybusPage {
   addMarkers(points: any) {
     for (let i = 0; i < points.length; i++) {
       var position = new google.maps.LatLng(this.points[i][0], this.points[i][1]);
+      console.log(this.points);
       var showMarkers = new google.maps.Marker({ position: position, title: this.points[i][0], icon: this.image });
       showMarkers.setMap(this.map);
       
-    }
-    var flightPathCord = this.points;
-    console.log(flightPathCord);
-    var flightPath = new google.maps.Polyline({
-      path: flightPathCord,
-      geodesic: true,
-      strokeColor: '#FF0000',
-      strokeOpacity: 1.0,
-      strokeWeight: 2
-    });
-    flightPath.setMap(this.map);
+    }   
   }
 
+//   loadMap(){
+ 
+//     let latLng = new google.maps.LatLng(34.1284, 74.8365);
+
+//     let mapOptions = {
+//       center: latLng,
+//       zoom: 15,
+//       disableDefaultUI: true,
+//       mapTypeId: google.maps.MapTypeId.ROADMAP
+//     }
+
+//     this.map = new google.maps.Map(this.mapRef.nativeElement, mapOptions);
+
+// }
+  startNavigating(){
+ 
+    let directionsService = new google.maps.DirectionsService;
+    let directionsDisplay = new google.maps.DirectionsRenderer;
+
+    directionsDisplay.setMap(this.map);
+    directionsDisplay.setPanel(this.directionsPanel.nativeElement);
+
+    directionsService.route({
+        origin: '34.1284, 74.8365',
+       // destination: '34.1535, 74.8023',
+      // waypoints: this.waypts,
+        destination: '34.2323, 74.4163',
+        
+        provideRouteAlternatives: true,
+      //  optimizeWaypoints: true,
+        
+        
+        travelMode: google.maps.TravelMode['DRIVING']
+    }, (res, status) => {
+
+        if(status == google.maps.DirectionsStatus.OK){
+            directionsDisplay.setDirections(res);
+        } else {
+            console.warn(status);
+        }
+
+    });
+
+}
   showroute() {
 
     if (this.hideMe === false) {
@@ -95,6 +140,7 @@ export class MybusPage {
       this.button = "Hide";
       setTimeout(() => {
         this.showmap();
+        this.startNavigating();
       }, 300);
 
     } else {
