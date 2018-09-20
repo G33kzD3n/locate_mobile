@@ -48,17 +48,16 @@ export class DriverhomepagePage {
     public geolocation: Geolocation, public locationService: LocationServiceProvider) {
   }
   ngOnInit() {
-    //this.app.showLoader("Loading... please wait");
     this.locationService.id = setInterval(() => {
       this.storewhereabouts();
-    }, 13000);
+    }, 6000);
   }
-  ionViewOnLoad() {
 
+  ionViewOnLoad() {
   }
 
   storewhereabouts() {
-    this.geolocation.getCurrentPosition({ enableHighAccuracy: true, timeout: 10000, maximumAge: 0 }).
+    this.geolocation.getCurrentPosition({ enableHighAccuracy: true, timeout: 5000, maximumAge: 0 }).
       then((resp) => {
         this.lat = resp.coords.latitude;
         this.lng = resp.coords.longitude;
