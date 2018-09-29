@@ -34,13 +34,10 @@
     </ion-grid>
 
     <div *ngIf="hideMe == i  && On === true">
-      <ul>
-          <ion-list class="xyz">{{bus.stops.names.split(';',20)}}</ion-list>
-      </ul>
-     
      
       
-      
+        <ion-label class="routes" text-wrap padding> {{bus.stops.names.split(';').join(" --> ")}} </ion-label>
+          
       
     </div>
 

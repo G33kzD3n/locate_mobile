@@ -1,7 +1,12 @@
-.xyz{
+.routes{
     color: #0083ff;
-    white-space: pre-line;
+    font-weight: bolder;
+    //list-style-type: disc;
     
+    font-size: 20px;   
+    text-align: justify;
+   // margin-left: -20px;
+     
 }
 ion-card-header{
     text-align: center;
@@ -21,7 +26,8 @@ ion-card-header{
 
 .buscard{
 
-    background: linear-gradient(0.40turn, #c2d8e7 , #fdfffb ,#bbd2e2 );
+   // background: linear-gradient(0.40turn, #c2d8e7 , #fdfffb ,#bbd2e2 );
+   background: transparent;
    
 
     img{

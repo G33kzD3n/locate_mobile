@@ -1,18 +1,15 @@
 
 .pcard{
    background: transparent;
-   margin: auto;
-   text-align: left;
-line-height: 20px;
-   
-
+   border-radius: 3px;
+ 
    label{
     font-weight: bolder;
     font-size: 15px;
     text-shadow: 2em;
    }
    
-  background: linear-gradient(0.40turn, #c2d8e7 , #fdfffb ,#bbd2e2 );
+ // background: linear-gradient(0.40turn, #c2d8e7 , #fdfffb ,#bbd2e2 );
 
 }
 
@@ -42,5 +39,16 @@ line-height: 20px;
     font-size: 17px;
    
     color: rgb(4, 132, 236);
+}
+
+.list ion-item{
+    
+    background: transparent !important;}
+   // display: inline;
+
+.list h2{
+    
+    float: right;
+
 }
  

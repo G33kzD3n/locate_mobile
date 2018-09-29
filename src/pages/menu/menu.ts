@@ -97,13 +97,8 @@ export class MenuPage {
   ionViewDidEnter() {
     this.storage.get('name').then((user) => {
       this.user1 = this.app.getToken(user);
-        });
-        
-        // this.storage.get('name').then((name) => {
-        //   this.name1 = this.app.getToken(name);
-        //     });
-   
-   
+    });
+    
   }
 
   checkActive(p) {

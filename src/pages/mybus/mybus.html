@@ -12,42 +12,43 @@
 
 <ion-content no-padding class="contentbg">
 
-		
-		<!-- <div #map style=" border:solid #000 1px; height:500px;"></div> -->
-		<!-- <div #directionsPanel></div> -->
 
-	  <ion-card no-padding class="buscard">
+	<!-- <div #map style=" border:solid #000 1px; height:500px;"></div> -->
+	<!-- <div #directionsPanel></div> -->
+
+	<ion-card no-padding class="buscard">
 		<ion-card-header color="dark">Bus no: {{ bus?.bus_no }}</ion-card-header>
 		<ion-card-content no-padding>
 
 			<ion-list>
-				<ion-item style="background: linear-gradient(0.40turn, #c2d8e7 , #fdfffb ,#bbd2e2 );">
+				<ion-item>
 					<img src="assets/imgs/bus.jpg">
 				</ion-item>
 			</ion-list>
-			<button ion-button block clear (click)="showroute()">{{button}}</button>
-			 <div *ngIf="hideMe">
+			<button ion-button block clear (click)="showroute()">{{button }}
+			</button>
+			<div *ngIf="hideMe">
 				<div #map style=" border:solid #000 1px; height:500px;">
-						<div #directionsPanel></div>
+					<div #directionsPanel></div>
 				</div><br>
-			</div> 
+			</div>
 
 		</ion-card-content>
-	</ion-card> 
+	</ion-card>
 
 
-	  <ion-card no-padding> 
+	<ion-card no-padding>
 		<ion-card-header color="dark">Coordinator</ion-card-header>
 		<ion-card-content no-padding>
-			<ion-list>
+			<ion-list class="lista">
 				<ion-item-sliding #item>
-					<ion-item style="background: linear-gradient(0.40turn, #c2d8e7 , #fdfffb ,#bbd2e2 );">
+					<ion-item>
 
 						<img class="thumb" src="assets/imgs/11.JPG" item-left>
 
 						<h2>
 							<ion-icon name="md-person"></ion-icon> {{ bus?.cordinator?.name }}
-						</h2><br>
+						</h2><br><br><br>
 
 						<h2>
 							<ion-icon name="md-call"></ion-icon> {{ bus?.cordinator?.cell_no }}
@@ -56,7 +57,7 @@
 					</ion-item>
 					<ion-item-options side="right">
 						<button ion-button round color="secondary" (click)="call(bus?.cordinator?.cell_no)"><ion-icon name="md-call" large>
-							Call</ion-icon></button>
+								Call</ion-icon></button>
 					</ion-item-options>
 
 				</ion-item-sliding>
@@ -67,15 +68,15 @@
 	<ion-card no-padding>
 		<ion-card-header color="dark">Driver</ion-card-header>
 		<ion-card-content no-padding>
-			<ion-list>
+			<ion-list class="lista">
 				<ion-item-sliding #item>
-					<ion-item style="background: linear-gradient(0.40turn, #c2d8e7 , #fdfffb ,#bbd2e2 );">
+					<ion-item>
 
 						<img class="thumb" src="assets/imgs/11.JPG" item-left>
 
 						<h2>
 							<ion-icon name="md-person"></ion-icon> {{ bus?.driver?.name }}
-						</h2><br>
+						</h2><br><br><br>
 
 						<h2>
 							<ion-icon name="md-call"></ion-icon> {{ bus?.driver?.cell_no }}
@@ -92,4 +93,4 @@
 	</ion-card>
 
 
-</ion-content> 
+</ion-content>

@@ -21,6 +21,9 @@ export class StudentPage {
   lat: any;
   lng: any;
   bus: any;
+  assignedstop: any;
+  image = "/assets/imgs/bus11.ico";
+
 
   constructor(public locationService: LocationServiceProvider,
     public storage: Storage, public http: Http, public datepipe: DatePipe, public navCtrl: NavController, public menu: MenuController, public navParams: NavParams, public app: AppServiceProvider, public geolocation: Geolocation) {
@@ -29,9 +32,10 @@ export class StudentPage {
   ngOnInit() {
     this.showmap();
   }
-  ionViewDidLoad() {
-  }
 
+  ionViewDidLoad() {
+    this.getAssignedStop();
+  }
 
   showmap() {
     const location = new google.maps.LatLng(34.083656, 74.797371);
@@ -44,9 +48,9 @@ export class StudentPage {
     //create map
     this.map = new google.maps.Map(this.mapRef.nativeElement, options);
     this.app.removeLoader();
-    this.locationService.id=setInterval(() => {
+    this.locationService.id = setInterval(() => {
       this.getlocation();
-    }, 15000);
+    }, 7000);
   }
 
   addMarker(position, map) {
@@ -76,7 +80,40 @@ export class StudentPage {
         );
     });
   }
+  // distanceCal(lat1, lat2, lng1, lng2) {
+  //   var R = 6371e3; // metres
+  //   var φ1 = lat1.toRadians();
+  //   var φ2 = lat2.toRadians();
+  //   var Δφ = (lat2 - lat1).toRadians();
+  //   var Δλ = (lng2 - lng1).toRadians();
+
+  //   var a = Math.sin(Δφ / 2) * Math.sin(Δφ / 2) +
+  //     Math.cos(φ1) * Math.cos(φ2) *
+  //     Math.sin(Δλ / 2) * Math.sin(Δλ / 2);
+  //   var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+
+  //   var d = R * c;
+  // }
   ionViewDidLeave() {
     clearInterval(this.locationService.id);
+  }
+  getAssignedStop() {
+    this.storage.get('user').then((user) => {
+      this.locationService.getProfile(user)
+        .subscribe(
+          result => {
+            this.assignedstop = result.data.stop;
+            const loc = new google.maps.LatLng(this.assignedstop.lat, this.assignedstop.lng);
+            var showMarkers = new google.maps.Marker({ position: loc, title: this.assignedstop.name, icon: this.image });
+            showMarkers.setMap(this.map);
+          },
+          err => {
+
+          },
+          () => {
+
+          }
+        )
+    })
   }
 }

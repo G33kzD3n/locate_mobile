@@ -12,7 +12,7 @@ import { RequestOptions, Headers, Http } from '@angular/http'
 })
 export class LocationPage {
 
-  public stops: any;
+  public stops:any;
   public buses: any;
   public bus:any;
   public On: Boolean = false;
@@ -22,11 +22,12 @@ export class LocationPage {
 
 
 
+
   constructor(public http: Http,
     public app: AppServiceProvider, public storage: Storage,
     public navCtrl: NavController, public navParams: NavParams) {
     this.buses = "";
-    this.stops = "";
+    //this.stops="";
   }
 
   ionViewDidLoad() {
@@ -60,7 +61,8 @@ export class LocationPage {
           result => {
             this.buses = result.buses;
             console.log(this.buses);
-            //this.stops = result.buses[0].stops.names;          
+            this.stops=result.buses[0].stops.names.split(';');
+            console.log(this.stops);
           },
           error => {
             error = (JSON.parse(error._body));

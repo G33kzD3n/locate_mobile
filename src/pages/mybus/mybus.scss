@@ -6,9 +6,7 @@ page-mybus {
 
 .buscard{
 
-    background: linear-gradient(0.40turn, #c2d8e7 , #fdfffb ,#bbd2e2 );
-   
-
+   background: transparent;
     img{
         height: 150px;;
     }
@@ -21,9 +19,6 @@ page-mybus {
 ion-card-header{
     
     text-align: center;
-    margin-top: -12px;
-    margin-bottom: -12px;
-    background: linear-gradient(0.50turn, #0083ff , #fdfffb  );
     font-weight: bolder;
 }
 
@@ -32,5 +27,14 @@ ion-card-header{
     width: 120px;
     height: 120px;
    
+}
+.lista h2{
+float: left;
+font-weight: bolder;
+margin: auto;
+}
+
+.lista ion-item{
+    background: transparent !important;
 }
 }
