@@ -22,11 +22,15 @@ export class StudentPage {
   lng: any;
   bus: any;
   assignedstop: any;
-  image = "/assets/imgs/bus11.ico";
+  image = "/assets/imgs/bus2.png";
+  distance: any;
+  distance1: any;
 
 
   constructor(public locationService: LocationServiceProvider,
     public storage: Storage, public http: Http, public datepipe: DatePipe, public navCtrl: NavController, public menu: MenuController, public navParams: NavParams, public app: AppServiceProvider, public geolocation: Geolocation) {
+    this.distance = "";
+    this.distance1 = "";
   }
 
   ngOnInit() {
@@ -63,8 +67,9 @@ export class StudentPage {
       this.locationService.getLocation(bus_no)
         .subscribe(
           res => {
-            this.bus = res;
-            const loc = new google.maps.LatLng(this.bus.bus.lat, this.bus.bus.lng);
+            this.bus = res.bus;
+            this.distanceCal(this.assignedstop.lat, this.assignedstop.lng, this.bus.lat, this.bus.lng);
+            const loc = new google.maps.LatLng(this.bus.lat, this.bus.lng);
             this.addMarker(loc, this.map);
           },
           err => {
@@ -80,23 +85,27 @@ export class StudentPage {
         );
     });
   }
-  // distanceCal(lat1, lat2, lng1, lng2) {
-  //   var R = 6371e3; // metres
-  //   var φ1 = lat1.toRadians();
-  //   var φ2 = lat2.toRadians();
-  //   var Δφ = (lat2 - lat1).toRadians();
-  //   var Δλ = (lng2 - lng1).toRadians();
 
-  //   var a = Math.sin(Δφ / 2) * Math.sin(Δφ / 2) +
-  //     Math.cos(φ1) * Math.cos(φ2) *
-  //     Math.sin(Δλ / 2) * Math.sin(Δλ / 2);
-  //   var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+  distanceCal(lat1, lng1, lat2, lng2) {
+    console.log(lat1, lng1, lat2, lng2);
+    var R = 6371e3; // metres
+    var phi1 = this.convertDegToRad(lat1);
+    var phi2 = this.convertDegToRad(lat2);
+    var deltaphi = this.convertDegToRad(lat2 - lat1);
+    var deltalambda = this.convertDegToRad(lng2 - lng1);
 
-  //   var d = R * c;
-  // }
+    var a = Math.sin(deltaphi / 2) * Math.sin(deltaphi / 2) +
+      Math.cos(phi1) * Math.cos(phi2) * Math.sin(deltalambda / 2) * Math.sin(deltalambda / 2);
+    var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+    this.distance = R * c;
+    this.distance = this.convertMeterToKm(this.distance);
+    console.log(this.distance);
+  }
+
   ionViewDidLeave() {
     clearInterval(this.locationService.id);
   }
+
   getAssignedStop() {
     this.storage.get('user').then((user) => {
       this.locationService.getProfile(user)
@@ -115,5 +124,15 @@ export class StudentPage {
           }
         )
     })
+  }
+  convertMeterToKm(meter: any) {
+    var km = meter / 1000;
+    return km.toPrecision(4);
+  }
+  convertDegToRad(degrees) {
+    {
+      var pi = Math.PI;
+      return degrees * (pi / 180);
+    }
   }
 }

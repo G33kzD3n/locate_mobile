@@ -81,8 +81,8 @@ export class MenuPage {
         this.pages = [
 
           { title: 'Home', component: StudentPage, icon: 'home', index: 0 },
-          { title: 'Locate Bus', component: LocationPage, icon: 'bus', index: 0 },
-          { title: 'My Bus', component: MybusPage, icon: 'bus', index: 0 },
+          { title: 'Passengers', component: PassengersPage, icon: 'bus', index: 0 },
+          { title: 'Breakdown', component: LocationPage, icon: 'bus', index: 0 },
           { title: 'University Calender', component: CalenderPage, icon: 'calendar', index: 0 },
         ];
         this.activepage = this.pages[0];

@@ -19,6 +19,8 @@ export class LocationPage {
   public button: string = "Show Route";
   image = "/assets/imgs/icon.png";
   stops: any;
+  arr: any;
+  arr1 = [];
 
 
 
@@ -26,7 +28,7 @@ export class LocationPage {
     public app: AppServiceProvider, public storage: Storage,
     public navCtrl: NavController, public navParams: NavParams) {
     this.buses = "";
-    this.stops="";
+    this.stops = "";
   }
 
   ionViewDidLoad() {
@@ -59,9 +61,12 @@ export class LocationPage {
 
           result => {
             this.buses = result.buses;
-            console.log(this.buses);
-            this.stops=result.buses[0].stops.names;
-            console.log(this.stops);
+            for (let i = 0; i < result.buses.length; i++) {
+              this.stops = result.buses[i].stops.names;
+              this.arr = this.stops.split(';');
+              this.arr1[i]=this.arr;
+            }
+            //console.log(this.arr1);
           },
           error => {
             error = (JSON.parse(error._body));

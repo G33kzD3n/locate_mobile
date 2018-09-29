@@ -8,7 +8,10 @@ import { CallNumber } from '@ionic-native/call-number';
 import { LocationServiceProvider } from '../../providers/location-service/location-service';
 declare var google: any;
 
-
+interface point{
+  lat:number,
+  lng:number
+};
 @IonicPage()
 @Component({
   selector: 'page-mybus',
@@ -33,7 +36,7 @@ export class MybusPage {
   public button: string = "See Route Plan";
   assignedstop: any;
   image = "/assets/imgs/icon.png";
-  image1 = "/assets/imgs/bus11.ico";
+  image1 = "/assets/imgs/bus2.png";
 
   constructor(public locationService: LocationServiceProvider, public http: Http, public geolocation: Geolocation,
     public app: AppServiceProvider, public storage: Storage,
@@ -50,7 +53,6 @@ export class MybusPage {
   }
 
   call(num) {
-    console.log(num);
     this.callNumber.callNumber(num, true)
       .then(res => console.log('Launched dialer!', res))
       .catch(err => console.log('Error launching dialer', err));
@@ -85,19 +87,35 @@ export class MybusPage {
       }
     }
 
-    var flightPathCord = this.points;
-    //console.log(flightPathCord);
-    var flightPath = new google.maps.Polyline({
-      path: [{ lat: flightPathCord[0], lng: flightPathCord[0] },
-      { lat: flightPathCord[0], lng: flightPathCord[1] }],
-      geodesic: true,
-      strokeColor: '#FF0000',
-      strokeOpacity: 1.0,
-      strokeWeight: 2
-    });
-    flightPath.setMap(this.map);
+    // 
+    // let mypoints :any=[];
+    // var flightPathCord = {
+    //   lat:0,
+    //   lng:0
+    // };
+    // mypoints = this.points.forEach(element => {
+    //     flightPathCord.lat=element[0];
+    //     flightPathCord.lng=element[1];
+        
+    // });
+    //  console.log(this.points[0]);
+    // for (let i = 0; i < this.points.length; i++){
+    //   flightPathCord[i].lat= this.points[i][0];
+    //   flightPathCord[i].lng=this.points[i][1];
+      
+    // }
+    
+  //   console.log(flightPathCord);
+  //   var flightPath = new google.maps.Polyline({
+  //     path: [{ lat: flightPathCord[0], lng: flightPathCord[0] },
+  //     { lat: flightPathCord[0], lng: flightPathCord[1] }],
+  //     geodesic: true,
+  //     strokeColor: '#FF0000',
+  //     strokeOpacity: 1.0,
+  //     strokeWeight: 2
+  //   });
+  //   flightPath.setMap(this.map);
   }
-
   showroute() {
 
     if (this.hideMe === false) {
@@ -131,7 +149,6 @@ export class MybusPage {
           result => {
             this.bus = result.bus;
             this.places = this.bus.stops.names;
-            console.log(this.places);
             this.points = this.bus.stops.latLngs;
           },
           error => {
@@ -151,9 +168,7 @@ export class MybusPage {
       this.locationService.getProfile(user)
         .subscribe(
           res => {
-            //console.log(result);
             this.assignedstop = res.data.stop;
-            console.log(this.assignedstop);
           },
           err => {
 

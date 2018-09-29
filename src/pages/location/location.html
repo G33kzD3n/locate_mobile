@@ -1,11 +1,11 @@
 <ion-header>
   <ion-navbar>
-    <button ion-button menuToggle>
+    <button ion-button menuToggle="left">
       <ion-icon name="menu"></ion-icon>
     </button>
     <ion-title>Locate Bus</ion-title>
     <ion-buttons end>
-      <button ion-button icon-only>
+      <button ion-button menuToggle="right">
         <ion-icon name="notifications"></ion-icon>
       </button>
     </ion-buttons>
@@ -31,8 +31,9 @@
     </ion-grid>
    
     <div *ngIf="hideMe == i  && On === true">
-        {{bus.stops.names}}
+      {{ arr1[i] }}
     </div>
+
    
     <!-- <div *ngIf="hideMe">
       <div style=" border:solid #000 1px; height:500px;">

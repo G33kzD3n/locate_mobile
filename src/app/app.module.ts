@@ -14,7 +14,6 @@ import { DriverprofilePage } from '../pages/driverprofile/driverprofile';
 import { LocationPage } from '../pages/location/location';
 import { RoutePage } from '../pages/route/route';
 import { SignupPage } from '../pages/signup/signup';
-import { NotificationPage } from '../pages/notification/notification';
 import { StudentPage } from '../pages/student/student';
 import { AuthServiceProvider } from '../providers/auth-service/auth-service';
 import { MenuPage } from '../pages/menu/menu';
@@ -43,7 +42,6 @@ import { CallNumber } from '@ionic-native/call-number';
     ProfilePage,
     CalenderPage,
     MybusPage,
-    NotificationPage,
     PassengersPage,
     DriverprofilePage,
     BreakdownPage,
@@ -70,7 +68,6 @@ import { CallNumber } from '@ionic-native/call-number';
     ProfilePage,
     CalenderPage,
     MybusPage,
-    NotificationPage,
     PassengersPage,
     DriverprofilePage,
     BreakdownPage,
