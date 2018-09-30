@@ -1,16 +1,17 @@
 <ion-header>
   <ion-navbar>
 
-    <button ion-button menuToggle="left" start>
-      <ion-icon name="menu" id="menu1"></ion-icon>
+    <button ion-button menuToggle start>
+      <ion-icon name="menu"></ion-icon>
     </button>
 
     <ion-title>Trackbus</ion-title>
 
-
-    <button ion-button menuToggle="right" end>
-      <ion-icon name="notifications" id="menu2"></ion-icon>
-    </button>
+    <ion-buttons end>
+      <button ion-button icon-only (click)="openmodal()">
+        <ion-icon name="notifications"></ion-icon>
+      </button>
+    </ion-buttons>
 
 
   </ion-navbar>

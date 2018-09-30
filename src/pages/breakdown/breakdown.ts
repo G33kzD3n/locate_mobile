@@ -1,12 +1,8 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-
-/**
- * Generated class for the BreakdownPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+import { RequestOptions, Headers, Http } from '@angular/http';
+import { AppServiceProvider } from '../../providers/app-service/app-service';
+import { Storage } from '@ionic/storage';
 
 @IonicPage()
 @Component({
@@ -15,17 +11,43 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class BreakdownPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public storage: Storage, private app: AppServiceProvider, public http: Http, public navCtrl: NavController, public navParams: NavParams) {
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad BreakdownPage');
   }
 
-    
-  message:string;
-  sendBreakdown(data:{name:string}){
-    console.log(data);
-    this.message = "Message sent " + data.name;
+
+  message: string;
+  sendBreakdown(data: { name: string }) {
+    this.message = data.name;
+
+    this.storage.get('bus_no').then((bus_no) => {
+
+      let payload = {
+        type: this.message,
+        time: this.app.calDate()
+      };
+      console.log(payload);
+      let headers = new Headers({ 'Content-Type': 'application/json' });
+      let options = new RequestOptions({ headers: headers });
+
+      //this.http.get("http://localhost:8000/api/user")
+
+      this.http.post(this.app.getUrl() + '/buses/' + bus_no + '/breakdown', payload, options)
+        .map(res => res.json())
+        .subscribe(
+
+          result => {
+
+          },
+          error => {
+            this.app.showToast("Breakdown Message wasnt sent", 'top', 'error');
+          },
+          () => {
+            this.app.showToast("Breakdown Message sent", 'top', 'success');
+          });
+    });
   }
 }

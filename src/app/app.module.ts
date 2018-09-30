@@ -29,6 +29,8 @@ import { Network } from '@ionic-native/network';
 import { DatePipe } from '@angular/common';
 import { LocationServiceProvider } from '../providers/location-service/location-service';
 import { CallNumber } from '@ionic-native/call-number';
+import { PusherServiceProvider } from '../providers/pusher-service/pusher-service';
+import { ModalPage } from '../pages/modal/modal';
 
 @NgModule({
   declarations: [
@@ -45,7 +47,8 @@ import { CallNumber } from '@ionic-native/call-number';
     PassengersPage,
     DriverprofilePage,
     BreakdownPage,
-    DriverhomepagePage
+    DriverhomepagePage,
+    ModalPage
   ],
   imports: [
     BrowserModule,
@@ -71,7 +74,8 @@ import { CallNumber } from '@ionic-native/call-number';
     PassengersPage,
     DriverprofilePage,
     BreakdownPage,
-    DriverhomepagePage
+    DriverhomepagePage,
+    ModalPage
   ],
   providers: [
     Geolocation,
@@ -86,6 +90,7 @@ import { CallNumber } from '@ionic-native/call-number';
     SplashScreen,
     LocationServiceProvider,
     CallNumber,
+    PusherServiceProvider,
   ]
 })
 export class AppModule { }
