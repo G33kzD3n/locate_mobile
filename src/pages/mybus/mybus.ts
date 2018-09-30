@@ -8,7 +8,10 @@ import { CallNumber } from '@ionic-native/call-number';
 import { LocationServiceProvider } from '../../providers/location-service/location-service';
 declare var google: any;
 
-
+interface point {
+  lat: number,
+  lng: number
+};
 @IonicPage()
 @Component({
   selector: 'page-mybus',
@@ -20,14 +23,16 @@ export class MybusPage {
   @ViewChild('map') mapRef: ElementRef;
   @ViewChild('directionsPanel') directionsPanel: ElementRef;
 
-
+  myStopIndex: number = 0;
   map: any;
   lat: any;
   lon: any;
   i: any;
   mark: any;
 
-  
+
+
+
 
   public poly: any;
 
@@ -39,7 +44,8 @@ export class MybusPage {
   assignedstop: any;
   image = '../assets/imgs/icon.png';
   image1 = '../assets/imgs/bus11.ico';
-  waypts: ["this.assignedstop.lat, this.assignedstop.lng"];
+  waypts: any = [];
+
 
   constructor(public locationService: LocationServiceProvider, public http: Http, public geolocation: Geolocation,
     public app: AppServiceProvider, public storage: Storage,
@@ -56,7 +62,6 @@ export class MybusPage {
   }
 
   call(num) {
-    console.log(num);
     this.callNumber.callNumber(num, true)
       .then(res => console.log('Launched dialer!', res))
       .catch(err => console.log('Error launching dialer', err));
@@ -89,37 +94,57 @@ export class MybusPage {
       else {
         const loc = new google.maps.LatLng(this.assignedstop.lat, this.assignedstop.lng);
         var showMarkers = new google.maps.Marker({ position: loc, title: this.assignedstop.name, icon: this.image1 });
+        this.myStopIndex = i;
+
         showMarkers.setMap(this.map);
+        
+
       }
     }
 
   }
 
-
   startNavigating() {
+
 
     let directionsService = new google.maps.DirectionsService;
     let directionsDisplay = new google.maps.DirectionsRenderer;
 
     directionsDisplay.setMap(this.map);
     directionsDisplay.setPanel(this.directionsPanel.nativeElement);
-
+    console.log(this.points[this.myStopIndex - parseInt('2')]);
+    console.log("***waypoints");
+   
     directionsService.route({
       origin: '34.1284, 74.8365',
-      // destination: '34.1535, 74.8023',
+      
       waypoints: [{
-        location: this.assignedstop.lat, this.assignedstop.lng,
+
+        location: this.points[2][0] + "," + this.points[2][1],
         stopover: true
-      },{
-        location:'34.1009, 74.8092',
+      }, {
+        location: this.points[4][0] + "," + this.points[4][1],
         stopover: true
-      }],
+      },
+      {
+        location: this.points[6][0] + "," + this.points[6][1],
+        stopover: true
+      },
+      {
+        location: this.points[8][0] + "," + this.points[8][1],
+        stopover: true
+      },
+      {
+        location: this.points[10][0] + "," + this.points[10][1],
+        stopover: true
+      }
+      ],
+      
+
       destination: '34.2323, 74.4163',
 
       provideRouteAlternatives: true,
-      //  optimizeWaypoints: true,
-
-
+      
       travelMode: google.maps.TravelMode['DRIVING']
     }, (res, status) => {
 
@@ -137,7 +162,6 @@ export class MybusPage {
     if (this.hideMe === false) {
       this.app.showLoader('Loading Route...');
       this.hideMe = true;
-      this.button = "Hide";
       setTimeout(() => {
         this.showmap();
         this.startNavigating();
@@ -146,8 +170,6 @@ export class MybusPage {
     } else {
 
       this.hideMe = false;
-      this.button = "Show Route Plan";
-
     }
 
   }
@@ -166,7 +188,6 @@ export class MybusPage {
           result => {
             this.bus = result.bus;
             this.places = this.bus.stops.names;
-            console.log(this.places);
             this.points = this.bus.stops.latLngs;
           },
           error => {
@@ -186,10 +207,8 @@ export class MybusPage {
       this.locationService.getProfile(user)
         .subscribe(
           res => {
-            //console.log(result);
             this.assignedstop = res.data.stop;
-            console.log(this.assignedstop);
-          },
+                    },
           err => {
 
           },

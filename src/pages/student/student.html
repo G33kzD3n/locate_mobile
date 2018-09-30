@@ -1,26 +1,20 @@
 <ion-header>
   <ion-navbar>
 
-    <button ion-button menuToggle>
+    <button ion-button menuToggle="left" start>
       <ion-icon name="menu" id="menu1"></ion-icon>
     </button>
 
     <ion-title>Trackbus</ion-title>
 
 
-    <button ion-button menuToggle end>
-      <ion-icon name="notifications" id="menu2" menuClose="menu2"></ion-icon>
+    <button ion-button menuToggle="right" end>
+      <ion-icon name="notifications" id="menu2"></ion-icon>
     </button>
 
 
   </ion-navbar>
 </ion-header>
-
-
-
-
-
-
 <ion-content>
 
 
@@ -28,8 +22,8 @@
     <div #map id="map" style="height:500px;"> </div>
     <ion-item>
       <ion-icon name="football" item-start large></ion-icon>
-      <h2>{{ bus?.bus?.lat }}</h2>
-      <p>{{ bus?.bus?.lng }}</p>
+      <h2>{{ bus?.lat }}</h2>
+      <p>{{ bus?.lng }}</p>
     </ion-item>
 
     <ion-item>
@@ -42,7 +36,7 @@
 
   </ion-card>
   <ion-card>
-    <span item-start>30 min To Reach (8km)</span>
+    <span item-start>30 min To Reach ({{distance}} Km)</span>
     <span item-start>ETA: 9:15 AM</span>
   </ion-card>
 </ion-content>

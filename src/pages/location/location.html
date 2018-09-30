@@ -1,11 +1,11 @@
 <ion-header>
   <ion-navbar>
-    <button ion-button menuToggle>
+    <button ion-button menuToggle="left">
       <ion-icon name="menu"></ion-icon>
     </button>
     <ion-title>Locate Bus</ion-title>
     <ion-buttons end>
-      <button ion-button icon-only>
+      <button ion-button menuToggle="right">
         <ion-icon name="notifications"></ion-icon>
       </button>
     </ion-buttons>
@@ -15,12 +15,10 @@
 <ion-content class="contentbg">
 
   <ion-card *ngFor="let bus of buses; let i=index" no-padding class="buscard">
-    <ion-card-header>
-      <ion-icon name="bus" item-start></ion-icon>
-      Bus Number: {{ bus?.bus_no }}
-
-    </ion-card-header>
+    
     <img class="bus" src="assets/imgs/bus.jpg" alt="bus">
+    
+     <h2><ion-icon name="bus" item-start></ion-icon> Bus Number: {{ bus?.bus_no }}</h2> 
     <ion-grid>
       <ion-row>
         <ion-col>
@@ -36,20 +34,11 @@
     <div *ngIf="hideMe == i  && On === true">
      
       
-        <ion-label class="routes" text-wrap padding> {{bus.stops.names.split(';').join(" --> ")}} </ion-label>
+        <ion-label class="routes" text-wrap padding> {{bus.stops.names.split(';').join(" -- ")}} </ion-label>
           
       
-    </div>
+     </div> 
 
-    <!-- <div *ngIf="hideMe">
-      <div style=" border:solid #000 1px; height:500px;">
-          <p *ngFor="let stop of bus?.stops;">
-            <label>Route</label><br>
-            {{ stop[0] }}
-            </p>
-       
-      </div><br> -->
-      <!-- {{stops.split(';',20)}}<br> -->
   </ion-card>
    
 

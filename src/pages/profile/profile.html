@@ -1,18 +1,18 @@
 <ion-header>
   <ion-navbar>
-    <button ion-button menuToggle>
+    <button ion-button menuToggle="left">
       <ion-icon name="menu"></ion-icon>
     </button>
     <ion-title>{{ title }}</ion-title>
     <ion-buttons end>
-      <button ion-button icon-only>
+      <button ion-button menuToggle="right">
         <ion-icon name="notifications"></ion-icon>
       </button>
     </ion-buttons>
   </ion-navbar>
 </ion-header>
 
-<ion-content class="contentbg" no-padding>
+<ion-content class="contentbgo" no-padding>
 
   <ion-grid class="profilebg"> </ion-grid>
 
@@ -49,7 +49,7 @@
         </ion-item>
 
         <ion-item>
-          <ion-icon name="md-person"></ion-icon><label> Roll-no</label><br>
+          <ion-icon name="md-person"></ion-icon><label> Roll-no</label>
           <h2>{{ roll }}</h2>
         </ion-item>
       </ion-list>

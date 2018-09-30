@@ -1,4 +1,9 @@
 page-mybus {
+ion-fab{
+    margin-right: 10px;
+    margin-top: 10px;
+}
+
 
     #map{
         height: 70%;
@@ -8,11 +13,14 @@ page-mybus {
 
    background: transparent;
     img{
-        height: 150px;;
+        height: 210px;;
     }
     h2{
         text-align: center;
         
+    }
+    h1{
+        text-align: center;
     }
 }
 
@@ -38,3 +46,4 @@ margin: auto;
     background: transparent !important;
 }
 }
+ 

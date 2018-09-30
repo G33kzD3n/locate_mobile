@@ -36,6 +36,7 @@ export class ProfilePage {
   openuser() {
     this.storage.get('user').then((user) => {
       user = this.app.getToken(user);
+      this.roll=user;
       this.locationService.getProfile(user)
         .subscribe(
           result => {

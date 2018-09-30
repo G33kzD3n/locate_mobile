@@ -22,7 +22,6 @@ export class LocationPage {
 
 
 
-
   constructor(public http: Http,
     public app: AppServiceProvider, public storage: Storage,
     public navCtrl: NavController, public navParams: NavParams) {
