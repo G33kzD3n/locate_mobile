@@ -15,7 +15,7 @@
 <ion-content class="contentbg">
 
   <ion-card *ngFor="let bus of buses; let i=index" no-padding class="buscard">
-    <span *ngIf="bus?.bus_no !== 8801">
+    <span *ngIf="bus?.bus_no !== mybus">
     <img class="bus" src="assets/imgs/bus.jpg" alt="bus">
     
      <h2><ion-icon name="bus" item-start></ion-icon> Bus Number: {{ bus?.bus_no }}</h2> 

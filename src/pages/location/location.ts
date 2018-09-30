@@ -19,6 +19,7 @@ export class LocationPage {
   public hideMe: number;
   public button: string = "Show Route";
   image = "/assets/imgs/icon.png";
+  mybus:any;
 
 
 
@@ -49,6 +50,7 @@ export class LocationPage {
 
     this.storage.get('bus_no').then((bus_no) => {
       bus_no = this.app.getToken(bus_no);
+      this.mybus=bus_no;
       this.app.showLoader("Loading");
       let headers = new Headers({ 'Content-Type': 'application/json' });
       let options = new RequestOptions({ headers: headers });
