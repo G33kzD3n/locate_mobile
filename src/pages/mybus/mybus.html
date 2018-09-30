@@ -1,11 +1,13 @@
 <ion-header>
 	<ion-navbar>
-		<button ion-button menuToggle="left">
+		<button ion-button menuToggle>
 			<ion-icon name="menu"></ion-icon>
 		</button>
 		<ion-title>My Bus</ion-title>
 		<ion-buttons end>
-			<button ion-button menuToggle="right"><ion-icon name="notifications"></ion-icon></button>
+			<button ion-button icon-only (click)="openmodal()">
+				<ion-icon name="notifications"></ion-icon>
+			</button>
 		</ion-buttons>
 	</ion-navbar>
 </ion-header>
@@ -90,7 +92,9 @@
 
 					</ion-item>
 					<ion-item-options side="right">
-						<button ion-button round color="secondary" (click)="call(bus?.driver?.cell_no)"><ion-icon name="md-call" large> Call</ion-icon></button>
+						<button ion-button round color="secondary" (click)="call(bus?.driver?.cell_no)">
+							<ion-icon name="md-call" large> Call</ion-icon>
+						</button>
 					</ion-item-options>
 
 				</ion-item-sliding>

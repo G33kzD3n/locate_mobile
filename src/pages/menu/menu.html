@@ -1,4 +1,4 @@
-<ion-menu side="left" class="menu" id="menu1" [content]="content">
+<ion-menu side="left" class="menu"  [content]="content">
   <ion-header (click)="openProfile()">
     <ion-toolbar class="user-profile">
       <div class="user-avatar">
@@ -27,20 +27,5 @@
       </button>
     </ion-toolbar>
   </ion-footer>
-</ion-menu>
-<ion-menu [content]="content" side="right" id="menu2">
-    <ion-header (click)="openProfile()">
-        <ion-toolbar class="user-profile">
-          <div class="user-avatar">
-            <img src="assets/imgs/12.jpg">
-          </div>
-    
-          <h2> {{ user1 }}  </h2>
-    
-        </ion-toolbar>
-      </ion-header>
-    
-  <ion-content>
-  </ion-content>
 </ion-menu>
 <ion-nav [root]="rootpage" #content swipeBackEnabled="false"></ion-nav>

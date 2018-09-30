@@ -2,6 +2,7 @@ import { Http } from '@angular/http';
 import { Injectable } from '@angular/core';
 import { Network } from '@ionic-native/network';
 import { Platform } from 'ionic-angular';
+import { DatePipe } from '@angular/common'
 import { ToastController, LoadingController, AlertController } from 'ionic-angular';
 import 'rxjs/add/operator/map';
 
@@ -14,7 +15,8 @@ export class AppServiceProvider {
   public loader: any;
   networkConn: any;
   public style: any;
-  constructor(public plat: Platform, public alert: AlertController, public network: Network, public http: Http, public loadingCtrl: LoadingController, public toastCtrl: ToastController) {
+  myDate: any = new Date().toLocaleString();
+  constructor(public datepipe: DatePipe, public plat: Platform, public alert: AlertController, public network: Network, public http: Http, public loadingCtrl: LoadingController, public toastCtrl: ToastController) {
     this.loader = this.loadingCtrl.create({
       content: ''
     });
@@ -64,7 +66,11 @@ export class AppServiceProvider {
   getUrl() {
     return this.baseUrl;
   }
-
+  calDate() {
+    this.myDate = new Date();
+    let latest_date: String = this.datepipe.transform(this.myDate, 'yyyy-MM-dd hh:mm:ss');
+    return latest_date;
+  }
 
   getToken(token) {
 

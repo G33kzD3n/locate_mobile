@@ -25,6 +25,13 @@ export class LoginPage {
 
 
   constructor(public network: Network, public navCtrl: NavController, private app: AppServiceProvider, public http: Http, public storage: Storage) {
+
+    this.network.onDisconnect().subscribe(() => {
+      console.log('network was disconnected');
+    });
+    this.network.onConnect().subscribe(() => {
+      console.log('network connected!');
+    });
   }
 
   ngOnInit() {
@@ -77,8 +84,6 @@ export class LoginPage {
           this.storage.set('name', user.name);
           this.storage.set('user', payload.username);
           
-              
-
         },
         error => {
           error = (JSON.parse(error._body));
