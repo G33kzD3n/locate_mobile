@@ -3,7 +3,6 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { AppServiceProvider } from '../../providers/app-service/app-service';
 import { Http } from '@angular/http';
 import { MenuController } from 'ionic-angular';
-import { DatePipe } from '@angular/common'
 import { Geolocation } from "@ionic-native/geolocation";
 import { Storage } from '@ionic/storage';
 import { LocationServiceProvider } from '../../providers/location-service/location-service';
@@ -18,7 +17,6 @@ export class DriverhomepagePage {
   isOn: boolean = false;
   buttonColor: string;
   text: string = "Start Engine";
-  myDate: any = new Date().toLocaleString();
   map: any;
   lat: any;
   lng: any;
@@ -42,7 +40,6 @@ export class DriverhomepagePage {
 
   constructor(
     public http: Http, public storage: Storage,
-    public datepipe: DatePipe,
     public navCtrl: NavController, public menu: MenuController,
     public navParams: NavParams, public app: AppServiceProvider,
     public geolocation: Geolocation, public locationService: LocationServiceProvider) {
@@ -67,7 +64,7 @@ export class DriverhomepagePage {
             busno: bus_no,
             lat: this.lat,
             lng: this.lng,
-            time: this.calDate()
+            time: this.app.calDate()
           };
           console.log(payload.time);
           this.locationService.storeLocation(payload)
@@ -89,11 +86,7 @@ export class DriverhomepagePage {
         this.app.showToast("Error!!!", 'top', 'error');
       });
   }
-  calDate() {
-    this.myDate = new Date();
-    let latest_date: String = this.datepipe.transform(this.myDate, 'yyyy-MM-dd hh:mm:ss');
-    return latest_date;
-  }
+
   getLocation() {
     this.storage.get('bus_no').then((bus_no) => {
       let payload = {

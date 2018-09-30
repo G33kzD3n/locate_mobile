@@ -74,6 +74,7 @@ export class MybusPage {
 
   addMarkers(points: any) {
       var arr = this.places.split(';');
+      console.log(this.points);
       for (let i = 0; i < points.length; i++) {
       if (this.points[i][0] != this.assignedstop.lat && this.points[i][1] != this.assignedstop.lng) {
         var position = new google.maps.LatLng(this.points[i][0], this.points[i][1]);

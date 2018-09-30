@@ -1,13 +1,15 @@
 import { Component, ViewChild, ElementRef } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams,ModalController } from 'ionic-angular';
 import { AppServiceProvider } from '../../providers/app-service/app-service';
 import { MenuController } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 import { Http } from '@angular/http';
 import { DatePipe } from '@angular/common'
 import { Geolocation } from "@ionic-native/geolocation";
+import { PusherServiceProvider } from '../../providers/pusher-service/pusher-service';
 import { LocationServiceProvider } from '../../providers/location-service/location-service';
 declare var google: any;
+import { ModalPage } from '../modal/modal';
 
 @IonicPage()
 @Component({
@@ -25,14 +27,15 @@ export class StudentPage {
   image = "/assets/imgs/bus2.png";
   distance: any;
   distance1: any;
+  channel: any;
 
 
-  constructor(public locationService: LocationServiceProvider,
+  constructor(public modal: ModalController,public pusher: PusherServiceProvider, public locationService: LocationServiceProvider,
     public storage: Storage, public http: Http, public datepipe: DatePipe, public navCtrl: NavController, public menu: MenuController, public navParams: NavParams, public app: AppServiceProvider, public geolocation: Geolocation) {
     this.distance = "";
     this.distance1 = "";
   }
-
+  
   ngOnInit() {
     this.showmap();
   }
@@ -52,9 +55,9 @@ export class StudentPage {
     //create map
     this.map = new google.maps.Map(this.mapRef.nativeElement, options);
     this.app.removeLoader();
-    this.locationService.id = setInterval(() => {
-      this.getlocation();
-    }, 7000);
+    // this.locationService.id = setInterval(() => {
+    this.getlocation();
+    // }, 7000);
   }
 
   addMarker(position, map) {
@@ -64,25 +67,33 @@ export class StudentPage {
   getlocation() {
     this.storage.get('bus_no').then((bus_no) => {
       bus_no = this.app.getToken(bus_no);
-      this.locationService.getLocation(bus_no)
-        .subscribe(
-          res => {
-            this.bus = res.bus;
-            this.distanceCal(this.assignedstop.lat, this.assignedstop.lng, this.bus.lat, this.bus.lng);
-            const loc = new google.maps.LatLng(this.bus.lat, this.bus.lng);
-            this.addMarker(loc, this.map);
-          },
-          err => {
-            //err = (JSON.parse(err._body));
-            if (err.status = 429) {
-              console.log(err);
-              this.app.showToast("Something went wrong...Kindly reload or try after Sometime", "top", 'error')
-            }
-          },
-          () => {
-            //this.app.removeLoader();
-          }
-        );
+      this.channel = this.pusher.init(bus_no + '-channel');
+      this.channel.bind('location-update', (data) => {
+        console.log(data);
+        const loc = new google.maps.LatLng(data.lat, data.lng);
+        this.addMarker(loc, this.map);
+        this.app.showToast(JSON.stringify(data), 'top', 'success');
+      });
+      // this.locationService.getLocation(bus_no)
+      //   .subscribe(
+      //     res => {
+      //       this.bus = res.bus;
+      //       //this.distanceCal(this.assignedstop.lat, this.assignedstop.lng, this.bus.lat, this.bus.lng);
+      //       const loc = new google.maps.LatLng(this.bus.lat, this.bus.lng);
+      //       this.addMarker(loc, this.map);
+
+      //     },
+      //     err => {
+      //       //err = (JSON.parse(err._body));
+      //       if (err.status = 429) {
+      //         console.log(err);
+      //         this.app.showToast("Something went wrong...Kindly reload or try after Sometime", "top", 'error')
+      //       }
+      //     },
+      //     () => {
+      //       //this.app.removeLoader();
+      //     }
+      //   );
     });
   }
 
@@ -104,6 +115,7 @@ export class StudentPage {
 
   ionViewDidLeave() {
     clearInterval(this.locationService.id);
+    this.pusher.destroy('8801-channel');
   }
 
   getAssignedStop() {

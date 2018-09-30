@@ -46,7 +46,11 @@ export class MenuPage {
       if (data === 0) {
         this.nav.setRoot(ProfilePage);
       }
-      else {
+      else if(data===2){
+        this.nav.setRoot(ProfilePage);
+      }
+      else
+      {
         this.nav.setRoot(DriverprofilePage);
       }
     })
