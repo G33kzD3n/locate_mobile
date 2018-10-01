@@ -69,7 +69,7 @@ export class StudentPage {
       bus_no = this.app.getToken(bus_no);
       this.channel = this.pusher.init(bus_no + '-channel');
       this.channel.bind('location-update', (data) => {
-        console.log(data);
+        this.bus=data;
         const loc = new google.maps.LatLng(data.lat, data.lng);
         this.addMarker(loc, this.map);
         this.app.showToast(JSON.stringify(data), 'top', 'success');
