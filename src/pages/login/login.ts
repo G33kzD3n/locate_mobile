@@ -25,13 +25,6 @@ export class LoginPage {
 
 
   constructor(public network: Network, public navCtrl: NavController, private app: AppServiceProvider, public http: Http, public storage: Storage) {
-
-    this.network.onDisconnect().subscribe(() => {
-      console.log('network was disconnected');
-    });
-    this.network.onConnect().subscribe(() => {
-      console.log('network connected!');
-    });
   }
 
   ngOnInit() {
@@ -53,56 +46,55 @@ export class LoginPage {
   }
 
   gotoprofile() {
-    if (this.app.networkConn == true) {
-      console.log("network connected");
+    if (this.app.internetstatus == false) {
+      console.log(this.app.internetstatus);
+      this.app.Confirm();
     }
     else {
-      console.log("network not connected");
-    }
-    let user: any;
+      let user: any;
 
-    let payload = {
-      username: this.loginForm.controls['username'].value,
-      password: this.loginForm.controls['password'].value
-    };
+      let payload = {
+        username: this.loginForm.controls['username'].value,
+        password: this.loginForm.controls['password'].value
+      };
 
-    let headers = new Headers({ 'Content-Type': 'application/json' });
-    let options = new RequestOptions({ headers: headers });
+      let headers = new Headers({ 'Content-Type': 'application/json' });
+      let options = new RequestOptions({ headers: headers });
 
-    //this.http.get("http://localhost:8000/api/user")
+      //this.http.get("http://localhost:8000/api/user")
 
-    this.http.post(this.app.getUrl() + '/login', payload, options)
-      .map(res => res.json())
-      .subscribe(
+      this.http.post(this.app.getUrl() + '/login', payload, options)
+        .map(res => res.json())
+        .subscribe(
 
-        result => {
+          result => {
 
-          user = result.data;
-          this.storage.set('bus_no', user.bus_no);
-          this.storage.set('level', user.level);
-          this.storage.set('token', user.token);
-          this.storage.set('name', user.name);
-          this.storage.set('user', payload.username);
-          
-        },
-        error => {
-          error = (JSON.parse(error._body));
-          if (error) {
+            user = result.data;
+            this.storage.set('bus_no', user.bus_no);
+            this.storage.set('level', user.level);
+            this.storage.set('token', user.token);
+            this.storage.set('name', user.name);
+            this.storage.set('user', payload.username);
+
+          },
+          error => {
+            error = (JSON.parse(error._body));
+            if (error) {
+              this.app.removeLoader();
+              this.app.showToast("Username or Password doesn't match", 'top', 'error');
+            }
+          },
+
+          () => {
             this.app.removeLoader();
-            this.app.showToast("Username or Password doesn't match", 'top', 'error');
-          }
-        },
-
-        () => {
-          this.app.removeLoader();
-          this.navCtrl.setRoot(MenuPage, {
-            user: this.loginForm.controls['username'].value
+            this.navCtrl.setRoot(MenuPage, {
+              user: this.loginForm.controls['username'].value
+            });
           });
-        });
+    }
   }
 
   ionViewDidEnter() {
-
     this.storage.get('token').then((token) => {
       if (token) {
         this.navCtrl.setRoot(MenuPage);

@@ -27,11 +27,6 @@ export class MyApp {
       this.splashScreen.hide();
     });
   }
-  openmodal()
-  {
-    let notice= this.modal.create(ModalPage)
-    notice.present();
-  }
 }
 
 

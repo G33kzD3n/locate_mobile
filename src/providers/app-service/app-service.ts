@@ -2,9 +2,10 @@ import { Http } from '@angular/http';
 import { Injectable } from '@angular/core';
 import { Network } from '@ionic-native/network';
 import { Platform } from 'ionic-angular';
-import { DatePipe } from '@angular/common'
+import { DatePipe } from '@angular/common';
 import { ToastController, LoadingController, AlertController } from 'ionic-angular';
 import 'rxjs/add/operator/map';
+import { OpenNativeSettings } from '@ionic-native/open-native-settings';
 
 
 
@@ -13,30 +14,16 @@ export class AppServiceProvider {
   // private baseUrl: string = "https://laravel-5j3c.frb.io/api/1.0";
   private baseUrl: string = "http://192.168.43.58:9000/api/1.0";
   public loader: any;
-  networkConn: any;
   public style: any;
   myDate: any = new Date().toLocaleString();
-  constructor(public datepipe: DatePipe, public plat: Platform, public alert: AlertController, public network: Network, public http: Http, public loadingCtrl: LoadingController, public toastCtrl: ToastController) {
+  internetstatus: boolean;
+
+  constructor(public platform :Platform,public settings: OpenNativeSettings, public datepipe: DatePipe, public plat: Platform, public alert: AlertController, public network: Network, public http: Http, public loadingCtrl: LoadingController, public toastCtrl: ToastController) {
     this.loader = this.loadingCtrl.create({
       content: ''
     });
-
+    this.checknetwork();
   }
-  conn() {
-    this.plat.ready().then(() => {
-      this.network.onDisconnect().subscribe(() => {
-        this.networkConn = false;
-        console.log('hell');
-      });
-    });
-    this.network.onConnect().subscribe(() => {
-      console.log("network");
-      this.networkConn = true;
-    });
-  }
-
-
-
   showLoader(message: string) {
     this.loader = this.loadingCtrl.create({
       content: message
@@ -49,6 +36,16 @@ export class AppServiceProvider {
       this.loader.dismiss();
     }, timmer);
 
+  }
+  checknetwork() {
+    this.network.onConnect().subscribe(() => {
+      this.internetstatus = true;
+    });
+
+    this.network.onDisconnect().subscribe(() => {
+      this.Confirm();
+      this.internetstatus = false;
+    });
   }
 
   showToast(data: string, position: string, style: string) {
@@ -76,5 +73,36 @@ export class AppServiceProvider {
 
     return token;
   }
-
+  Confirm() {
+    let alert = this.alert.create({
+      title: 'No Internet',
+      message: 'This app requires an Active Internet Connection in order to function properly',
+      buttons: [
+        {
+          text: 'Open Settings',
+          handler: () => {
+            this.openinternetsettings();
+          }
+        },
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          handler: () => {
+            console.log('Cancel clicked');
+           // this.exitapp();
+          }
+        }
+      ]
+    });
+    alert.present();
+  }
+  openinternetsettings() {
+    this.settings.open('network').then(value => {
+      console.log('settings opened');
+    }).catch(err =>
+      console.log(err));
+  }
+  exitapp(){
+    this.platform.exitApp();
+  }
 }
