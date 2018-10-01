@@ -8,8 +8,9 @@ import { DatePipe } from '@angular/common'
 import { Geolocation } from "@ionic-native/geolocation";
 import { PusherServiceProvider } from '../../providers/pusher-service/pusher-service';
 import { LocationServiceProvider } from '../../providers/location-service/location-service';
-declare var google: any;
 import { ModalPage } from '../modal/modal';
+
+declare var google: any;
 
 @IonicPage()
 @Component({
@@ -25,15 +26,25 @@ export class StudentPage {
   bus: any;
   assignedstop: any;
   image = "/assets/imgs/bus2.png";
-  distance: any;
-  distance1: any;
+ 
   channel: any;
+  
 
-
-  constructor(public modal: ModalController, public pusher: PusherServiceProvider, public locationService: LocationServiceProvider,
-    public storage: Storage, public http: Http, public datepipe: DatePipe, public navCtrl: NavController, public menu: MenuController, public navParams: NavParams, public app: AppServiceProvider, public geolocation: Geolocation) {
-    this.distance = "";
-    this.distance1 = "";
+  constructor(public modal: ModalController, public pusher: PusherServiceProvider,
+    public locationService: LocationServiceProvider,
+    public storage: Storage, public http: Http, public datepipe: DatePipe,
+    public navCtrl: NavController, public menu: MenuController,
+    public navParams: NavParams, public app: AppServiceProvider, public geolocation: Geolocation) {
+  
+  }
+  focusOnStop() {
+    console.log("stop");
+  }
+  focusOnCurrent() {
+    console.log("current");
+  }
+  focusOnBus() {
+    console.log("Bus focus");
   }
 
   ngOnInit() {
@@ -44,8 +55,10 @@ export class StudentPage {
     this.getAssignedStop();
   }
 
+  
   showmap() {
     const location = new google.maps.LatLng(34.083656, 74.797371);
+
     let options = {
       center: location,
       zoom: 15,
@@ -69,7 +82,7 @@ export class StudentPage {
       bus_no = this.app.getToken(bus_no);
       this.channel = this.pusher.init(bus_no + '-channel');
       this.channel.bind('location-update', (data) => {
-        this.bus=data;
+        this.bus = data;
         const loc = new google.maps.LatLng(data.lat, data.lng);
         this.addMarker(loc, this.map);
         this.app.showToast(JSON.stringify(data), 'top', 'success');
@@ -97,24 +110,6 @@ export class StudentPage {
     });
   }
 
-
-
-  distanceCal(lat1, lng1, lat2, lng2) {
-    console.log(lat1, lng1, lat2, lng2);
-    var R = 6371e3; // metres
-    var phi1 = this.convertDegToRad(lat1);
-    var phi2 = this.convertDegToRad(lat2);
-    var deltaphi = this.convertDegToRad(lat2 - lat1);
-    var deltalambda = this.convertDegToRad(lng2 - lng1);
-
-    var a = Math.sin(deltaphi / 2) * Math.sin(deltaphi / 2) +
-      Math.cos(phi1) * Math.cos(phi2) * Math.sin(deltalambda / 2) * Math.sin(deltalambda / 2);
-    var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-    this.distance = R * c;
-    this.distance = this.convertMeterToKm(this.distance);
-    console.log(this.distance);
-  }
-
   ionViewDidLeave() {
     //clearInterval(this.locationService.id);
     this.storage.get('bus_no').then((bus_no) => {
@@ -140,15 +135,5 @@ export class StudentPage {
           }
         )
     })
-  }
-  convertMeterToKm(meter: any) {
-    var km = meter / 1000;
-    return km.toPrecision(4);
-  }
-  convertDegToRad(degrees) {
-    {
-      var pi = Math.PI;
-      return degrees * (pi / 180);
-    }
   }
 }

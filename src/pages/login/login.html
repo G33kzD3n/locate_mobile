@@ -39,8 +39,14 @@
     </div>
 
     <br><br>
-    <button ion-button icon-start block round color="danger" [disabled]="!loginForm.valid">
-      <ion-icon name="log-in"></ion-icon>SIGN IN</button>
+    
+  
+  
+  <ion-grid><ion-row>
+    <ion-col><button ion-button icon-start block color="danger" [disabled]="!loginForm.valid">
+        <ion-icon name="log-in"></ion-icon>SIGN IN</button></ion-col>
+      
+    <ion-col><button ion-button block color="danger" (click)="register()" >SIGN UP</button></ion-col></ion-row></ion-grid>
   </form>
-
+  
 </ion-content>

@@ -1,9 +1,4 @@
-<!--
-  Generated template for the LivelocationPage page.
 
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
--->
 <ion-header>
 
   <ion-navbar>
@@ -13,8 +8,16 @@
 </ion-header>
 
 
-<ion-content padding>
-  <ion-card>
-    <div #map id="map" style="height:600px;"> </div>
+<ion-content no-padding>
+  <ion-card no-padding >
+    <div #map id="map"> </div>
+    <ion-fab right top>
+        <button mini ion-fab color="dark" ><ion-icon name="md-arrow-down"></ion-icon></button>
+        <ion-fab-list>
+          <button ion-fab><ion-icon name="md-bus" (click)="focusOnBus()"></ion-icon></button>
+          <button ion-fab><ion-icon name="md-locate" (click)="focusOnCurrent()"></ion-icon></button>
+          <button ion-fab><ion-icon name="md-flag" (click)="focusOnStop()"></ion-icon></button>
+        </ion-fab-list>
+      </ion-fab>
   </ion-card>
 </ion-content>

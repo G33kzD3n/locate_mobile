@@ -21,6 +21,14 @@
 
   <ion-card>
     <div #map id="map" style="height:500px;"> </div>
+    <ion-fab right top>
+      <button mini ion-fab color="dark" ><ion-icon name="md-arrow-down"></ion-icon></button>
+      <ion-fab-list>
+        <button ion-fab><ion-icon name="md-bus" (click)="focusOnBus()"></ion-icon></button>
+        <button ion-fab><ion-icon name="md-locate" (click)="focusOnCurrent()"></ion-icon></button>
+        <button ion-fab><ion-icon name="md-flag" (click)="focusOnStop()"></ion-icon></button>
+      </ion-fab-list>
+    </ion-fab>
     <ion-item>
       <ion-icon name="football" item-start large></ion-icon>
       <h2>{{ bus?.lat }}</h2>

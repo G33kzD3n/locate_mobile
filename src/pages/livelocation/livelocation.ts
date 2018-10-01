@@ -37,7 +37,11 @@ export class LivelocationPage {
     let options = {
       center: location,
       zoom: 15,
-      disableDefaultUI: true,
+      disableDefaultUI:true,
+      zoomControl: true,
+      scaleControl: true,
+      gestureHandling: 'cooperative',
+      rotateControl: true,
       mapTypeId: google.maps.MapTypeId.ROADMAP,
     };
     //create map
