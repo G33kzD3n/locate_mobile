@@ -9,6 +9,7 @@ import { FormsModule } from '@angular/forms';
 
 import { MyApp } from './app.component';
 import { LoginPage } from '../pages/login/login';
+import { LivelocationPage } from '../pages/livelocation/livelocation';
 import { PassengersPage } from '../pages/passengers/passengers';
 import { DriverprofilePage } from '../pages/driverprofile/driverprofile';
 import { LocationPage } from '../pages/location/location';
@@ -48,7 +49,8 @@ import { ModalPage } from '../pages/modal/modal';
     DriverprofilePage,
     BreakdownPage,
     DriverhomepagePage,
-    ModalPage
+    ModalPage,
+    LivelocationPage
   ],
   imports: [
     BrowserModule,
@@ -63,6 +65,7 @@ import { ModalPage } from '../pages/modal/modal';
   entryComponents: [
     MyApp,
     LoginPage,
+    LivelocationPage,
     SignupPage,
     StudentPage,
     LocationPage,

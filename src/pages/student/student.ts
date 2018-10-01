@@ -1,5 +1,5 @@
 import { Component, ViewChild, ElementRef } from '@angular/core';
-import { IonicPage, NavController, NavParams,ModalController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
 import { AppServiceProvider } from '../../providers/app-service/app-service';
 import { MenuController } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
@@ -30,12 +30,12 @@ export class StudentPage {
   channel: any;
 
 
-  constructor(public modal: ModalController,public pusher: PusherServiceProvider, public locationService: LocationServiceProvider,
+  constructor(public modal: ModalController, public pusher: PusherServiceProvider, public locationService: LocationServiceProvider,
     public storage: Storage, public http: Http, public datepipe: DatePipe, public navCtrl: NavController, public menu: MenuController, public navParams: NavParams, public app: AppServiceProvider, public geolocation: Geolocation) {
     this.distance = "";
     this.distance1 = "";
   }
-  
+
   ngOnInit() {
     this.showmap();
   }
@@ -97,7 +97,7 @@ export class StudentPage {
     });
   }
 
-  
+
 
   distanceCal(lat1, lng1, lat2, lng2) {
     console.log(lat1, lng1, lat2, lng2);
@@ -116,8 +116,10 @@ export class StudentPage {
   }
 
   ionViewDidLeave() {
-    clearInterval(this.locationService.id);
-    this.pusher.destroy('8801-channel');
+    //clearInterval(this.locationService.id);
+    this.storage.get('bus_no').then((bus_no) => {
+      this.pusher.destroy(bus_no + '-channel');
+    });
   }
 
   getAssignedStop() {

@@ -4,6 +4,7 @@ import { Storage } from '@ionic/storage';
 import { AppServiceProvider } from '../../providers/app-service/app-service';
 import { RequestOptions, Headers, Http } from '@angular/http'
 
+import { LivelocationPage } from '../livelocation/livelocation';
 
 @IonicPage()
 @Component({
@@ -12,14 +13,14 @@ import { RequestOptions, Headers, Http } from '@angular/http'
 })
 export class LocationPage {
 
-  public stops:any;
+  public stops: any;
   public buses: any;
-  public bus:any;
+  public bus: any;
   public On: Boolean = false;
   public hideMe: number;
   public button: string = "Show Route";
   image = "/assets/imgs/icon.png";
-  mybus:any;
+  mybus: any;
 
 
 
@@ -34,6 +35,12 @@ export class LocationPage {
     this.locatebuses();
   }
 
+  livetrack(bus_no) {
+    //console.log(bus_no);
+    this.navCtrl.push(LivelocationPage, {
+      data : bus_no
+    });
+  }
 
 
   showroute(i: number) {
@@ -50,7 +57,7 @@ export class LocationPage {
 
     this.storage.get('bus_no').then((bus_no) => {
       bus_no = this.app.getToken(bus_no);
-      this.mybus=bus_no;
+      this.mybus = bus_no;
       this.app.showLoader("Loading");
       let headers = new Headers({ 'Content-Type': 'application/json' });
       let options = new RequestOptions({ headers: headers });
@@ -62,7 +69,7 @@ export class LocationPage {
           result => {
             this.buses = result.buses;
             console.log(this.buses);
-            this.stops=result.buses[0].stops.names.split(';');
+            this.stops = result.buses[0].stops.names.split(';');
             console.log(this.stops);
           },
           error => {
