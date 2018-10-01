@@ -8,7 +8,6 @@ import 'rxjs/add/operator/map';
 import { OpenNativeSettings } from '@ionic-native/open-native-settings';
 
 
-
 @Injectable()
 export class AppServiceProvider {
   // private baseUrl: string = "https://laravel-5j3c.frb.io/api/1.0";
@@ -47,7 +46,7 @@ export class AppServiceProvider {
       this.internetstatus = false;
     });
   }
-
+    
   showToast(data: string, position: string, style: string) {
     let toast = this.toastCtrl.create({
       message: data,
