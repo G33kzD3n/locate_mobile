@@ -35,7 +35,12 @@ export class StudentPage {
     this.distance = "";
     this.distance1 = "";
   }
-
+  openmodal()
+  {
+    let notice= this.modal.create(ModalPage)
+    notice.present();
+  }
+  
   ngOnInit() {
     this.showmap();
   }
