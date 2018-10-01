@@ -46,7 +46,12 @@ export class StudentPage {
   focusOnBus() {
     console.log("Bus focus");
   }
-
+  openmodal()
+  {
+    let notice= this.modal.create(ModalPage)
+    notice.present();
+  }
+  
   ngOnInit() {
     this.showmap();
   }
