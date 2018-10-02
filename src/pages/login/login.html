@@ -38,15 +38,20 @@
     <div class="errorBox" *ngIf="loginForm.controls['password'].hasError('pattern') || loginForm.controls['password'].hasError('maxlength')  && loginForm.controls['password'].touched">*Invalid d.o.b
     </div>
 
+    <div text-right margin-top>
+        <span ion-text color="light" tappable (click)="register()"> <strong>Forgot Password?</strong></span>
+      </div>
+
     <br><br>
     
+    <button ion-button icon-start round block color="danger" [disabled]="!loginForm.valid">
+        <ion-icon name="log-in"></ion-icon>SIGN IN</button>
+      </form>
   
-  
-  <ion-grid><ion-row>
-    <ion-col><button ion-button icon-start block color="danger" [disabled]="!loginForm.valid">
-        <ion-icon name="log-in"></ion-icon>SIGN IN</button></ion-col>
-      
-    <ion-col><button ion-button block color="danger" (click)="register()" >SIGN UP</button></ion-col></ion-row></ion-grid>
-  </form>
+      <div text-center margin-top>
+          <span ion-text color="light" tappable (click)="register()">New here? <strong>Sign up</strong></span>
+        </div>
+     
+   
   
 </ion-content>
