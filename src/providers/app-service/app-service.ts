@@ -6,6 +6,7 @@ import { DatePipe } from '@angular/common';
 import { ToastController, LoadingController, AlertController } from 'ionic-angular';
 import 'rxjs/add/operator/map';
 import { OpenNativeSettings } from '@ionic-native/open-native-settings';
+import { Message } from '@angular/compiler/src/i18n/i18n_ast';
 
 
 @Injectable()
@@ -16,6 +17,9 @@ export class AppServiceProvider {
   public style: any;
   myDate: any = new Date().toLocaleString();
   internetstatus: boolean;
+  ncounter:number=0;
+  message:string []=[];
+  
 
   constructor(public platform :Platform,public settings: OpenNativeSettings, public datepipe: DatePipe, public plat: Platform, public alert: AlertController, public network: Network, public http: Http, public loadingCtrl: LoadingController, public toastCtrl: ToastController) {
     this.loader = this.loadingCtrl.create({

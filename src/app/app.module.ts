@@ -33,6 +33,7 @@ import { CallNumber } from '@ionic-native/call-number';
 import { PusherServiceProvider } from '../providers/pusher-service/pusher-service';
 import { ModalPage } from '../pages/modal/modal';
 import { OpenNativeSettings } from '@ionic-native/open-native-settings'
+import { Badge } from '@ionic-native/badge'
 
 @NgModule({
   declarations: [
@@ -95,7 +96,8 @@ import { OpenNativeSettings } from '@ionic-native/open-native-settings'
     LocationServiceProvider,
     CallNumber,
     PusherServiceProvider,
-    OpenNativeSettings
+    OpenNativeSettings,
+    Badge
   ]
 })
 export class AppModule { }

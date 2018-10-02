@@ -78,6 +78,10 @@ export class StudentPage {
         const loc = new google.maps.LatLng(data.lat, data.lng);
         this.addMarker(loc, this.map);
         this.app.showToast(JSON.stringify(data), 'top', 'success');
+        console.log(this.app.message);
+        this.app.message.push(data.lat,data.lng);
+        this.app.ncounter++;
+        console.log(this.app.message);
       });
       // this.locationService.getLocation(bus_no)
       //   .subscribe(

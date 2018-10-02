@@ -36,7 +36,6 @@ export class LocationPage {
   }
 
   livetrack(bus_no) {
-    //console.log(bus_no);
     this.navCtrl.push(LivelocationPage, {
       data : bus_no
     });
