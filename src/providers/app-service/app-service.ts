@@ -15,15 +15,15 @@ export class AppServiceProvider {
   public loader: any;
   public style: any;
   myDate: any = new Date().toLocaleString();
-  internetstatus:boolean=true;
+  internetstatus: boolean;
 
-  constructor(public settings:OpenNativeSettings ,public datepipe: DatePipe, public plat: Platform, public alert: AlertController, public network: Network, public http: Http, public loadingCtrl: LoadingController, public toastCtrl: ToastController) {
+  constructor(public platform :Platform,public settings: OpenNativeSettings, public datepipe: DatePipe, public plat: Platform, public alert: AlertController, public network: Network, public http: Http, public loadingCtrl: LoadingController, public toastCtrl: ToastController) {
     this.loader = this.loadingCtrl.create({
       content: ''
     });
     this.checknetwork();
   }
-   showLoader(message: string) {
+  showLoader(message: string) {
     this.loader = this.loadingCtrl.create({
       content: message
     });
@@ -38,18 +38,15 @@ export class AppServiceProvider {
   }
   checknetwork() {
     this.network.onConnect().subscribe(() => {
-      this.internetstatus=true;
+      this.internetstatus = true;
     });
 
     this.network.onDisconnect().subscribe(() => {
       this.Confirm();
-      this.internetstatus=false;
+      this.internetstatus = false;
     });
   }
-  isOnline(): boolean {
-		return this.internetstatus;
-  }
-  
+    
   showToast(data: string, position: string, style: string) {
     let toast = this.toastCtrl.create({
       message: data,
@@ -78,7 +75,7 @@ export class AppServiceProvider {
   Confirm() {
     let alert = this.alert.create({
       title: 'No Internet',
-      message: 'This app requires an Active Internet Connection',
+      message: 'This app requires an Active Internet Connection in order to function properly',
       buttons: [
         {
           text: 'Open Settings',
@@ -91,16 +88,20 @@ export class AppServiceProvider {
           role: 'cancel',
           handler: () => {
             console.log('Cancel clicked');
+           // this.exitapp();
           }
         }
       ]
     });
     alert.present();
   }
-  openinternetsettings(){
-    this.settings.open('network').then(value=>{
+  openinternetsettings() {
+    this.settings.open('network').then(value => {
       console.log('settings opened');
-    }).catch(err=>
+    }).catch(err =>
       console.log(err));
+  }
+  exitapp(){
+    this.platform.exitApp();
   }
 }
