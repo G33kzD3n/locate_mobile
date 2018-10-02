@@ -7,61 +7,51 @@
 </ion-header>
 
 <ion-content padding>
-
   <form [formGroup]="form" (ngSubmit)="onRegister(form.value)">
+
     <ion-list>
       <ion-item>
-        <ion-input ng-class="{highlight: form.fname.$error.required}" name="fname" type="text" id="fname" placeholder="First Name"
-          required formControlName="fname"></ion-input>
+        <ion-label floating>First Name</ion-label>
+        <ion-input ng-class="{highlight: form.fname.$error.required}" name="fname" id="fname" type="text" required formControlName="fname"></ion-input>
       </ion-item>
       <div class="errorBox" *ngIf="form.controls['fname'].hasError('required')  && form.controls['fname'].touched">
         *First Name is required.
       </div>
-      <!--div class="errorBox" *ngIf="form.controls['fname'].hasError('minLength') && form.controls['fname'].touched">*Name must be more then 2 charcters atleast.
-              </div-->
-      <div class="errorBox" *ngIf="form.controls['fname'].hasError('pattern') && form.controls['fname'].touched">*First
-        Name must conatin at least 2 characters.
+      <div class="errorBox" *ngIf="form.controls['fname'].hasError('pattern') && form.controls['fname'].touched">*First Name
+        must conatin at least 2 characters.
       </div>
-
-
       <ion-item>
-        <ion-input name="lname" type="text" placeholder="Last Name" required formControlName="lname"></ion-input>
+        <ion-label floating>Last Name</ion-label>
+        <ion-input type="text" name="lname" type="text" required formControlName="lname">
+
+        </ion-input>
       </ion-item>
-      <div class="errorBox" *ngIf="form.controls['lname'].hasError('required') &&form.controls['lname'].touched"> *Last
-        Name is required.
+      <div class="errorBox" *ngIf="form.controls['lname'].hasError('required') &&form.controls['lname'].touched"> *Last Name
+        is required.
       </div>
-      <!--div class="errorBox" *ngIf="form.controls['fname'].hasError('minLength') && form.controls['fname'].touched">*Name must be more then 2 charcters atleast.
-              </div-->
-      <div class="errorBox" *ngIf="form.controls['lname'].hasError('pattern') && form.controls['lname'].touched">*Last
-        Name must conatin at least 2 characters.
+      <div class="errorBox" *ngIf="form.controls['lname'].hasError('pattern') && form.controls['lname'].touched">*Last Name
+        must conatin at least 2 characters.
       </div>
 
       <ion-item>
-        <ion-input type="text" placeholder="Username" required formControlName="uname"></ion-input>
+        <ion-label floating>Enrollment No</ion-label>
+        <ion-input type="number"></ion-input>
       </ion-item>
-
       <ion-item>
-        <ion-input type="email" placeholder="Email" required formControlName="email"></ion-input>
-      </ion-item>
-      <div class="errorBox" *ngIf="form.controls['email'].hasError('required') && form.controls['email'].touched">*Email
-        id is required.
-      </div>
-      <div class="errorBox" *ngIf="form.controls['email'].hasError('pattern') && form.controls['email'].touched">*Enter
-        valid email.
-      </div>
+        <ion-label floating>Phone </ion-label>
+        <ion-input type="number" required formControlName="mob">
 
-      <ion-item>
-        <ion-input type="number" placeholder="Mobile no" required formControlName="mob"></ion-input>
+        </ion-input>
       </ion-item>
-      <div class="errorBox" *ngIf="form.controls['mob'].hasError('required')  && form.controls['mob'].touched">*Mobile
-        No. is required.
+      <div class="errorBox" *ngIf="form.controls['mob'].hasError('required')  && form.controls['mob'].touched">*Mobile No.
+        is required.
       </div>
       <div class="errorBox" *ngIf="form.controls['mob'].hasError('minlength') || form.controls['mob'].hasError('maxlength')  && form.controls['mob'].touched">
         *Enter valid Mobile No.
       </div>
-
       <ion-item>
-        <ion-input type="password" placeholder="Password" required formControlName="pass"></ion-input>
+        <ion-label floating>Password</ion-label>
+        <ion-input type="password" required formControlName="pass"></ion-input>
       </ion-item>
       <div class="errorBox" *ngIf="form.controls['pass'].hasError('required')  && form.controls['pass'].touched">*Mobile
         No. is required.
@@ -70,14 +60,74 @@
         *password must contain 8 characters
       </div>
 
-
-
       <ion-item>
-        <ion-input type="password" placeholder="Retype Password" required formControlName="pass"></ion-input>
+        <ion-label floating>Confirm Password</ion-label>
+        <ion-input type="password" required formControlName="pass"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label>D.O.B</ion-label>
+        <ion-input type="date"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label> Department</ion-label>
+        <ion-select>
+          <ion-option value="MCA">MCA</ion-option>
+          <ion-option value="Btech">Btech</ion-option>
+          <ion-option value="English">English</ion-option>
+          <ion-option value="IMBA">IMBA</ion-option>
+        </ion-select>
 
       </ion-item>
-      <button ion-button block color="dark" type="submit" [disabled]="!form.valid" round>Next</button>
+      <ion-item>
+        <ion-label> User Type</ion-label>
+        <ion-select>
+          <ion-option value="Student">Student</ion-option>
+          <ion-option value="Faculty">Faculty/Employee</ion-option>
+          <ion-option value="Coordinator">Coordinator</ion-option>
+          <ion-option value="Driver">Driver</ion-option>
+        </ion-select>
+
+      </ion-item>
+
+      <ion-item>
+        <ion-label> Choose Stop</ion-label>
+        <ion-select>
+          <ion-option value="">Soura</ion-option>
+          <ion-option value="">Lal Bazaar</ion-option>
+          <ion-option value="">Qamarwari</ion-option>
+          <ion-option value="">other</ion-option>
+        </ion-select>
+
+      </ion-item>
     </ion-list>
+    
+    <button ion-button block color="dark" type="submit" [disabled]="!form.valid" round>Next</button>
+    
   </form>
 
+
+
 </ion-content>
+
+<!--div class="errorBox" *ngIf="form.controls['fname'].hasError('minLength') && form.controls['fname'].touched">*Name must be more then 2 charcters atleast.
+              </div-->
+
+
+
+
+
+<!--div class="errorBox" *ngIf="form.controls['fname'].hasError('minLength') && form.controls['fname'].touched">*Name must be more then 2 charcters atleast.
+              </div-->
+
+
+
+
+<!-- <ion-item>
+        <ion-input type="email" placeholder="Email" required formControlName="email"></ion-input>
+      </ion-item>
+      <div class="errorBox" *ngIf="form.controls['email'].hasError('required') && form.controls['email'].touched">*Email
+        id is required.
+      </div>
+      <div class="errorBox" *ngIf="form.controls['email'].hasError('pattern') && form.controls['email'].touched">*Enter valid
+        email.
+      </div> -->

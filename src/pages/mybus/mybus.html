@@ -19,16 +19,19 @@
 	<!-- <div #directionsPanel></div> -->
 
 	<ion-card no-padding class="buscard">
-		
+
 
 		<img src="assets/imgs/bus.jpg">
-		<ion-item><h2> <ion-icon name="bus"></ion-icon> Bus No: {{ bus?.bus_no }}</h2></ion-item>
-		
+		<ion-item>
+			<h2>
+				<ion-icon name="bus"></ion-icon> Bus No: {{ bus?.bus_no }}
+			</h2>
+		</ion-item>
+
 
 		<ion-fab right top>
 			<button ion-fab (click)="showroute()">
 				<ion-icon name="md-pin"></ion-icon><br>
-				
 
 			</button>
 		</ion-fab>
@@ -44,43 +47,44 @@
 
 
 	<ion-card no-padding class="card">
-		
-		
-			<ion-list class="lista">
-				<ion-item-sliding #item>
-					<ion-item>
 
-						<img class="thumb" src="assets/imgs/11.JPG" item-left>
-						<h1> Coordinator</h1><br>
 
-						<h2>
-							<ion-icon name="md-person"></ion-icon> {{ bus?.cordinator?.name }}
-						</h2><br><br>
+		<ion-list class="lista">
+			<ion-item-sliding #item>
+				<ion-item>
 
-						<h2>
-							<ion-icon name="md-call"></ion-icon> {{ bus?.cordinator?.cell_no }}
-						</h2>
+					<img class="thumb" src="assets/imgs/11.JPG" item-left>
+					<div class="title">Coordinator</div><br>
 
-					</ion-item>
-					<ion-item-options side="right">
-						<button ion-button round color="secondary" (click)="call(bus?.cordinator?.cell_no)"><ion-icon name="md-call" large>
-								Call</ion-icon></button>
-					</ion-item-options>
 
-				</ion-item-sliding>
-			</ion-list>
-		
+					<h2>
+						<ion-icon name="md-person"></ion-icon> {{ bus?.cordinator?.name }}
+					</h2><br><br>
+
+					<h2>
+						<ion-icon name="md-call"></ion-icon> {{ bus?.cordinator?.cell_no }}
+					</h2>
+
+				</ion-item>
+				<ion-item-options side="right">
+					<button ion-button round color="secondary" (click)="call(bus?.cordinator?.cell_no)"><ion-icon name="md-call" large>
+							Call</ion-icon></button>
+				</ion-item-options>
+
+			</ion-item-sliding>
+		</ion-list>
+
 	</ion-card>
 
 	<ion-card no-padding>
-		
+
 		<ion-card-content no-padding>
 			<ion-list class="lista">
 				<ion-item-sliding #item>
 					<ion-item>
 
 						<img class="thumb" src="assets/imgs/11.JPG" item-left>
-						<h1> Driver</h1><br>
+						<div class="title">Driver</div><br>
 
 						<h2>
 							<ion-icon name="md-person"></ion-icon> {{ bus?.driver?.name }}

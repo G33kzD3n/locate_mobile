@@ -21,6 +21,16 @@ export class LivelocationPage {
   channel: any;
   bus: any;
 
+  assignedstop: any;
+  image = "../assets/imgs/bus2.png";
+
+  livelocation: any;
+
+
+  public mylat: any;
+  public mylon: any;
+
+
   constructor(public modal: ModalController, public pusher: PusherServiceProvider, public locationService: LocationServiceProvider,
     public storage: Storage, public http: Http, public datepipe: DatePipe, public navCtrl: NavController, public menu: MenuController, public navParams: NavParams, public app: AppServiceProvider, public geolocation: Geolocation) {
   }
@@ -32,12 +42,30 @@ export class LivelocationPage {
     this.showmap();
   }
 
+  ionViewDidLoad() {
+    this.getAssignedStop();
+  }
+
   showmap() {
+
+    this.geolocation.getCurrentPosition({ enableHighAccuracy: true, timeout: 2000, maximumAge: 0 }).then((resp) => {
+      this.mylat = resp.coords.latitude;
+      this.mylon = resp.coords.longitude;
+    }).catch((error) => {
+      console.log('Error getting location', error);
+    });
+
+    const mymark = new google.maps.LatLng(this.mylat, this.mylon);
+    this.addMarker(mymark, this.map);
     const location = new google.maps.LatLng(34.083656, 74.797371);
     let options = {
       center: location,
       zoom: 15,
       disableDefaultUI: true,
+      zoomControl: true,
+      scaleControl: true,
+      gestureHandling: 'cooperative',
+      rotateControl: true,
       mapTypeId: google.maps.MapTypeId.ROADMAP,
     };
     //create map
@@ -54,16 +82,63 @@ export class LivelocationPage {
 
   getlocation() {
     this.bus = this.navParams.get('data');
-    this.channel = this.pusher.init(this.bus+'-channel');
+    this.channel = this.pusher.init(this.bus + '-channel');
     this.channel.bind('location-update', (data) => {
+      this.livelocation = data;
       const loc = new google.maps.LatLng(data.lat, data.lng);
       this.addMarker(loc, this.map);
       this.app.showToast(JSON.stringify(data), 'top', 'success');
     });
   }
+
+
   ionViewDidLeave() {
     //clearInterval(this.locationService.id);
     let bus_no = this.navParams.get('data');
     this.pusher.destroy(bus_no + '-channel');
+  }
+
+  getAssignedStop() {
+    this.storage.get('user').then((user) => {
+      this.locationService.getProfile(user)
+        .subscribe(
+          result => {
+            this.assignedstop = result.data.stop;
+            const loc = new google.maps.LatLng(this.assignedstop.lat, this.assignedstop.lng);
+            var showMarkers = new google.maps.Marker({ position: loc, title: this.assignedstop.name, icon: this.image });
+            showMarkers.setMap(this.map);
+          },
+          err => {
+
+          },
+          () => {
+
+          }
+        )
+    })
+  }
+
+  focus(xyz) {
+    if (xyz == 1) {
+
+      this.map.setCenter({
+        lat: this.livelocation.lat,
+        lng: this.livelocation.lng
+      });
+
+    } else if (xyz == 2) {
+
+      this.map.setCenter({
+        lat: this.mylat,
+        lng: this.mylon
+      });
+
+    } else {
+
+      this.map.setCenter({
+        lat: this.assignedstop.lat,
+        lng: this.assignedstop.lng
+      });
+    }
   }
 }

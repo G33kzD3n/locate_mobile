@@ -12,7 +12,7 @@ import { Message } from '@angular/compiler/src/i18n/i18n_ast';
 @Injectable()
 export class AppServiceProvider {
   // private baseUrl: string = "https://laravel-5j3c.frb.io/api/1.0";
-  private baseUrl: string = "http://192.168.43.58:9000/api/1.0";
+  private baseUrl: string = "http://192.168.43.220:8000/api/1.0";
   public loader: any;
   public style: any;
   myDate: any = new Date().toLocaleString();
