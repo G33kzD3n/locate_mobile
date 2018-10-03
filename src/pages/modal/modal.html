@@ -1,16 +1,17 @@
-<ion-content class="main-view">
-  <div class="overlay" (click)="dismiss()"></div>
-  <div class="modal_content">
 
-    <ion-card *ngFor="let message of this.app.message;" no-padding>
-      <h2>
-        <ion-icon item-start></ion-icon>{{ message }}
-      </h2>
-    </ion-card>
-    <ion-buttons end>
-      <button ion-button round outline (click)="clear()">
-        clear
-      </button>
-    </ion-buttons>
-  </div>
-</ion-content>
+<ion-content class="main-view">
+    <div class="overlay" (click)="dismiss()"></div>
+    <div class="modal_content">
+  
+      <ion-card *ngFor="let message of this.app.message;" no-padding>
+
+          {{ this.app.message }}
+          <br>
+      </ion-card>
+      <ion-buttons end>
+        <button ion-button round outline (click)="clear()">
+          clear
+        </button>
+      </ion-buttons>
+    </div>
+  </ion-content>

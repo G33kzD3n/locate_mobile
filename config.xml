@@ -88,6 +88,6 @@
     <plugin name="mx.ferreyra.callnumber" spec="~0.0.2" />
     <plugin name="cordova-plugin-network-information" spec="^2.0.1" />
     <plugin name="cordova-open-native-settings" spec="^1.5.1" />
-    <engine name="android" spec="7.1.1" />
     <plugin name="cordova-plugin-badge" spec="^0.8.7" />
+    <engine name="android" spec="7.1.1" />
 </widget>
