@@ -42,8 +42,8 @@ export class MybusPage {
   public hideMe: boolean = false;
   public button: string = "See Route Plan";
   assignedstop: any;
-  image = '../assets/imgs/icon.png';
-  image1 = '../assets/imgs/bus11.ico';
+  image = "/assets/imgs/icon.png";
+  image1 = "/assets/imgs/bus2.png";
   waypts: any = [];
 
 

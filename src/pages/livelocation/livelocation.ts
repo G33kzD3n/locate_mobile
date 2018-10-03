@@ -22,7 +22,7 @@ export class LivelocationPage {
   bus: any;
 
   assignedstop: any;
-  image = "../assets/imgs/bus2.png";
+  image = "/assets/imgs/bus2.png";
 
   livelocation: any;
   markers=[];
