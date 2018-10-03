@@ -9,3 +9,11 @@
 .foo{
     height: 50px;
     }
+    ion-img {
+        object-fit: resize;
+        //width: auto !important;
+        //border: 0;
+        //padding: 0;
+        background-color: white;
+        padding-bottom: 30px;
+    }
