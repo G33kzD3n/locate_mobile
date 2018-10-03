@@ -3,6 +3,7 @@ page-modal {
 }
 .main-view{
     background: transparent;
+    
   }
   .overlay {
     position: fixed;
@@ -36,3 +37,9 @@ page-modal {
     -webkit-box-sizing: border-box;
     overflow: hidden;
   }
+  .modal-header {
+    color: grey;
+  }
+.link{
+  text-decoration: none;
+}

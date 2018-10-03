@@ -27,6 +27,7 @@ export class StudentPage {
   assignedstop: any;
   livelocation: any;
   image = "../assets/imgs/bus2.png";
+  markers = [];
 
   channel: any;
   public mylat: any;
@@ -55,7 +56,21 @@ export class StudentPage {
   }
 
   addMarker(position, map) {
-    return new google.maps.Marker({ position, map })
+    var marker = new google.maps.Marker({
+      position: position,
+      map: map
+    });
+    this.markers.push(marker);
+    //return new google.maps.Marker({ position, map })
+  }
+  setMapOnAll(map) {
+    for (var i = 0; i < this.markers.length; i++) {
+      this.markers[i].setMap(map);
+    }
+  }
+  clearMarkers() {
+    this.setMapOnAll(null);
+    this.markers=[];
   }
   showmap() {
 
@@ -67,6 +82,7 @@ export class StudentPage {
     });
     const mymark = new google.maps.LatLng(this.mylat, this.mylon);
     this.addMarker(mymark, this.map);
+    this.showMarkers();
 
 
     var location = new google.maps.LatLng(34.083656, 74.797371);
@@ -85,6 +101,9 @@ export class StudentPage {
     this.getlocation();
     // }, 7000);
   }
+  showMarkers() {
+    this.setMapOnAll(this.map);
+  }
 
 
 
@@ -95,11 +114,14 @@ export class StudentPage {
       this.channel.bind('location-update', (data) => {
         this.bus = data;
         this.livelocation = data;
+        this.clearMarkers();
+        
         const loc = new google.maps.LatLng(data.lat, data.lng);
         this.addMarker(loc, this.map);
+        this.showMarkers();
         this.app.showToast(JSON.stringify(data), 'top', 'success');
         console.log(this.app.message);
-        this.app.message.push(data.lat,data.lng);
+        this.app.message.push(data.lat, data.lng);
         this.app.ncounter++;
         console.log(this.app.message);
       });

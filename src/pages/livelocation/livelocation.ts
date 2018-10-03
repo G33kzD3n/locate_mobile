@@ -25,7 +25,7 @@ export class LivelocationPage {
   image = "../assets/imgs/bus2.png";
 
   livelocation: any;
-
+  markers=[];
 
   public mylat: any;
   public mylon: any;
@@ -57,6 +57,7 @@ export class LivelocationPage {
 
     const mymark = new google.maps.LatLng(this.mylat, this.mylon);
     this.addMarker(mymark, this.map);
+    this.showMarkers();
     const location = new google.maps.LatLng(34.083656, 74.797371);
     let options = {
       center: location,
@@ -77,7 +78,12 @@ export class LivelocationPage {
   }
 
   addMarker(position, map) {
-    return new google.maps.Marker({ position, map });
+    var marker = new google.maps.Marker({
+      position: position,
+      map: map
+    });
+    this.markers.push(marker);
+    //return new google.maps.Marker({ position, map })
   }
 
   getlocation() {
@@ -86,11 +92,24 @@ export class LivelocationPage {
     this.channel.bind('location-update', (data) => {
       this.livelocation = data;
       const loc = new google.maps.LatLng(data.lat, data.lng);
+      this.clearMarkers();
       this.addMarker(loc, this.map);
+      this.showMarkers();
       this.app.showToast(JSON.stringify(data), 'top', 'success');
     });
   }
-
+  showMarkers() {
+    this.setMapOnAll(this.map);
+  }
+  setMapOnAll(map) {
+    for (var i = 0; i < this.markers.length; i++) {
+      this.markers[i].setMap(map);
+    }
+  }
+  clearMarkers() {
+    this.setMapOnAll(null);
+    this.markers=[];
+  }
 
   ionViewDidLeave() {
     //clearInterval(this.locationService.id);

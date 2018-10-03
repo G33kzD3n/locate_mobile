@@ -11,7 +11,7 @@
       <button id="cart-btn" ion-button icon-only (click)="openmodal()">
         <ion-icon name="notifications"></ion-icon>
         <span *ngIf="this.app.ncounter !== 0">
-        <ion-badge id="cart-badge" color="danger"> {{ this.app.ncounter }}</ion-badge>
+          <ion-badge id="cart-badge" color="danger"> {{ this.app.ncounter }}</ion-badge>
         </span>
       </button>
     </ion-buttons>
@@ -19,40 +19,48 @@
 
   </ion-navbar>
 </ion-header>
-<ion-content>
+<ion-content scroll="true">
 
 
   <ion-card>
     <div #map id="map" style="height:500px;"> </div>
     <ion-fab right top>
-      <button mini ion-fab color="dark" ><ion-icon name="md-arrow-down"></ion-icon></button>
+      <button mini ion-fab color="dark">
+        <ion-icon name="md-arrow-down"></ion-icon>
+      </button>
       <ion-fab-list>
-          <button ion-fab tappable (click)="focus(1)"><ion-icon name="md-bus" ></ion-icon></button>
-          <button ion-fab tappable (click)="focus(2)"><ion-icon name="md-locate" ></ion-icon></button>
-          <button ion-fab tappable (click)="focus(3)"><ion-icon name="md-flag" ></ion-icon></button>
-        
+        <button ion-fab tappable (click)="focus(1)">
+          <ion-icon name="md-bus"></ion-icon>
+        </button>
+        <button ion-fab tappable (click)="focus(2)">
+          <ion-icon name="md-locate"></ion-icon>
+        </button>
+        <button ion-fab tappable (click)="focus(3)">
+          <ion-icon name="md-flag"></ion-icon>
+        </button>
+
       </ion-fab-list>
     </ion-fab>
-    <ion-item>
-      <ion-icon name="football" item-start large></ion-icon>
-      <h2>{{ bus?.lat }}</h2>
-      <p>{{ bus?.lng }}</p>
-
-     <p>{{mylat}}---{{mylon}}</p> 
-      
-    </ion-item>
-     
-    <ion-item>
-      <ion-icon name="wine" item-start large></ion-icon>
-      <h2>Srinagar</h2>
-      <p>nawa kadal</p>
-    </ion-item>
-
-
-
   </ion-card>
   <ion-card>
-    <span item-start>30 min To Reach ({{distance}} Km)</span>
-    <span item-start>ETA: 9:15 AM</span>
+    <ion-item>
+      <ion-img src="../assets/imgs/marker1.png" item-start></ion-img>
+      <h2>Bus Location: {{ bus?.lat }}---{{ bus?.lng }}
+      </h2>
+    </ion-item>
+    <ion-item>
+      <ion-img src="../assets/imgs/bus2.png" item-start></ion-img>
+      <h2>My Stop: {{mylat}}---{{mylon}}
+      </h2>
+    </ion-item>
   </ion-card>
 </ion-content>
+<ion-footer class="foo">
+  <ion-toolbar>
+
+    <span item-start>30 min To Reach ({{distance}} Km)</span>
+    <ion-buttons end>
+      <span item-end>ETA: 9:15 AM</span>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-footer>
