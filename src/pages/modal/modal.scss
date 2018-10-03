@@ -14,13 +14,13 @@ page-modal {
     opacity: .5;
     background-color: #333;
   }
-  .modal_content {
+    .modal_content {
     position: absolute;
-    top: calc(5% - (5%/2));
-    left: 10%;
+    top: calc(15% - (15%/2));
+    left: 28%;
     right: 0;
     width: 70%;
-    height: 80%;
+    height: 70%;
     padding: 10px;
     z-index: 100;
     margin: 0 auto;
@@ -42,4 +42,11 @@ page-modal {
   }
 .link{
   text-decoration: none;
+}
+.scroll-content{
+  overflow-y: auto;
+}
+.-webkit-scrollbar {
+  width: 2em;
+  height: 2em
 }
