@@ -26,7 +26,7 @@ export class StudentPage {
   bus: any;
   assignedstop: any;
   livelocation: any;
-  image = "../assets/imgs/bus2.png";
+  image = "assets/imgs/bus2.png";
   markers = [];
 
   channel: any;
