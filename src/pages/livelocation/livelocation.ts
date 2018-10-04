@@ -139,18 +139,26 @@ export class LivelocationPage {
 
   focus(xyz) {
     if (xyz == 1) {
+      try {
+        this.map.setCenter({
+          lat: this.livelocation.lat,
+          lng: this.livelocation.lng
+        });
+      } catch (error) {
 
-      this.map.setCenter({
-        lat: this.livelocation.lat,
-        lng: this.livelocation.lng
-      });
+        this.app.showToast('No Live Bus Not Found', 'top', '');
+      }
+
 
     } else if (xyz == 2) {
-
-      this.map.setCenter({
-        lat: this.mylat,
-        lng: this.mylon
-      });
+      try {
+        this.map.setCenter({
+          lat: this.mylat,
+          lng: this.mylon
+        });
+      } catch (error) {
+        this.app.showToast('Unable To Find Your Location. Enable GPS', 'top', '');
+      }
 
     } else {
 

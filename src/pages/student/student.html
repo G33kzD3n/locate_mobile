@@ -52,8 +52,13 @@
       <ion-img src="assets/imgs/bus2.png" item-start></ion-img>
       <h2>My Stop: {{mylat}}---{{mylon}}
       </h2>
+
+     <p *ngFor="let dist of distance">{{dist}}</p>
+     {{origins}}
     </ion-item>
   </ion-card>
+
+  
 </ion-content>
 <ion-footer class="foo">
   <ion-toolbar>
