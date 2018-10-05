@@ -1,4 +1,33 @@
-<ion-content class="main-view">
+<ion-content class="pop">
+  <div class="overlay" (click)="dismiss()"></div>
+  <ion-list>
+    <ion-list-header class="ionpop"><strong>Notifications</strong> <a href="" class="link">Mark All as Read</a></ion-list-header>
+    <ion-item *ngFor="let message of this.app.message;">
+
+      {{ this.app.message }}
+    </ion-item>
+  </ion-list>
+
+  <ion-buttons end>
+    <button ion-button clear (click)="clear()"> clear </button>
+  </ion-buttons>
+
+</ion-content>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- <ion-content class="main-view">
   <div class="overlay" (click)="dismiss()"></div>
   <div class="modal_content">
     <div class="modal-header"><strong>Notifications</strong> <a href="" class="link">Mark All as Read</a></div>
@@ -16,4 +45,4 @@
   </div>
   </div>
 
-</ion-content>
+</ion-content> -->

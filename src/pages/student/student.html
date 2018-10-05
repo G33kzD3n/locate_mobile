@@ -8,7 +8,7 @@
     <ion-title>Trackbus</ion-title>
 
     <ion-buttons end>
-      <button id="cart-btn" ion-button icon-only (click)="openmodal()">
+      <button id="cart-btn" ion-button icon-only (click)="presentPopover($event)">
         <ion-icon name="notifications"></ion-icon>
         <span *ngIf="this.app.ncounter !== 0">
           <ion-badge id="cart-badge" color="danger"> {{ this.app.ncounter }}</ion-badge>
@@ -53,12 +53,15 @@
       <h2>My Stop: {{mylat}}---{{mylon}}
       </h2>
 
-     <p *ngFor="let dist of distance">{{dist}}</p>
-     {{origins}}
+      <p *ngFor="let dist of distance"></p>
+      {{dist}} {{origins}}
+
+
     </ion-item>
   </ion-card>
+  <div #abc style="height:30px ">
+    {{distance}}---</div>
 
-  
 </ion-content>
 <ion-footer class="foo">
   <ion-toolbar>

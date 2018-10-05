@@ -11,9 +11,11 @@ import { AppServiceProvider } from '../../providers/app-service/app-service';
 })
 export class ModalPage {
 
-  constructor(public app:AppServiceProvider ,public viewCtrl: ViewController,public modal: ModalController, public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public app:AppServiceProvider ,public viewCtrl: ViewController,public modal: ModalController,
+     public navCtrl: NavController, public navParams: NavParams) {
   }
 
+  
   ionViewDidLoad() {
     console.log('ionViewDidLoad ModalPage');
   }

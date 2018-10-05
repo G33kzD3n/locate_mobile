@@ -1,5 +1,5 @@
 import { Component, ViewChild, ElementRef } from '@angular/core';
-import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ModalController, PopoverController } from 'ionic-angular';
 import { AppServiceProvider } from '../../providers/app-service/app-service';
 import { MenuController } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
@@ -29,6 +29,8 @@ export class StudentPage {
   image = "assets/imgs/bus2.png";
   markers = [];
 
+  output: any;
+
   channel: any;
   public mylat: any;
   public mylon: any;
@@ -38,17 +40,11 @@ export class StudentPage {
     public locationService: LocationServiceProvider,
     public storage: Storage, public http: Http, public datepipe: DatePipe,
     public navCtrl: NavController, public menu: MenuController,
-    public navParams: NavParams, public app: AppServiceProvider, public geolocation: Geolocation) {
+    public navParams: NavParams, public app: AppServiceProvider, public geolocation: Geolocation,
+    public popoverCtrl: PopoverController) {
 
   }
-
-
-
-  openmodal() {
-    let notice = this.modal.create(ModalPage)
-    notice.present();
-  }
-
+  
   ngOnInit() {
     this.eta();
     this.showmap();
@@ -201,11 +197,13 @@ export class StudentPage {
         var origins = response.originAddresses;
         var destinations = response.destinationAddresses;
 
+        this.output = document.getElementById('abc');
+
         for (var i = 0; i < origins.length; i++) {
           var results = response.rows[i].elements;
           for (var j = 0; j < results.length; j++) {
             var element = results[j];
-            console.log("aa" + results)
+            console.log("aa" + results[j])
             this.distance = element.distance.text;
             console.log(this.distance)
             var duration = element.duration.text;
@@ -254,4 +252,12 @@ export class StudentPage {
       });
     }
   }
+
+  presentPopover(ev){
+    let popover = this.popoverCtrl.create(ModalPage);
+    popover.present({
+      ev: ev
+    });
+ 
+   }
 }
