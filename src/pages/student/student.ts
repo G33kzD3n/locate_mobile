@@ -29,7 +29,7 @@ export class StudentPage {
   image = "assets/imgs/bus2.png";
   markers = [];
 
-  channel: any;
+  location: any;
   public mylat: any;
   public mylon: any;
 
@@ -49,10 +49,31 @@ export class StudentPage {
 
   ngOnInit() {
     this.showmap();
+    if (this.app.userlevel == 2) {
+      this.getbreakdown();
+    }
+    if (this.app.userlevel == 0) {
+      this.getbreakdownupdate();
+    }
+    console.log("user level=" + this.app.userlevel);
+
+  }
+  getbreakdown() {
+    this.pusher.breakdown.bind('breakdown-info-created', (data) => {
+      console.log(data);
+      this.pusher.breakdownmsg = data;
+    });
+  }
+  getbreakdownupdate() {
+    this.pusher.breakdown.bind('breakdown-info-updated', (data) => {
+      console.log(data);
+      this.pusher.message = data;
+    });
   }
 
   ionViewDidLoad() {
     this.getAssignedStop();
+
   }
 
   addMarker(position, map) {
@@ -70,7 +91,7 @@ export class StudentPage {
   }
   clearMarkers() {
     this.setMapOnAll(null);
-    this.markers=[];
+    this.markers = [];
   }
   showmap() {
 
@@ -108,50 +129,28 @@ export class StudentPage {
 
 
   getlocation() {
-    this.storage.get('bus_no').then((bus_no) => {
-      bus_no = this.app.getToken(bus_no);
-      this.channel = this.pusher.init(bus_no + '-channel');
-      this.channel.bind('location-update', (data) => {
-        this.bus = data;
-        this.livelocation = data;
-        this.clearMarkers();
-        
-        const loc = new google.maps.LatLng(data.lat, data.lng);
-        this.addMarker(loc, this.map);
-        this.showMarkers();
-        this.app.showToast(JSON.stringify(data), 'top', 'success');
-        console.log(this.app.message);
-        this.app.message.push(data.lat, data.lng);
-        this.app.ncounter++;
-        console.log(this.app.message);
-      });
-      // this.locationService.getLocation(bus_no)
-      //   .subscribe(
-      //     res => {
-      //       this.bus = res.bus;
-      //       //this.distanceCal(this.assignedstop.lat, this.assignedstop.lng, this.bus.lat, this.bus.lng);
-      //       const loc = new google.maps.LatLng(this.bus.lat, this.bus.lng);
-      //       this.addMarker(loc, this.map);
+    //this.location = this.pusher.init(bus_no + '-channel');
+    this.pusher.breakdown.bind('location-update', (data) => {
+      console.log(data);
+      this.bus = data;
+      this.livelocation = data;
+      this.clearMarkers();
 
-      //     },
-      //     err => {
-      //       //err = (JSON.parse(err._body));
-      //       if (err.status = 429) {
-      //         console.log(err);
-      //         this.app.showToast("Something went wrong...Kindly reload or try after Sometime", "top", 'error')
-      //       }
-      //     },
-      //     () => {
-      //       //this.app.removeLoader();
-      //     }
-      //   );
+      const loc = new google.maps.LatLng(data.lat, data.lng);
+      this.addMarker(loc, this.map);
+      this.showMarkers();
+      this.app.showToast(JSON.stringify(data), 'top', 'success');
+      this.pusher.message.push(data.lat, data.lng);
+      this.app.ncounter++;
+      console.log(this.pusher.message);
     });
   }
 
   ionViewDidLeave() {
     //clearInterval(this.locationService.id);
     this.storage.get('bus_no').then((bus_no) => {
-      this.pusher.destroy(bus_no + '-channel');
+      //this.pusher.destroy(bus_no + '-channel');
+      this.pusher.breakdown.unbind('location-update');
     });
   }
 

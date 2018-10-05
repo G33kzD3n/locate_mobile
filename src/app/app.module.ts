@@ -34,6 +34,7 @@ import { PusherServiceProvider } from '../providers/pusher-service/pusher-servic
 import { ModalPage } from '../pages/modal/modal';
 import { OpenNativeSettings } from '@ionic-native/open-native-settings'
 import { Badge } from '@ionic-native/badge'
+import { BreakdowncordPage } from '../pages/breakdowncord/breakdowncord';
 
 @NgModule({
   declarations: [
@@ -52,7 +53,8 @@ import { Badge } from '@ionic-native/badge'
     BreakdownPage,
     DriverhomepagePage,
     ModalPage,
-    LivelocationPage
+    LivelocationPage,
+    BreakdowncordPage
   ],
   imports: [
     BrowserModule,
@@ -80,7 +82,8 @@ import { Badge } from '@ionic-native/badge'
     DriverprofilePage,
     BreakdownPage,
     DriverhomepagePage,
-    ModalPage
+    ModalPage,
+    BreakdowncordPage
   ],
   providers: [
     Geolocation,

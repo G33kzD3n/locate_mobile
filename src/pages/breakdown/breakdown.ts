@@ -21,6 +21,7 @@ export class BreakdownPage {
 
   message: string;
   sendBreakdown(data: { name: string }) {
+    this.app.showLoader('Sending Breakdown Message. Please wait...');
     this.message = data.name;
 
     this.storage.get('bus_no').then((bus_no) => {
@@ -46,6 +47,7 @@ export class BreakdownPage {
             this.app.showToast("Breakdown Message wasnt sent", 'top', 'error');
           },
           () => {
+            this.app.removeLoader();
             this.app.showToast("Breakdown Message sent", 'top', 'success');
           });
     });

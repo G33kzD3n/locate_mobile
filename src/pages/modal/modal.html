@@ -3,11 +3,11 @@
   <div class="modal_content">
     <div class="modal-header"><strong>Notifications</strong> <a href="" class="link">Mark All as Read</a></div>
    <div class="scroll-content">
-    <ion-card *ngFor="let message of this.app.message;" no-padding>
+    <!-- <ion-card *ngFor="let message of this.pusher.message;" no-padding> -->
       
-      {{ this.app.message }}
-      <br>
-    </ion-card>
+      {{ this.pusher.message }}
+      <!-- <br>
+    </ion-card> -->
     <ion-buttons end>
       <button ion-button round outline (click)="clear()">
         clear

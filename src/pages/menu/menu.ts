@@ -15,6 +15,8 @@ import { PassengersPage } from '../passengers/passengers';
 import { BreakdownPage } from '../breakdown/breakdown';
 import { DriverprofilePage } from '../driverprofile/driverprofile';
 import { DriverhomepagePage } from '../driverhomepage/driverhomepage';
+import { BreakdowncordPage } from '../breakdowncord/breakdowncord';
+import { PusherServiceProvider } from '../../providers/pusher-service/pusher-service';
 
 
 @IonicPage()
@@ -35,7 +37,7 @@ export class MenuPage {
   activepage: any;
 
 
-  constructor(public location:LocationServiceProvider ,public platform: Platform, public alert: AlertController, public app: AppServiceProvider, public navCtrl: NavController, public http: Http, public navParams: NavParams, public storage: Storage) {
+  constructor(public pusher: PusherServiceProvider,public location:LocationServiceProvider ,public platform: Platform, public alert: AlertController, public app: AppServiceProvider, public navCtrl: NavController, public http: Http, public navParams: NavParams, public storage: Storage) {
 
   }
   isActive() { }
@@ -61,6 +63,7 @@ export class MenuPage {
   showMenu() {
 
     this.storage.get('level').then((data) => {
+      this.app.userlevel=data;
       if (data === 0) {
         this.rootpage = StudentPage;
         this.pages = [
@@ -88,7 +91,7 @@ export class MenuPage {
 
           { title: 'Home', component: StudentPage, icon: 'home', index: 0 },
           { title: 'Passengers', component: PassengersPage, icon: 'bus', index: 0 },
-          { title: 'Breakdown', component: LocationPage, icon: 'bus', index: 0 },
+          { title: 'Breakdown', component: BreakdowncordPage, icon: 'bus', index: 0 },
           { title: 'University Calender', component: CalenderPage, icon: 'calendar', index: 0 },
         ];
         this.activepage = this.pages[0];
@@ -122,6 +125,7 @@ export class MenuPage {
           handler: () => {
             this.storage.clear();
             this.navCtrl.setRoot(LoginPage);
+            this.pusher.destroy(this.pusher.breakdown);
             this.app.showToast('Logout successfull!', 'top', "success");
           }
         },

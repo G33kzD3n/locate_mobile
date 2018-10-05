@@ -5,6 +5,10 @@ declare const Pusher: any;
 
 export class PusherServiceProvider {
   pusher: any;
+  breakdown:any
+  breakdownmsg:any;
+  message:string []=[];
+
   constructor(public http: HttpClient) {
     this.pusher = new Pusher('fc44950e09ecefa9effd', {
       cluster: 'ap2',
