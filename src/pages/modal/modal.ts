@@ -15,6 +15,7 @@ export class ModalPage {
   constructor(public pusher: PusherServiceProvider,public app:AppServiceProvider ,public viewCtrl: ViewController,public modal: ModalController, public navCtrl: NavController, public navParams: NavParams) {
   }
 
+  
   ionViewDidLoad() {
     console.log('ionViewDidLoad ModalPage');
   }

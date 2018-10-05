@@ -1,19 +1,15 @@
-<ion-content class="main-view">
-  <div class="overlay" (click)="dismiss()"></div>
-  <div class="modal_content">
-    <div class="modal-header"><strong>Notifications</strong> <a href="" class="link">Mark All as Read</a></div>
-   <div class="scroll-content">
-    <!-- <ion-card *ngFor="let message of this.pusher.message;" no-padding> -->
-      
-      {{ this.pusher.message }}
-      <!-- <br>
-    </ion-card> -->
+<ion-content class="pop">
+    <div class="overlay" (click)="dismiss()"></div>
+    <ion-list>
+      <ion-list-header class="ionpop"><strong>Notifications</strong> <a href="" class="link">Mark All as Read</a></ion-list-header>
+      <ion-item *ngFor="let message of this.app.message;">
+  
+        {{ this.app.message }}
+      </ion-item>
+    </ion-list>
+  
     <ion-buttons end>
-      <button ion-button round outline (click)="clear()">
-        clear
-      </button>
+      <button ion-button clear (click)="clear()"> clear </button>
     </ion-buttons>
-  </div>
-  </div>
-
-</ion-content>
+  
+  </ion-content>

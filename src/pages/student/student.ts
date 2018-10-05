@@ -1,5 +1,5 @@
 import { Component, ViewChild, ElementRef } from '@angular/core';
-import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ModalController, PopoverController } from 'ionic-angular';
 import { AppServiceProvider } from '../../providers/app-service/app-service';
 import { MenuController } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
@@ -28,26 +28,25 @@ export class StudentPage {
   livelocation: any;
   image = "assets/imgs/bus2.png";
   markers = [];
-
   location: any;
+  output: any;
+
+  channel: any;
   public mylat: any;
   public mylon: any;
+  public distance: any;
 
   constructor(public modal: ModalController, public pusher: PusherServiceProvider,
     public locationService: LocationServiceProvider,
     public storage: Storage, public http: Http, public datepipe: DatePipe,
     public navCtrl: NavController, public menu: MenuController,
-    public navParams: NavParams, public app: AppServiceProvider, public geolocation: Geolocation) {
+    public navParams: NavParams, public app: AppServiceProvider, public geolocation: Geolocation,
+    public popoverCtrl: PopoverController) {
 
   }
-
-
-  openmodal() {
-    let notice = this.modal.create(ModalPage)
-    notice.present();
-  }
-
+  
   ngOnInit() {
+    this.eta();
     this.showmap();
     if (this.app.userlevel == 2) {
       this.getbreakdown();
@@ -173,21 +172,75 @@ export class StudentPage {
         )
     })
   }
+////////////////partially applied ETA//////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////
+  eta() {
+    var origin1 = new google.maps.LatLng(34.083724, 74.797235);
 
+    var destinationA = new google.maps.LatLng(34.076633, 74.829661);
+    
+    var service = new google.maps.DistanceMatrixService();
+    service.getDistanceMatrix(
+      {
+        origins: [origin1],
+        destinations: [destinationA],
+        travelMode: 'DRIVING',
+        unitSystem: google.maps.UnitSystem.METRIC,
+        avoidHighways: false,
+        avoidTolls: false
+      }, callback);
+
+    function callback(response, status) {
+      if (status == 'OK') {
+        var origins = response.originAddresses;
+        var destinations = response.destinationAddresses;
+
+        this.output = document.getElementById('abc');
+
+        for (var i = 0; i < origins.length; i++) {
+          var results = response.rows[i].elements;
+          for (var j = 0; j < results.length; j++) {
+            var element = results[j];
+            console.log("aa" + results[j])
+            this.distance = element.distance.text;
+            console.log(this.distance)
+            var duration = element.duration.text;
+            console.log(duration)
+            var from = origins[i];
+            console.log(from )
+            var to = destinations[j];
+            console.log(to )
+          }
+        }
+      }
+    }
+  }
+//////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////
   focus(xyz) {
     if (xyz == 1) {
+      try {
+        this.map.setCenter({
+          lat: this.livelocation.lat,
+          lng: this.livelocation.lng
+        });
+      } catch (error) {
 
-      this.map.setCenter({
-        lat: this.livelocation.lat,
-        lng: this.livelocation.lng
-      });
+        this.app.showToast('No Live Bus Not Found', 'top', '');
+      }
+
 
     } else if (xyz == 2) {
+      try {
+        this.map.setCenter({
+          lat: this.mylat,
+          lng: this.mylon
+        });
+      } catch (error) {
+        this.app.showToast('Unable To Find Your Location. Enable GPS', 'top', '');
+      }
 
-      this.map.setCenter({
-        lat: this.mylat,
-        lng: this.mylon
-      });
+
 
     } else {
 
@@ -197,4 +250,12 @@ export class StudentPage {
       });
     }
   }
+
+  presentPopover(ev){
+    let popover = this.popoverCtrl.create(ModalPage);
+    popover.present({
+      ev: ev
+    });
+ 
+   }
 }
