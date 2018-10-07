@@ -77,7 +77,8 @@ export class LoginPage {
             this.storage.set('token', this.user.token);
             this.storage.set('name', this.user.name);
             this.storage.set('user', payload.username);
-
+            this.pusher.setChannel(this.user.bus_no+"-channel");
+            this.pusher.breakdown = this.pusher.init(this.pusher.getChannel());
           },
           error => {
             error = (JSON.parse(error._body));
@@ -89,7 +90,6 @@ export class LoginPage {
 
           () => {
             this.app.removeLoader();
-            this.pusher.breakdown = this.pusher.init(this.user.bus_no + '-channel');
             this.navCtrl.setRoot(MenuPage, {
               user: this.loginForm.controls['username'].value
             });

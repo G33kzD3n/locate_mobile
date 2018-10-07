@@ -6,6 +6,10 @@ import { MenuController } from 'ionic-angular';
 import { Geolocation } from "@ionic-native/geolocation";
 import { Storage } from '@ionic/storage';
 import { LocationServiceProvider } from '../../providers/location-service/location-service';
+import { ModalPage } from '../modal/modal';
+import { NotificationServiceProvider } from '../../providers/notification-service/notification-service';
+import { PopoverController } from 'ionic-angular';
+
 
 @IonicPage()
 @Component({
@@ -42,7 +46,9 @@ export class DriverhomepagePage {
     public http: Http, public storage: Storage,
     public navCtrl: NavController, public menu: MenuController,
     public navParams: NavParams, public app: AppServiceProvider,
-    public geolocation: Geolocation, public locationService: LocationServiceProvider) {
+    public geolocation: Geolocation, public locationService: LocationServiceProvider,
+    public popoverCtrl: PopoverController,
+    public notificationSrv: NotificationServiceProvider) {
   }
   ngOnInit() {
     this.locationService.id = setInterval(() => {
@@ -110,5 +116,11 @@ export class DriverhomepagePage {
   }
   ionViewDidLeave() {
     clearInterval(this.locationService.id);
+  }
+  presentPopover(ev) {
+    let modal = this.popoverCtrl.create(ModalPage);
+    modal.present({
+      ev: ev
+    });
   }
 }

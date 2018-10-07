@@ -2,14 +2,16 @@
     <div class="overlay" (click)="dismiss()"></div>
     <ion-list>
       <ion-list-header class="ionpop"><strong>Notifications</strong> <a href="" class="link">Mark All as Read</a></ion-list-header>
-      <ion-item *ngFor="let message of this.app.message;">
-  
-        {{ this.app.message }}
+      <ion-item *ngFor="let notification of this.notifications;">
+          <span *ngIf="notification.level == 2" text-wrap>Driver has issued a breakdown message:<br>{{ notification.msg.type }}issued at: {{ notification.msg.time }}</span>
+          <span *ngIf="notification.level == 0" text-wrap>You have a message from the cordinator:<br> {{ notification.msg.message }}issued at: {{ notification.msg.time }}</span>
+          <span *ngIf="notification.level == 'both'">{{ notification.msg }}</span>
       </ion-item>
     </ion-list>
   
     <ion-buttons end>
-      <button ion-button clear (click)="clear()"> clear </button>
-    </ion-buttons>
+        <button ion-button clear (click)="clear()"> clear </button>
+      </ion-buttons>
+    
   
   </ion-content>

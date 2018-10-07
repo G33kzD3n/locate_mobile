@@ -35,6 +35,7 @@ import { ModalPage } from '../pages/modal/modal';
 import { OpenNativeSettings } from '@ionic-native/open-native-settings'
 import { Badge } from '@ionic-native/badge'
 import { BreakdowncordPage } from '../pages/breakdowncord/breakdowncord';
+import { NotificationServiceProvider } from '../providers/notification-service/notification-service';
 
 @NgModule({
   declarations: [
@@ -100,7 +101,8 @@ import { BreakdowncordPage } from '../pages/breakdowncord/breakdowncord';
     CallNumber,
     PusherServiceProvider,
     OpenNativeSettings,
-    Badge
+    Badge,
+    NotificationServiceProvider
   ]
 })
 export class AppModule { }

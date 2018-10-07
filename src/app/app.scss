@@ -50,10 +50,10 @@
         z-index: 10;
         display: block;
         margin: auto;
-        width: 50%;
+       // width: 50%;
         max-width: 700px;
-        border-radius: 30px;
-        background: black;
+       // border-radius: 30px;
+        background: #333333;
         
     }
 }
@@ -65,10 +65,10 @@
         z-index: 10;
         display: block;
         margin: auto;
-        width: 50%;
+        //width: 50%;
         max-width: 700px;
-        border-radius: 30px;
-        background: peru;
+        //border-radius: 0px;
+        background: #b73838;
     }
 }
 .toast-md .toast-message {

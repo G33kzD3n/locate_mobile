@@ -9,6 +9,7 @@ import { Geolocation } from "@ionic-native/geolocation";
 import { PusherServiceProvider } from '../../providers/pusher-service/pusher-service';
 import { LocationServiceProvider } from '../../providers/location-service/location-service';
 import { ModalPage } from '../modal/modal';
+import { NotificationServiceProvider } from '../../providers/notification-service/notification-service';
 
 declare var google: any;
 
@@ -41,12 +42,13 @@ export class StudentPage {
     public storage: Storage, public http: Http, public datepipe: DatePipe,
     public navCtrl: NavController, public menu: MenuController,
     public navParams: NavParams, public app: AppServiceProvider, public geolocation: Geolocation,
-    public popoverCtrl: PopoverController) {
-
+    public popoverCtrl: PopoverController,
+    public notificationSrv: NotificationServiceProvider) {
   }
-  
+
   ngOnInit() {
     this.eta();
+    this.pusher.breakdown = this.pusher.init('8839-channel');
     this.showmap();
     if (this.app.userlevel == 2) {
       this.getbreakdown();
@@ -54,25 +56,32 @@ export class StudentPage {
     if (this.app.userlevel == 0) {
       this.getbreakdownupdate();
     }
-    console.log("user level=" + this.app.userlevel);
-
   }
+
   getbreakdown() {
     this.pusher.breakdown.bind('breakdown-info-created', (data) => {
-      console.log(data);
-      this.pusher.breakdownmsg = data;
+      this.notificationSrv.pushNotification({
+        level: 2,
+        msg: data
+      });
+      this.notificationSrv.ncounter++;
+      this.notificationSrv.breakdownmsg = data;
     });
   }
+
   getbreakdownupdate() {
     this.pusher.breakdown.bind('breakdown-info-updated', (data) => {
-      console.log(data);
-      this.pusher.message = data;
+      this.notificationSrv.pushNotification({
+        level: 0,
+        msg: data
+      });
+      //this.pusher.message.unshift(JSON.stringify(data));
+      this.notificationSrv.ncounter++;
     });
   }
 
   ionViewDidLoad() {
     this.getAssignedStop();
-
   }
 
   addMarker(position, map) {
@@ -81,19 +90,20 @@ export class StudentPage {
       map: map
     });
     this.markers.push(marker);
-    //return new google.maps.Marker({ position, map })
   }
+
   setMapOnAll(map) {
     for (var i = 0; i < this.markers.length; i++) {
       this.markers[i].setMap(map);
     }
   }
+
   clearMarkers() {
     this.setMapOnAll(null);
     this.markers = [];
   }
-  showmap() {
 
+  showmap() {
     this.geolocation.getCurrentPosition({ enableHighAccuracy: true, timeout: 2000, maximumAge: 0 }).then((resp) => {
       this.mylat = resp.coords.latitude;
       this.mylon = resp.coords.longitude;
@@ -103,17 +113,13 @@ export class StudentPage {
     const mymark = new google.maps.LatLng(this.mylat, this.mylon);
     this.addMarker(mymark, this.map);
     this.showMarkers();
-
-
     var location = new google.maps.LatLng(34.083656, 74.797371);
-
     let options = {
       center: location,
       zoom: 15,
       disableDefaultUI: true,
       mapTypeId: google.maps.MapTypeId.ROADMAP,
     };
-
     //create map
     this.map = new google.maps.Map(this.mapRef.nativeElement, options);
     this.app.removeLoader();
@@ -121,34 +127,25 @@ export class StudentPage {
     this.getlocation();
     // }, 7000);
   }
+
   showMarkers() {
     this.setMapOnAll(this.map);
   }
 
-
-
   getlocation() {
-    //this.location = this.pusher.init(bus_no + '-channel');
     this.pusher.breakdown.bind('location-update', (data) => {
-      console.log(data);
       this.bus = data;
       this.livelocation = data;
       this.clearMarkers();
-
       const loc = new google.maps.LatLng(data.lat, data.lng);
       this.addMarker(loc, this.map);
       this.showMarkers();
-      this.app.showToast(JSON.stringify(data), 'top', 'success');
-      this.pusher.message.push(data.lat, data.lng);
-      this.app.ncounter++;
-      console.log(this.pusher.message);
+      //this.app.showToast(JSON.stringify(data), 'top', 'success');
     });
   }
 
   ionViewDidLeave() {
-    //clearInterval(this.locationService.id);
     this.storage.get('bus_no').then((bus_no) => {
-      //this.pusher.destroy(bus_no + '-channel');
       this.pusher.breakdown.unbind('location-update');
     });
   }
@@ -172,13 +169,11 @@ export class StudentPage {
         )
     })
   }
-////////////////partially applied ETA//////////////////////////////////////////////////////
-//////////////////////////////////////////////////////////////////////////////////////////
+  ////////////////partially applied ETA//////////////////////////////////////////////////////
+  //////////////////////////////////////////////////////////////////////////////////////////
   eta() {
     var origin1 = new google.maps.LatLng(34.083724, 74.797235);
-
     var destinationA = new google.maps.LatLng(34.076633, 74.829661);
-    
     var service = new google.maps.DistanceMatrixService();
     service.getDistanceMatrix(
       {
@@ -194,29 +189,22 @@ export class StudentPage {
       if (status == 'OK') {
         var origins = response.originAddresses;
         var destinations = response.destinationAddresses;
-
         this.output = document.getElementById('abc');
-
         for (var i = 0; i < origins.length; i++) {
           var results = response.rows[i].elements;
           for (var j = 0; j < results.length; j++) {
             var element = results[j];
-            console.log("aa" + results[j])
             this.distance = element.distance.text;
-            console.log(this.distance)
             var duration = element.duration.text;
-            console.log(duration)
             var from = origins[i];
-            console.log(from )
             var to = destinations[j];
-            console.log(to )
           }
         }
       }
     }
   }
-//////////////////////////////////////////////////////////////////////////
-//////////////////////////////////////////////////////////////////////////
+  //////////////////////////////////////////////////////////////////////////
+  //////////////////////////////////////////////////////////////////////////
   focus(xyz) {
     if (xyz == 1) {
       try {
@@ -225,11 +213,8 @@ export class StudentPage {
           lng: this.livelocation.lng
         });
       } catch (error) {
-
-        this.app.showToast('No Live Bus Not Found', 'top', '');
+        this.app.showToast('No Live Bus Found', 'top', 'error');
       }
-
-
     } else if (xyz == 2) {
       try {
         this.map.setCenter({
@@ -237,25 +222,19 @@ export class StudentPage {
           lng: this.mylon
         });
       } catch (error) {
-        this.app.showToast('Unable To Find Your Location. Enable GPS', 'top', '');
+        this.app.showToast('Unable To Find Your Location. Enable GPS', 'top', 'error');
       }
-
-
-
     } else {
-
       this.map.setCenter({
         lat: this.assignedstop.lat,
         lng: this.assignedstop.lng
       });
     }
   }
-
-  presentPopover(ev){
-    let popover = this.popoverCtrl.create(ModalPage);
-    popover.present({
+  presentPopover(ev) {
+    let modal = this.popoverCtrl.create(ModalPage);
+    modal.present({
       ev: ev
     });
- 
-   }
+  }
 }

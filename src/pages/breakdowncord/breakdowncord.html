@@ -5,9 +5,12 @@
     </button>
     <ion-title>Breakdown</ion-title>
     <ion-buttons end>
-      <button ion-button icon-only>
-        <ion-icon name="notifications"></ion-icon>
-      </button>
+        <button id="cart-btn" ion-button icon-only (click)="presentPopover($event)">
+            <ion-icon name="notifications"></ion-icon>
+            <span *ngIf="this.notificationSrv.ncounter !== 0">
+              <ion-badge id="cart-badge" color="danger"> {{ this.notificationSrv.ncounter }}</ion-badge>
+            </span>
+          </button>
     </ion-buttons>
   </ion-navbar>
 </ion-header>
@@ -18,11 +21,11 @@
       <ion-list class="list">
         <ion-item>
           <label>Breakdown Type:</label>
-          <h2>{{ pusher?.breakdownmsg?.type }}</h2>
+          <h2>{{ message?.type }}</h2>
         </ion-item>
         <ion-item>
           <label>Breakdown Time:</label>
-          <h2>{{ pusher?.breakdownmsg?.time }}</h2>
+          <h2>{{ message?.time }}</h2>
         </ion-item>
       </ion-list>
         <form class="list-form" [formGroup]="loginForm" (ngSubmit)="sendbreakdownwithmsg(loginForm.value)">

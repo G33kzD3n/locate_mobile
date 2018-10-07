@@ -5,9 +5,12 @@
     </button>
     <ion-title>Students</ion-title>
     <ion-buttons end>
-      <button ion-button icon-only icon-only (click)="openmodal()">
-        <ion-icon name="notifications"></ion-icon>
-      </button>
+        <button id="cart-btn" ion-button icon-only (click)="presentPopover($event)">
+            <ion-icon name="notifications"></ion-icon>
+            <span *ngIf="this.notificationSrv.ncounter !== 0">
+              <ion-badge id="cart-badge" color="danger"> {{ this.notificationSrv.ncounter }}</ion-badge>
+            </span>
+          </button>
     </ion-buttons>
   </ion-navbar>
 </ion-header>

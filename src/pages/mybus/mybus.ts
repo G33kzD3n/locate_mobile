@@ -1,5 +1,5 @@
 import { Component, ViewChild, ElementRef } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, Popover } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 import { AppServiceProvider } from '../../providers/app-service/app-service';
 import { RequestOptions, Headers, Http } from '@angular/http';
@@ -7,6 +7,10 @@ import { Geolocation } from "@ionic-native/geolocation";
 import { CallNumber } from '@ionic-native/call-number';
 import { LocationServiceProvider } from '../../providers/location-service/location-service';
 declare var google: any;
+import { ModalPage } from '../modal/modal';
+import { NotificationServiceProvider } from '../../providers/notification-service/notification-service';
+import { PopoverController } from 'ionic-angular';
+
 
 interface point {
   lat: number,
@@ -47,7 +51,9 @@ export class MybusPage {
   waypts: any = [];
 
 
-  constructor(public locationService: LocationServiceProvider, public http: Http, public geolocation: Geolocation,
+  constructor(public notificationSrv: NotificationServiceProvider, public locationService: LocationServiceProvider,
+    public popoverCtrl: PopoverController,
+    public http: Http, public geolocation: Geolocation,
     public app: AppServiceProvider, public storage: Storage,
     public navCtrl: NavController, public navParams: NavParams,
     public callNumber: CallNumber) {
@@ -97,7 +103,7 @@ export class MybusPage {
         this.myStopIndex = i;
 
         showMarkers.setMap(this.map);
-        
+
 
       }
     }
@@ -114,10 +120,10 @@ export class MybusPage {
     directionsDisplay.setPanel(this.directionsPanel.nativeElement);
     console.log(this.points[this.myStopIndex - parseInt('2')]);
     console.log("***waypoints");
-   
+
     directionsService.route({
       origin: '34.1284, 74.8365',
-      
+
       waypoints: [{
 
         location: this.points[2][0] + "," + this.points[2][1],
@@ -139,12 +145,12 @@ export class MybusPage {
         stopover: true
       }
       ],
-      
+
 
       destination: '34.2323, 74.4163',
 
       provideRouteAlternatives: true,
-      
+
       travelMode: google.maps.TravelMode['DRIVING']
     }, (res, status) => {
 
@@ -208,7 +214,7 @@ export class MybusPage {
         .subscribe(
           res => {
             this.assignedstop = res.data.stop;
-                    },
+          },
           err => {
 
           },
@@ -218,5 +224,10 @@ export class MybusPage {
         )
     })
   }
-
+  presentPopover(ev) {
+    let modal = this.popoverCtrl.create(ModalPage);
+    modal.present({
+      ev: ev
+    });
+  }
 }

@@ -32,12 +32,12 @@ export class MenuPage {
   public pages: Array<{ title: string, component: any, icon: any, index: any }>;
   public user = "";
   public user1: any;
-  public name1:any;
+  public name1: any;
   public name = "";
   activepage: any;
 
 
-  constructor(public pusher: PusherServiceProvider,public location:LocationServiceProvider ,public platform: Platform, public alert: AlertController, public app: AppServiceProvider, public navCtrl: NavController, public http: Http, public navParams: NavParams, public storage: Storage) {
+  constructor(public pusher: PusherServiceProvider, public location: LocationServiceProvider, public platform: Platform, public alert: AlertController, public app: AppServiceProvider, public navCtrl: NavController, public http: Http, public navParams: NavParams, public storage: Storage) {
 
   }
   isActive() { }
@@ -50,11 +50,10 @@ export class MenuPage {
       if (data === 0) {
         this.nav.setRoot(ProfilePage);
       }
-      else if(data===2){
+      else if (data === 2) {
         this.nav.setRoot(ProfilePage);
       }
-      else
-      {
+      else {
         this.nav.setRoot(DriverprofilePage);
       }
     })
@@ -63,7 +62,7 @@ export class MenuPage {
   showMenu() {
 
     this.storage.get('level').then((data) => {
-      this.app.userlevel=data;
+      this.app.userlevel = data;
       if (data === 0) {
         this.rootpage = StudentPage;
         this.pages = [
@@ -105,7 +104,7 @@ export class MenuPage {
     this.storage.get('name').then((user) => {
       this.user1 = this.app.getToken(user);
     });
-    
+
   }
 
   checkActive(p) {
@@ -125,7 +124,7 @@ export class MenuPage {
           handler: () => {
             this.storage.clear();
             this.navCtrl.setRoot(LoginPage);
-            this.pusher.destroy(this.pusher.breakdown);
+            this.pusher.destroy(this.pusher.getChannel());
             this.app.showToast('Logout successfull!', 'top', "success");
           }
         },

@@ -9,6 +9,9 @@ import { PusherServiceProvider } from '../../providers/pusher-service/pusher-ser
 
 import "rxjs/add/operator/map";
 import { Message } from '@angular/compiler/src/i18n/i18n_ast';
+import { ModalPage } from '../modal/modal';
+import { NotificationServiceProvider } from '../../providers/notification-service/notification-service';
+import { PopoverController } from 'ionic-angular';
 
 
 @IonicPage()
@@ -18,24 +21,25 @@ import { Message } from '@angular/compiler/src/i18n/i18n_ast';
 })
 export class BreakdowncordPage {
   loginForm: FormGroup;
-  constructor(public pusher: PusherServiceProvider, public network: Network, public navCtrl: NavController, private app: AppServiceProvider, public http: Http, public storage: Storage) {
+  message: any;
+  constructor(public notificationSrv: NotificationServiceProvider, public pusher: PusherServiceProvider,
+    public network: Network, public navCtrl: NavController,
+    private app: AppServiceProvider, public http: Http,
+    public storage: Storage, public popoverCtrl: PopoverController) {
   }
 
   ionViewDidLoad() {
 
   }
   ngOnInit() {
-    //this.getbreakdown();
+    this.getbreakdown();
     this.loginForm = new FormGroup({
       'message': new FormControl()
     });
   }
   getbreakdown() {
     //this.pusher.breakdown = this.pusher.init(bus_no + '-channel');
-    this.pusher.breakdown.bind('breakdown-info-created', (data) => {
-      console.log(data);
-      this.pusher.breakdownmsg = data;
-    });
+    this.message = this.notificationSrv.breakdownmsg;
   }
   ionViewDidLeave() {
 
@@ -46,7 +50,8 @@ export class BreakdowncordPage {
       message: this.loginForm.controls['message'].value,
       time: this.app.calDate()
     };
-    let record_id = this.pusher.breakdownmsg.record_id;
+    let record_id = this.notificationSrv.breakdownmsg.record_id;
+    console.log(record_id);
     this.storage.get('bus_no').then((bus_no) => {
       console.log(payload);
       let headers = new Headers({ 'Content-Type': 'application/json' });
@@ -57,8 +62,6 @@ export class BreakdowncordPage {
 
           result => {
 
-
-
           },
           error => {
             this.app.removeLoader();
@@ -67,10 +70,14 @@ export class BreakdowncordPage {
 
           () => {
             this.app.removeLoader();
-            this.pusher.message=payload.message;
-            console.log(this.pusher.message);
             this.app.showToast('Message sent', 'top', 'success');
           });
+    });
+  }
+  presentPopover(ev) {
+    let modal = this.popoverCtrl.create(ModalPage);
+    modal.present({
+      ev: ev
     });
   }
 }
