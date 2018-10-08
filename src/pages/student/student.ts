@@ -50,11 +50,11 @@ export class StudentPage {
     this.eta();
     this.pusher.breakdown = this.pusher.init('8839-channel');
     this.showmap();
-    if (this.app.userlevel == 2) {
-      this.getbreakdown();
-    }
     if (this.app.userlevel == 0) {
       this.getbreakdownupdate();
+    }
+    if (this.app.userlevel == 2) {
+      this.getbreakdown();
     }
   }
 
@@ -65,6 +65,8 @@ export class StudentPage {
         msg: data
       });
       this.notificationSrv.ncounter++;
+      //stores data later to b used in breakdowncord.ts
+      //to show type of breakdown to cordinator
       this.notificationSrv.breakdownmsg = data;
     });
   }
@@ -75,7 +77,6 @@ export class StudentPage {
         level: 0,
         msg: data
       });
-      //this.pusher.message.unshift(JSON.stringify(data));
       this.notificationSrv.ncounter++;
     });
   }

@@ -1,17 +1,37 @@
 <ion-content class="pop">
     <div class="overlay" (click)="dismiss()"></div>
     <ion-list>
-      <ion-list-header class="ionpop"><strong>Notifications</strong> <a href="" class="link">Mark All as Read</a></ion-list-header>
-      <ion-item *ngFor="let notification of this.notifications;">
-          <span *ngIf="notification.level == 2" text-wrap>Driver has issued a breakdown message:<br>{{ notification.msg.type }}issued at: {{ notification.msg.time }}</span>
-          <span *ngIf="notification.level == 0" text-wrap>You have a message from the cordinator:<br> {{ notification.msg.message }}issued at: {{ notification.msg.time }}</span>
-          <span *ngIf="notification.level == 'both'">{{ notification.msg }}</span>
-      </ion-item>
+        <ion-list-header class="ionpop"><strong>Notifications</strong> <a href="" class="link" style="float:right">Mark All as Read</a></ion-list-header>
+        <ion-item *ngFor="let notification of this.notifications;">
+
+            <ion-card *ngIf="notification.level == 2" text-wrap>
+                <ion-item>
+                    <h3 style="text-align: left;display: inline;">{{ notification.msg.type }}</h3>
+                    <p style="display: inline; float: right;">{{ notification.msg.time }}</p>
+                </ion-item>
+                <ion-card-content>
+                    <p style="text-align: left;display: inline;">breakdown has occured in your bus compose a message for the students of the bus</p>
+                    <div>
+                            <span style="display:inline; float:right;" ion-text color="danger" (click)="openbreak()">open <strong>Breakdown</strong></span>
+                          </div>
+                </ion-card-content>
+            </ion-card>
+            <ion-card *ngIf="notification.level == 0" text-wrap>
+                <ion-item>
+                    <h3 style="text-align: left;display: inline;">Cordinator posted a new message:</h3>
+                    <p style="display: inline; float: right;">{{ notification.msg.time }}</p>
+                </ion-item>
+                <ion-card-content>
+                    <p style="text-align:left;">{{ notification.msg.message }}</p>
+                </ion-card-content>
+            </ion-card>
+            <span *ngIf="notification.level == 'both'">{{ notification.msg }}</span>
+        </ion-item>
     </ion-list>
-  
+
     <ion-buttons end>
         <button ion-button clear (click)="clear()"> clear </button>
-      </ion-buttons>
-    
-  
-  </ion-content>
+    </ion-buttons>
+
+
+</ion-content>

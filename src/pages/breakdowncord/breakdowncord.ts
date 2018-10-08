@@ -32,15 +32,13 @@ export class BreakdowncordPage {
 
   }
   ngOnInit() {
-    this.getbreakdown();
+    this.message = this.notificationSrv.breakdownmsg;
+    console.log(this.message);
     this.loginForm = new FormGroup({
       'message': new FormControl()
     });
   }
-  getbreakdown() {
-    //this.pusher.breakdown = this.pusher.init(bus_no + '-channel');
-    this.message = this.notificationSrv.breakdownmsg;
-  }
+  
   ionViewDidLeave() {
 
   }
@@ -65,7 +63,7 @@ export class BreakdowncordPage {
           },
           error => {
             this.app.removeLoader();
-            this.app.showToast('Something went wrong', 'top', 'success');
+            this.app.showToast('Something went wrong, Message cant be empty', 'top', 'success');
           },
 
           () => {
