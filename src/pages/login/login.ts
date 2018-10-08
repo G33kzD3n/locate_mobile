@@ -27,7 +27,9 @@ export class LoginPage {
   user:any;
 
 
-  constructor(public pusher:PusherServiceProvider ,public network: Network, public navCtrl: NavController, private app: AppServiceProvider, public http: Http, public storage: Storage) {
+  constructor(public pusher:PusherServiceProvider ,public network: Network,
+    public navCtrl: NavController, private app: AppServiceProvider,
+    public http: Http, public storage: Storage) {
   }
 
   ngOnInit() {

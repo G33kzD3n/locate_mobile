@@ -24,8 +24,6 @@ export class ModalPage {
 
   }
   openbreak() {
-    //this.navCtrl.setRoot(BreakdowncordPage);
-    
     this.navCtrl.setRoot(BreakdowncordPage);
   }
 

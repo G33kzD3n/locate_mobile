@@ -17,6 +17,7 @@ import { DriverprofilePage } from '../driverprofile/driverprofile';
 import { DriverhomepagePage } from '../driverhomepage/driverhomepage';
 import { BreakdowncordPage } from '../breakdowncord/breakdowncord';
 import { PusherServiceProvider } from '../../providers/pusher-service/pusher-service';
+import { NotificationServiceProvider } from '../../providers/notification-service/notification-service';
 
 
 @IonicPage()
@@ -37,7 +38,11 @@ export class MenuPage {
   activepage: any;
 
 
-  constructor(public pusher: PusherServiceProvider, public location: LocationServiceProvider, public platform: Platform, public alert: AlertController, public app: AppServiceProvider, public navCtrl: NavController, public http: Http, public navParams: NavParams, public storage: Storage) {
+  constructor(public pusher: PusherServiceProvider, public location: LocationServiceProvider,
+    public platform: Platform, public alert: AlertController,
+    public app: AppServiceProvider, public navCtrl: NavController,
+    public http: Http, public navParams: NavParams, public storage: Storage,
+    public notificationSrv: NotificationServiceProvider) {
 
   }
   isActive() { }
@@ -125,6 +130,8 @@ export class MenuPage {
             this.storage.clear();
             this.navCtrl.setRoot(LoginPage);
             this.pusher.destroy(this.pusher.getChannel());
+            this.notificationSrv.notifications=[];
+            this.notificationSrv.ncounter=0;
             this.app.showToast('Logout successfull!', 'top', "success");
           }
         },
