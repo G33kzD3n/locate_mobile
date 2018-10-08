@@ -6,6 +6,7 @@ import { RequestOptions, Headers, Http } from '@angular/http';
 import { Storage } from '@ionic/storage';
 import { Network } from '@ionic-native/network';
 import { PusherServiceProvider } from '../../providers/pusher-service/pusher-service';
+import { NotificationServiceProvider } from '../../providers/notification-service/notification-service';
 
 import "rxjs/add/operator/map";
 
@@ -29,7 +30,7 @@ export class LoginPage {
 
   constructor(public pusher:PusherServiceProvider ,public network: Network,
     public navCtrl: NavController, private app: AppServiceProvider,
-    public http: Http, public storage: Storage) {
+    public http: Http, public storage: Storage, public notificationSrv:NotificationServiceProvider) {
   }
 
   ngOnInit() {

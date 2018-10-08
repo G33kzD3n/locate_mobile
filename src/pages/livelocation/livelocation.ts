@@ -146,7 +146,7 @@ export class LivelocationPage {
         });
       } catch (error) {
 
-        this.app.showToast('No Live Bus Not Found', 'top', '');
+        this.app.showToast('No Live Bus Not Found', 'top', 'error');
       }
 
 
@@ -157,7 +157,7 @@ export class LivelocationPage {
           lng: this.mylon
         });
       } catch (error) {
-        this.app.showToast('Unable To Find Your Location. Enable GPS', 'top', '');
+        this.app.showToast('Unable To Find Your Location. Enable GPS', 'top', 'error');
       }
 
     } else {
