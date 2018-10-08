@@ -69,6 +69,10 @@ export class BreakdowncordPage {
           () => {
             this.app.removeLoader();
             this.app.showToast('Message sent', 'top', 'success');
+            this.notificationSrv.breakdownmsg="";
+            this.notificationSrv.ncounter--;
+            this.message="";
+            this.loginForm.reset();
           });
     });
   }
