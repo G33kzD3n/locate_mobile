@@ -5,12 +5,12 @@
     </button>
     <ion-title>Breakdown</ion-title>
     <ion-buttons end>
-        <button id="cart-btn" ion-button icon-only (click)="presentPopover($event)">
-            <ion-icon name="notifications"></ion-icon>
-            <span *ngIf="this.notificationSrv.ncounter !== 0">
-              <ion-badge id="cart-badge" color="danger"> {{ this.notificationSrv.ncounter }}</ion-badge>
-            </span>
-          </button>
+      <button id="cart-btn" ion-button icon-only (click)="presentPopover($event)">
+        <ion-icon name="notifications"></ion-icon>
+        <span *ngIf="this.notificationSrv.ncounter !== 0">
+          <ion-badge id="cart-badge" color="danger"> {{ this.notificationSrv.ncounter }}</ion-badge>
+        </span>
+      </button>
     </ion-buttons>
   </ion-navbar>
 </ion-header>
@@ -28,14 +28,19 @@
           <h2>{{ message?.time }}</h2>
         </ion-item>
       </ion-list>
-        <form class="list-form" [formGroup]="loginForm" (ngSubmit)="sendbreakdownwithmsg(loginForm.value)">
+      <form class="list-form" [formGroup]="loginForm" (ngSubmit)="sendbreakdownwithmsg(loginForm.value)">
         <ion-item>
-            <ion-textarea placeholder="Enter Message" name="message" id="message" formControlName="message" required></ion-textarea>
-          </ion-item>
-          <button ion-button icon-start round block color="danger">
-              <ion-icon name="log-in"></ion-icon>Send</button>
-            
-          </form>
+          <ion-textarea placeholder="Enter Message" name="message" id="message" formControlName="message" required></ion-textarea>
+        </ion-item>
+        <div class="errorBox" *ngIf="loginForm.controls['message'].hasError('required')  && loginForm.controls['message'].touched">*Message
+          can't be empty
+        </div>
+        <!-- <span *ngIf="record !== false"> -->
+          <button ion-button icon-start round block color="danger" [disabled]="!loginForm.valid">
+            <ion-icon name="send"></ion-icon>Send
+          </button>
+        <!-- </span> -->
+      </form>
     </ion-card-content>
   </ion-card>
 </ion-content>

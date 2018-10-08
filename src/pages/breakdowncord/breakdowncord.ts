@@ -22,6 +22,9 @@ import { PopoverController } from 'ionic-angular';
 export class BreakdowncordPage {
   loginForm: FormGroup;
   message: any;
+  record_id: any;
+  record : boolean =false;
+
   constructor(public notificationSrv: NotificationServiceProvider, public pusher: PusherServiceProvider,
     public network: Network, public navCtrl: NavController,
     private app: AppServiceProvider, public http: Http,
@@ -29,32 +32,45 @@ export class BreakdowncordPage {
   }
 
   ionViewDidLoad() {
-
   }
+
   ngOnInit() {
     this.message = this.notificationSrv.breakdownmsg;
     console.log(this.message);
+    if (this.message !== undefined)
+    {
+      this.record=true;
+      console.log(this.record);
+    }
     this.loginForm = new FormGroup({
-      'message': new FormControl()
+      'message': new FormControl('', Validators.compose([
+        Validators.required]))
     });
   }
-  
-  ionViewDidLeave() {
 
+  ionViewDidLeave() {
   }
+
   sendbreakdownwithmsg() {
+    for(let i=0;i<this.notificationSrv.notifications.length;i++)
+    {
+      //console.log(this.notificationSrv.notifications[i].msg.time);
+      if (this.message.time == this.notificationSrv.notifications[i].msg.time){
+      //console.log("hello");
+      this.notificationSrv.notifications.splice([i], 1);
+      //console.log(this.notificationSrv.notifications)
+      }
+    }
     this.app.showLoader("Sending message to all students of the bus");
     let payload = {
       message: this.loginForm.controls['message'].value,
       time: this.app.calDate()
     };
-    let record_id = this.notificationSrv.breakdownmsg.record_id;
-    console.log(record_id);
+    this.record_id = this.notificationSrv.breakdownmsg.record_id;
     this.storage.get('bus_no').then((bus_no) => {
-      console.log(payload);
       let headers = new Headers({ 'Content-Type': 'application/json' });
       let options = new RequestOptions({ headers: headers });
-      this.http.put(this.app.getUrl() + '/buses/' + bus_no + '/breakdowns/' + record_id, payload, options)
+      this.http.put(this.app.getUrl() + '/buses/' + bus_no + '/breakdowns/' + this.record_id, payload, options)
         .map(res => res.json())
         .subscribe(
 
@@ -63,16 +79,17 @@ export class BreakdowncordPage {
           },
           error => {
             this.app.removeLoader();
-            this.app.showToast('Something went wrong, Message cant be empty', 'top', 'success');
+            this.app.showToast('No breakdown Message from Driver, Message cant be empty', 'top', 'error');
           },
 
           () => {
             this.app.removeLoader();
             this.app.showToast('Message sent', 'top', 'success');
-            this.notificationSrv.breakdownmsg="";
+            this.notificationSrv.breakdownmsg = "";
             this.notificationSrv.ncounter--;
-            this.message="";
+            this.message = "";
             this.loginForm.reset();
+            //this.record=false;
           });
     });
   }

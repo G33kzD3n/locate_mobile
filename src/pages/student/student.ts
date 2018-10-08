@@ -44,6 +44,7 @@ export class StudentPage {
     public navParams: NavParams, public app: AppServiceProvider, public geolocation: Geolocation,
     public popoverCtrl: PopoverController,
     public notificationSrv: NotificationServiceProvider) {
+    
   }
 
   ngOnInit() {
@@ -52,13 +53,16 @@ export class StudentPage {
     this.showmap();
     if (this.app.userlevel == 0) {
       this.getbreakdownupdate();
+      console.log("student function"+this.notificationSrv.ncounter);
     }
     if (this.app.userlevel == 2) {
       this.getbreakdown();
+       console.log("cordinator"+this.notificationSrv.ncounter);
     }
   }
 
   getbreakdown() {
+    console.log("cordinator"+this.notificationSrv.ncounter);
     this.pusher.breakdown.bind('breakdown-info-created', (data) => {
       this.notificationSrv.pushNotification({
         level: 2,
@@ -68,10 +72,12 @@ export class StudentPage {
       //stores data later to b used in breakdowncord.ts
       //to show type of breakdown to cordinator
       this.notificationSrv.breakdownmsg = data;
+      console.log("cordinator"+this.notificationSrv.ncounter);
     });
   }
 
   getbreakdownupdate() {
+    
     this.pusher.breakdown.bind('breakdown-info-updated', (data) => {
       this.notificationSrv.pushNotification({
         level: 0,
@@ -79,6 +85,7 @@ export class StudentPage {
       });
       this.notificationSrv.ncounter++;
     });
+    console.log("student function"+this.notificationSrv.ncounter);
   }
 
   ionViewDidLoad() {
@@ -124,9 +131,7 @@ export class StudentPage {
     //create map
     this.map = new google.maps.Map(this.mapRef.nativeElement, options);
     this.app.removeLoader();
-    // this.locationService.id = setInterval(() => {
     this.getlocation();
-    // }, 7000);
   }
 
   showMarkers() {
@@ -141,7 +146,6 @@ export class StudentPage {
       const loc = new google.maps.LatLng(data.lat, data.lng);
       this.addMarker(loc, this.map);
       this.showMarkers();
-      //this.app.showToast(JSON.stringify(data), 'top', 'success');
     });
   }
 

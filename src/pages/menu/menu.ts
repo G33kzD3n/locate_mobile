@@ -42,14 +42,15 @@ export class MenuPage {
     public platform: Platform, public alert: AlertController,
     public app: AppServiceProvider, public navCtrl: NavController,
     public http: Http, public navParams: NavParams, public storage: Storage,
-    public notificationSrv: NotificationServiceProvider) {
-
+    public notificationSrv: NotificationServiceProvider) { }
+  isActive(){
   }
-  isActive() { }
+  
   openPage(p: any) {
     this.nav.setRoot(p.component);
     this.activepage = p;
   }
+
   openProfile() {
     this.storage.get('level').then((data) => {
       if (data === 0) {
@@ -65,13 +66,11 @@ export class MenuPage {
   }
 
   showMenu() {
-
     this.storage.get('level').then((data) => {
       this.app.userlevel = data;
       if (data === 0) {
         this.rootpage = StudentPage;
         this.pages = [
-
           { title: 'Home', component: StudentPage, icon: 'home', index: 0 },
           { title: 'My Bus', component: MybusPage, icon: 'bus', index: 0 },
           { title: 'Buses', component: LocationPage, icon: 'bus', index: 0 },
@@ -102,23 +101,26 @@ export class MenuPage {
       }
     })
   }
+
   ionViewWillEnter() {
     this.showMenu();
   }
+
   ionViewDidEnter() {
     this.storage.get('name').then((user) => {
       this.user1 = this.app.getToken(user);
     });
-
   }
 
   checkActive(p) {
     return p == this.activepage;
   }
+
   logOut() {
     clearInterval(this.location.id);
     this.Confirm();
   }
+
   Confirm() {
     let alert = this.alert.create({
       title: 'Confirm LogOut',
@@ -130,8 +132,8 @@ export class MenuPage {
             this.storage.clear();
             this.navCtrl.setRoot(LoginPage);
             this.pusher.destroy(this.pusher.getChannel());
-            this.notificationSrv.notifications=[];
-            this.notificationSrv.ncounter=0;
+            this.notificationSrv.notifications = [];
+            this.notificationSrv.ncounter = 0;
             this.app.showToast('Logout successfull!', 'top', "success");
           }
         },
@@ -147,4 +149,3 @@ export class MenuPage {
     alert.present();
   }
 }
-

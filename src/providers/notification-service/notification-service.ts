@@ -15,7 +15,7 @@ export class NotificationServiceProvider {
     console.log('Hello NotificationServiceProvider Provider');
   }
   pushNotification(data: any) {
-    this.notifications.push(data);
+    this.notifications.unshift(data);
   }
   getPushNotifications() {
     return this.notifications;
