@@ -79,7 +79,7 @@ export class BreakdowncordPage {
           },
           error => {
             this.app.removeLoader();
-            this.app.showToast('No breakdown Message from Driver, Message cant be empty', 'top', 'error');
+            this.app.showToast('No breakdown Message from Driver', 'top', 'error');
           },
 
           () => {

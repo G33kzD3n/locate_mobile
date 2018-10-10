@@ -5,47 +5,46 @@
     </button>
     <ion-title>Students</ion-title>
     <ion-buttons end>
-        <button id="cart-btn" ion-button icon-only (click)="presentPopover($event)">
-            <ion-icon name="notifications"></ion-icon>
-            <span *ngIf="this.notificationSrv.ncounter !== 0">
-              <ion-badge id="cart-badge" color="danger"> {{ this.notificationSrv.ncounter }}</ion-badge>
-            </span>
-          </button>
+      <button id="cart-btn" ion-button icon-only (click)="presentPopover($event)">
+        <ion-icon name="notifications"></ion-icon>
+        <span *ngIf="this.notificationSrv.ncounter !== 0">
+          <ion-badge id="cart-badge" color="danger"> {{ this.notificationSrv.ncounter }}</ion-badge>
+        </span>
+      </button>
     </ion-buttons>
   </ion-navbar>
 </ion-header>
 <ion-content no-padding class="contentbg">
-
-  <ion-card *ngFor="let passenger of passengers; let i=index" no-padding>
+  <ion-card *ngFor="let data of data;" no-padding>
+    <ion-card-header>
+      <ion-icon name="location"></ion-icon> {{ data.name}}
+    </ion-card-header>
     <!-- <ion-card-header color="dark">Passenger no: {{i}}</ion-card-header> -->
-    <ion-card-content no-padding>
-      
-        <ion-item style="background: linear-gradient(0.40turn, #c2d8e7 , #fdfffb ,#bbd2e2 );">
+    <ion-card-content *ngFor="let passenger of data.passengers; let y=index let last=last" no-padding>
+      <ion-item style="background: linear-gradient(0.40turn, #c2d8e7 , #fdfffb ,#bbd2e2 );">
+        <img class="thumb" src="assets/imgs/11.JPG" item-left>
 
-          <img class="thumb" src="assets/imgs/11.JPG" item-left>
+        <label>
+          <ion-icon name="md-person"></ion-icon> {{ passenger?.username}}
+        </label>
 
-          <label>  <ion-icon name="md-person"></ion-icon>  {{ passenger?.username}}</label>
+        <h2>
+          <ion-icon name="md-person"></ion-icon> {{passenger?.name}}
+        </h2>
 
-                 <h2>
-            <ion-icon name="md-person"></ion-icon> {{passenger?.name}}
-          </h2>
+        <h2>
+          <ion-icon name="md-call"></ion-icon> {{passenger.cell_no}}
+        </h2>
 
-          <h2>
-            <ion-icon name="md-call"></ion-icon> {{passenger?.cell_no}}
-          </h2>
+        <h2>
+          <ion-icon name="md-build"></ion-icon> {{passenger.course_code}}
+        </h2>
 
-          <h2>
-            <ion-icon name="md-build"></ion-icon> {{passenger?.course_code}}
-          </h2>
-          
-          <h2>
-            <ion-icon name="md-home"></ion-icon> {{passenger?.dept_code}}
-          </h2>
+        <h2>
+          <ion-icon name="md-home"></ion-icon> {{passenger.dept_code}}
+        </h2>
 
-        </ion-item>
-      
+      </ion-item>
     </ion-card-content>
   </ion-card>
-
-
 </ion-content>

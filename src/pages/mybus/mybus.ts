@@ -182,15 +182,9 @@ export class MybusPage {
 
   gotomybus(): any {
     this.storage.get('bus_no').then((bus_no) => {
-      bus_no = this.app.getToken(bus_no);
       this.app.showLoader("Loading...");
-      let headers = new Headers({ 'Content-Type': 'application/json' });
-      let options = new RequestOptions({ headers: headers });
-
-      this.http.get(this.app.getUrl() + '/buses/' + bus_no, options)
-        .map(res => res.json())
+      this.locationService.getStops(bus_no)
         .subscribe(
-
           result => {
             this.bus = result.bus;
             this.places = this.bus.stops.names;

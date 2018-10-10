@@ -29,4 +29,8 @@ export class LocationServiceProvider {
     let url = this.app.getUrl() + '/users/' + user;
     return this.http.get(url);
   }
+  getStops(bus_no: number): Observable<any> {
+    let url = this.app.getUrl() + '/buses/' + bus_no;
+    return this.http.get(url);
+  }
 }
