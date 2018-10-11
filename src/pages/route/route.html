@@ -3,29 +3,33 @@
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>{{ title }}</ion-title>
+    <ion-title>Route</ion-title>
     <ion-buttons end>
-      <button ion-button icon-only icon-only (click)="openmodal()">
+      <button id="cart-btn" ion-button icon-only (click)="presentPopover($event)">
         <ion-icon name="notifications"></ion-icon>
+        <span *ngIf="this.notificationSrv.ncounter !== 0">
+          <ion-badge id="cart-badge" color="danger"> {{ this.notificationSrv.ncounter }}</ion-badge>
+        </span>
       </button>
     </ion-buttons>
-    <input type="text" [(ngModel)]="title">
   </ion-navbar>
 </ion-header>
 
 
 <ion-content padding class="contentbg">
-  <ion-grid>
-
-    <ion-row wrap *ngFor="let res of ResArray">
-
-      <ion-col width-25> hhhshhshsh</ion-col>
-      <ion-col width-25> sadasdasdas</ion-col>
-      <ion-col width-25> dasdasdasd</ion-col>
-      <ion-col width-25> <button ion-button small color="danger" (click)="gotoDetails(res)"> Details</button></ion-col>
-    </ion-row>
-  </ion-grid>
-
-
-
+  <ion-card>
+    <ion-card-header>
+      <ion-icon name="compass"></ion-icon>  Route Plan
+      <button ion-button icon-start  block color="primary">
+          <ion-icon name="map"></ion-icon>  view route on map
+        </button>
+    </ion-card-header>
+    <ion-card-content *ngFor="let name of names ; let y=index let last=last" no-padding>
+      <ion-item style="background: linear-gradient(0.40turn, #c2d8e7 , #fdfffb ,#bbd2e2 );">
+        <label>
+          <ion-icon name="md-person"></ion-icon> {{ name}}
+        </label>
+      </ion-item>
+    </ion-card-content>
+  </ion-card>
 </ion-content>

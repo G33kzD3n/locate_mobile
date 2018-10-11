@@ -37,6 +37,8 @@ import { Badge } from '@ionic-native/badge'
 import { Geofence } from '@ionic-native/geofence';
 import { DrawerPage } from '../pages/drawer/drawer';
 
+import { BreakdowncordPage } from '../pages/breakdowncord/breakdowncord';
+import { NotificationServiceProvider } from '../providers/notification-service/notification-service';
 
 @NgModule({
   declarations: [
@@ -56,8 +58,8 @@ import { DrawerPage } from '../pages/drawer/drawer';
     DriverhomepagePage,
     ModalPage,
     LivelocationPage,
-    DrawerPage
-    
+    DrawerPage,    
+    BreakdowncordPage
   ],
   imports: [
     BrowserModule,
@@ -86,7 +88,8 @@ import { DrawerPage } from '../pages/drawer/drawer';
     BreakdownPage,
     DriverhomepagePage,
     ModalPage,
-    DrawerPage
+    DrawerPage,
+    BreakdowncordPage
   ],
   providers: [
     Geolocation,
@@ -104,7 +107,8 @@ import { DrawerPage } from '../pages/drawer/drawer';
     PusherServiceProvider,
     OpenNativeSettings,
     Badge,
-    Geofence
+    Geofence,
+    NotificationServiceProvider
   ]
 })
 export class AppModule { }

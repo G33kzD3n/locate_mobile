@@ -3,6 +3,9 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 import { RequestOptions, Headers, Http } from '@angular/http';
 import { AppServiceProvider } from '../../providers/app-service/app-service';
+import { ModalPage } from '../modal/modal';
+import { NotificationServiceProvider } from '../../providers/notification-service/notification-service';
+import { PopoverController } from 'ionic-angular';
 
 @IonicPage()
 @Component({
@@ -13,7 +16,11 @@ export class DriverprofilePage {
   public user1: any;
   public title = "Profile";
 
-  constructor(public navCtrl: NavController, public storage: Storage, public app: AppServiceProvider, public http: Http, public navParams: NavParams) {
+  constructor(public popoverCtrl: PopoverController,
+    public notificationSrv: NotificationServiceProvider,
+    public navCtrl: NavController, public storage: Storage,
+    public app: AppServiceProvider, public http: Http,
+    public navParams: NavParams) {
 
     this.user1 = "";
   }
@@ -50,5 +57,10 @@ export class DriverprofilePage {
           });
     });
   }
-
+  presentPopover(ev) {
+    let modal = this.popoverCtrl.create(ModalPage);
+    modal.present({
+      ev: ev
+    });
+  }
 }

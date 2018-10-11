@@ -5,27 +5,27 @@
     </button>
     <ion-title>Locate Bus</ion-title>
     <ion-buttons end>
-      <button ion-button icon-only>
+      <button id="cart-btn" ion-button icon-only (click)="presentPopover($event)">
         <ion-icon name="notifications"></ion-icon>
+        <span *ngIf="this.notificationSrv.ncounter !== 0">
+          <ion-badge id="cart-badge" color="danger"> {{ this.notificationSrv.ncounter }}</ion-badge>
+        </span>
       </button>
     </ion-buttons>
   </ion-navbar>
 </ion-header>
 
 <ion-content class="contentbg">
-
   <ion-card *ngFor="let bus of buses; let i=index" no-padding class="buscard">
     <span *ngIf="bus?.bus_no !== mybus">
       <img class="bus" src="assets/imgs/bus.jpg" alt="bus">
-
       <h2>
         <ion-icon name="bus" item-start></ion-icon> Bus Number: {{ bus?.bus_no }}
       </h2>
       <ion-grid>
         <ion-row>
           <ion-col>
-            <button ion-button color="dark" block outline (click)="showroute(i)">{{hideMe === i? button :"Show Route"
-              }}
+            <button ion-button color="dark" block outline (click)="showroute(i)">{{hideMe === i? button :"Show Route"}}
             </button>
           </ion-col>
           <ion-col>
@@ -35,20 +35,7 @@
       </ion-grid>
     </span>
     <div *ngIf="hideMe == i  && On === true">
-
-
       <ion-label class="routes" text-wrap padding> {{bus.stops.names.split(';').join(" -- ")}} </ion-label>
-
-
     </div>
-
   </ion-card>
-
-
-
-
-
-
-
-
 </ion-content>

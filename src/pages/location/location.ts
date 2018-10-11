@@ -3,7 +3,9 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 import { AppServiceProvider } from '../../providers/app-service/app-service';
 import { RequestOptions, Headers, Http } from '@angular/http'
-
+import { ModalPage } from '../modal/modal';
+import { NotificationServiceProvider } from '../../providers/notification-service/notification-service';
+import { PopoverController } from 'ionic-angular';
 import { LivelocationPage } from '../livelocation/livelocation';
 
 @IonicPage()
@@ -26,7 +28,9 @@ export class LocationPage {
 
   constructor(public http: Http,
     public app: AppServiceProvider, public storage: Storage,
-    public navCtrl: NavController, public navParams: NavParams) {
+    public navCtrl: NavController, public navParams: NavParams,
+    public popoverCtrl: PopoverController,
+    public notificationSrv: NotificationServiceProvider) {
     this.buses = "";
     //this.stops="";
   }
@@ -37,7 +41,7 @@ export class LocationPage {
 
   livetrack(bus_no) {
     this.navCtrl.push(LivelocationPage, {
-      data : bus_no
+      data: bus_no
     });
   }
 
@@ -67,9 +71,7 @@ export class LocationPage {
 
           result => {
             this.buses = result.buses;
-            console.log(this.buses);
             this.stops = result.buses[0].stops.names.split(';');
-            console.log(this.stops);
           },
           error => {
             error = (JSON.parse(error._body));
@@ -81,6 +83,12 @@ export class LocationPage {
           () => {
             this.app.removeLoader();
           });
+    });
+  }
+  presentPopover(ev) {
+    let modal = this.popoverCtrl.create(ModalPage);
+    modal.present({
+      ev: ev
     });
   }
 }

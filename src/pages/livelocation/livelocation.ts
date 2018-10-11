@@ -18,7 +18,7 @@ declare var google: any;
 export class LivelocationPage {
   @ViewChild('map') mapRef: ElementRef;
   map: any;
-  channel: any;
+  location: any;
   bus: any;
 
   assignedstop: any;
@@ -88,8 +88,8 @@ export class LivelocationPage {
 
   getlocation() {
     this.bus = this.navParams.get('data');
-    this.channel = this.pusher.init(this.bus + '-channel');
-    this.channel.bind('location-update', (data) => {
+    this.location = this.pusher.init(this.bus + '-channel');
+    this.location.bind('location-update', (data) => {
       this.livelocation = data;
       const loc = new google.maps.LatLng(data.lat, data.lng);
       this.clearMarkers();
@@ -147,7 +147,7 @@ export class LivelocationPage {
         this.app.showToast('Bus Located' ,'top', '');
       } catch (error) {
 
-        this.app.showToast('No Live Bus Not Found', 'top', '');
+        this.app.showToast('No Live Bus Not Found', 'top', 'error');
       }
 
 
@@ -159,7 +159,7 @@ export class LivelocationPage {
         });
         this.app.showToast('Current Location' ,'top', '');
       } catch (error) {
-        this.app.showToast('Unable To Find Your Location. Enable GPS', 'top', '');
+        this.app.showToast('Unable To Find Your Location. Enable GPS', 'top', 'error');
       }
 
     } else {

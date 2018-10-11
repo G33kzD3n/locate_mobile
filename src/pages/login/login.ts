@@ -5,6 +5,9 @@ import { AppServiceProvider } from '../../providers/app-service/app-service';
 import { RequestOptions, Headers, Http } from '@angular/http';
 import { Storage } from '@ionic/storage';
 import { Network } from '@ionic-native/network';
+import { PusherServiceProvider } from '../../providers/pusher-service/pusher-service';
+import { NotificationServiceProvider } from '../../providers/notification-service/notification-service';
+
 import "rxjs/add/operator/map";
 
 import { SignupPage } from '../signup/signup';
@@ -22,9 +25,12 @@ export class LoginPage {
   title = "LOCATE";
   loader: any;
   loginForm: FormGroup;
+  user:any;
 
 
-  constructor(public network: Network, public navCtrl: NavController, private app: AppServiceProvider, public http: Http, public storage: Storage) {
+  constructor(public pusher:PusherServiceProvider ,public network: Network,
+    public navCtrl: NavController, private app: AppServiceProvider,
+    public http: Http, public storage: Storage, public notificationSrv:NotificationServiceProvider) {
   }
 
   ngOnInit() {
@@ -51,8 +57,7 @@ export class LoginPage {
       this.app.Confirm();
     }
     else {
-      let user: any;
-
+    
       let payload = {
         username: this.loginForm.controls['username'].value,
         password: this.loginForm.controls['password'].value
@@ -69,13 +74,14 @@ export class LoginPage {
 
           result => {
 
-            user = result.data;
-            this.storage.set('bus_no', user.bus_no);
-            this.storage.set('level', user.level);
-            this.storage.set('token', user.token);
-            this.storage.set('name', user.name);
+            this.user = result.data;
+            this.storage.set('bus_no', this.user.bus_no);
+            this.storage.set('level', this.user.level);
+            this.storage.set('token', this.user.token);
+            this.storage.set('name', this.user.name);
             this.storage.set('user', payload.username);
-
+            this.pusher.setChannel(this.user.bus_no+"-channel");
+            this.pusher.breakdown = this.pusher.init(this.pusher.getChannel());
           },
           error => {
             error = (JSON.parse(error._body));

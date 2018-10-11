@@ -9,6 +9,7 @@ import { Geolocation } from "@ionic-native/geolocation";
 import { PusherServiceProvider } from '../../providers/pusher-service/pusher-service';
 import { LocationServiceProvider } from '../../providers/location-service/location-service';
 import { ModalPage } from '../modal/modal';
+import { NotificationServiceProvider } from '../../providers/notification-service/notification-service';
 
 import { DrawerPage } from '../drawer/drawer';
 
@@ -33,6 +34,8 @@ export class StudentPage {
   markers = [];
 
   buslocation: any;
+  location: any;
+  output: any;
 
   channel: any;
   public mylat: any;
@@ -46,16 +49,59 @@ export class StudentPage {
     public storage: Storage, public http: Http, public datepipe: DatePipe,
     public navCtrl: NavController, public menu: MenuController,
     public navParams: NavParams, public app: AppServiceProvider, public geolocation: Geolocation,
-    public popoverCtrl: PopoverController) {
-      
+    public popoverCtrl: PopoverController,
+    public notificationSrv: NotificationServiceProvider) {
+    
   }
 
   ngOnInit() {
 
     this.getAssignedStop();
     this.showmap();
+
+
+    this.pusher.breakdown = this.pusher.init('8839-channel');
+    this.showmap();
+    if (this.app.userlevel == 0) {
+      this.getbreakdownupdate();
+      console.log("student function"+this.notificationSrv.ncounter);
+    }
+    if (this.app.userlevel == 2) {
+      this.getbreakdown();
+       console.log("cordinator"+this.notificationSrv.ncounter);
+    }
+    
     
   }
+
+  getbreakdown() {
+    console.log("cordinator"+this.notificationSrv.ncounter);
+    this.pusher.breakdown.bind('breakdown-info-created', (data) => {
+      this.notificationSrv.pushNotification({
+        level: 2,
+        msg: data
+      });
+      this.notificationSrv.ncounter++;
+      //stores data later to b used in breakdowncord.ts
+      //to show type of breakdown to cordinator
+      this.notificationSrv.breakdownmsg = data;
+      console.log("cordinator"+this.notificationSrv.ncounter);
+    });
+  }
+
+  getbreakdownupdate() {
+    
+    this.pusher.breakdown.bind('breakdown-info-updated', (data) => {
+      this.notificationSrv.pushNotification({
+        level: 0,
+        msg: data
+      });
+      this.notificationSrv.ncounter++;
+    });
+    console.log("student function"+this.notificationSrv.ncounter);
+  }
+
+    
 
   ionViewDidLoad() {}
 
@@ -65,19 +111,20 @@ export class StudentPage {
       map: map
     });
     this.markers.push(marker);
-    //return new google.maps.Marker({ position, map })
   }
+
   setMapOnAll(map) {
     for (var i = 0; i < this.markers.length; i++) {
       this.markers[i].setMap(map);
     }
   }
+
   clearMarkers() {
     this.setMapOnAll(null);
     this.markers = [];
   }
-  showmap() {
 
+  showmap() {
     this.geolocation.getCurrentPosition({ enableHighAccuracy: true, timeout: 2000, maximumAge: 0 }).then((resp) => {
       this.mylat = resp.coords.latitude;
       this.mylon = resp.coords.longitude;
@@ -92,7 +139,6 @@ export class StudentPage {
 
 
     var location = new google.maps.LatLng(34.083656, 74.797371);
-
     let options = {
       center: location,
       zoom: 15,
@@ -103,47 +149,31 @@ export class StudentPage {
       zoomControl: true,
       mapTypeId: google.maps.MapTypeId.ROADMAP,
     };
-
     //create map
     this.map = new google.maps.Map(this.mapRef.nativeElement, options);
     this.app.removeLoader();
-    // this.locationService.id = setInterval(() => {
     this.getlocation();
-    
-    // }, 7000);
   }
+
   showMarkers() {
     this.setMapOnAll(this.map);
   }
 
-
-
   getlocation() {
-    this.storage.get('bus_no').then((bus_no) => {
-      bus_no = this.app.getToken(bus_no);
-      this.channel = this.pusher.init(bus_no + '-channel');
-      this.channel.bind('location-update', (data) => {
-        this.bus = data;
-        this.livelocation = data;
-//////////////ETA Function CAll/////////////////////////
-        this.eta();
-        this.clearMarkers();
-
-        const loc = new google.maps.LatLng(data.lat, data.lng);
-        this.addMarker(loc, this.map);
-        this.showMarkers();
-        this.app.showToast(JSON.stringify(data), 'top', 'success');
-        console.log(this.app.message);
-        this.app.message.push(data.lat, data.lng);
-        this.app.ncounter++;
-        console.log(this.app.message);
-      });
+    this.pusher.breakdown.bind('location-update', (data) => {
+      this.bus = data;
+      this.livelocation = data;
+      this.eta();
+      this.clearMarkers();
+      const loc = new google.maps.LatLng(data.lat, data.lng);
+      this.addMarker(loc, this.map);
+      this.showMarkers();
     });
   }
 
   ionViewDidLeave() {
     this.storage.get('bus_no').then((bus_no) => {
-      this.pusher.destroy(bus_no + '-channel');
+      this.pusher.breakdown.unbind('location-update');
     });
   }
 
@@ -196,8 +226,8 @@ export class StudentPage {
         }
       });  
   }
-//////////////////////////////////////////////////////////////////////////
-//////////////////////////////////////////////////////////////////////////
+  //////////////////////////////////////////////////////////////////////////
+  //////////////////////////////////////////////////////////////////////////
   focus(xyz) {
     if (xyz == 1) {
       try {
@@ -207,11 +237,8 @@ export class StudentPage {
         });
         this.app.showToast('Bus Located' ,'top', '');
       } catch (error) {
-
-        this.app.showToast('No Live Bus Not Found', 'top', '');
+        this.app.showToast('No Live Bus Found', 'top', 'error');
       }
-
-
     } else if (xyz == 2) {
       try {
         this.map.setCenter({
@@ -220,13 +247,9 @@ export class StudentPage {
         });
         this.app.showToast('Current Location' ,'top', '');
       } catch (error) {
-        this.app.showToast('Unable To Find Your Location. Enable GPS', 'top', '');
+        this.app.showToast('Unable To Find Your Location. Enable GPS', 'top', 'error');
       }
-
-
-
     } else {
-
       this.map.setCenter({
         lat: this.assignedstop.lat,
         lng: this.assignedstop.lng
@@ -234,10 +257,9 @@ export class StudentPage {
       this.app.showToast('Your Registered Stop' ,'top', '');
     }
   }
-
-  presentPopover(ev){
-    let popover = this.popoverCtrl.create(ModalPage);
-    popover.present({
+  presentPopover(ev) {
+    let modal = this.popoverCtrl.create(ModalPage);
+    modal.present({
       ev: ev
     });
  
@@ -250,4 +272,4 @@ export class StudentPage {
    }
 
  
-}
+  }

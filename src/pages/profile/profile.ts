@@ -1,12 +1,11 @@
 import { Component, ViewChild } from '@angular/core';
-import { IonicPage, NavController, NavParams, Nav } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, Nav, PopoverController } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 import { RequestOptions, Headers, Http } from '@angular/http';
 import { AppServiceProvider } from '../../providers/app-service/app-service';
 import { LocationServiceProvider } from '../../providers/location-service/location-service';
-
-
-@IonicPage()
+import { ModalPage } from '../modal/modal';
+import { NotificationServiceProvider } from '../../providers/notification-service/notification-service';
 @Component({
   selector: 'page-profile',
   templateUrl: 'profile.html',
@@ -20,7 +19,7 @@ export class ProfilePage {
   public roll:any;
 
 
-  constructor(public locationService: LocationServiceProvider, public navCtrl: NavController, public storage: Storage, public app: AppServiceProvider, public http: Http, public navParams: NavParams) {
+  constructor(public notificationSrv: NotificationServiceProvider,public popoverCtrl: PopoverController,public locationService: LocationServiceProvider, public navCtrl: NavController, public storage: Storage, public app: AppServiceProvider, public http: Http, public navParams: NavParams) {
 
     this.user1 = "";
     this.data = "";
@@ -83,6 +82,12 @@ export class ProfilePage {
           () => {
             this.app.removeLoader();
           });
+    });
+  }
+  presentPopover(ev) {
+    let modal = this.popoverCtrl.create(ModalPage);
+    modal.present({
+      ev: ev
     });
   }
 }
