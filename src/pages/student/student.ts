@@ -10,6 +10,9 @@ import { PusherServiceProvider } from '../../providers/pusher-service/pusher-ser
 import { LocationServiceProvider } from '../../providers/location-service/location-service';
 import { ModalPage } from '../modal/modal';
 
+import { DrawerPage } from '../drawer/drawer';
+
+
 declare var google: any;
 
 @IonicPage()
@@ -29,12 +32,14 @@ export class StudentPage {
   image = "assets/imgs/bus2.png";
   markers = [];
 
-  output: any;
+  buslocation: any;
 
   channel: any;
   public mylat: any;
   public mylon: any;
   public distance: any;
+  public duration: any;
+  
 
   constructor(public modal: ModalController, public pusher: PusherServiceProvider,
     public locationService: LocationServiceProvider,
@@ -42,18 +47,17 @@ export class StudentPage {
     public navCtrl: NavController, public menu: MenuController,
     public navParams: NavParams, public app: AppServiceProvider, public geolocation: Geolocation,
     public popoverCtrl: PopoverController) {
-
+      
   }
-  
+
   ngOnInit() {
-    this.eta();
-    this.showmap();
 
-  }
-
-  ionViewDidLoad() {
     this.getAssignedStop();
+    this.showmap();
+    
   }
+
+  ionViewDidLoad() {}
 
   addMarker(position, map) {
     var marker = new google.maps.Marker({
@@ -81,8 +85,10 @@ export class StudentPage {
       console.log('Error getting location', error);
     });
     const mymark = new google.maps.LatLng(this.mylat, this.mylon);
-    this.addMarker(mymark, this.map);
     this.showMarkers();
+    this.addMarker(mymark, this.map);
+    ///////////////Function Shows Markers////////////
+    
 
 
     var location = new google.maps.LatLng(34.083656, 74.797371);
@@ -91,6 +97,10 @@ export class StudentPage {
       center: location,
       zoom: 15,
       disableDefaultUI: true,
+      scaleControl: true,
+      gestureHandling: 'cooperative',
+      rotateControl: true,
+      zoomControl: true,
       mapTypeId: google.maps.MapTypeId.ROADMAP,
     };
 
@@ -99,6 +109,7 @@ export class StudentPage {
     this.app.removeLoader();
     // this.locationService.id = setInterval(() => {
     this.getlocation();
+    
     // }, 7000);
   }
   showMarkers() {
@@ -114,6 +125,8 @@ export class StudentPage {
       this.channel.bind('location-update', (data) => {
         this.bus = data;
         this.livelocation = data;
+//////////////ETA Function CAll/////////////////////////
+        this.eta();
         this.clearMarkers();
 
         const loc = new google.maps.LatLng(data.lat, data.lng);
@@ -125,31 +138,10 @@ export class StudentPage {
         this.app.ncounter++;
         console.log(this.app.message);
       });
-      // this.locationService.getLocation(bus_no)
-      //   .subscribe(
-      //     res => {
-      //       this.bus = res.bus;
-      //       //this.distanceCal(this.assignedstop.lat, this.assignedstop.lng, this.bus.lat, this.bus.lng);
-      //       const loc = new google.maps.LatLng(this.bus.lat, this.bus.lng);
-      //       this.addMarker(loc, this.map);
-
-      //     },
-      //     err => {
-      //       //err = (JSON.parse(err._body));
-      //       if (err.status = 429) {
-      //         console.log(err);
-      //         this.app.showToast("Something went wrong...Kindly reload or try after Sometime", "top", 'error')
-      //       }
-      //     },
-      //     () => {
-      //       //this.app.removeLoader();
-      //     }
-      //   );
     });
   }
 
   ionViewDidLeave() {
-    //clearInterval(this.locationService.id);
     this.storage.get('bus_no').then((bus_no) => {
       this.pusher.destroy(bus_no + '-channel');
     });
@@ -162,6 +154,8 @@ export class StudentPage {
           result => {
             this.assignedstop = result.data.stop;
             const loc = new google.maps.LatLng(this.assignedstop.lat, this.assignedstop.lng);
+            
+            
             var showMarkers = new google.maps.Marker({ position: loc, title: this.assignedstop.name, icon: this.image });
             showMarkers.setMap(this.map);
           },
@@ -174,13 +168,13 @@ export class StudentPage {
         )
     })
   }
-////////////////partially applied ETA//////////////////////////////////////////////////////
+////////////////ETA//////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////
   eta() {
-    var origin1 = new google.maps.LatLng(34.083724, 74.797235);
-
-    var destinationA = new google.maps.LatLng(34.076633, 74.829661);
-    
+  
+   var origin1 = new google.maps.LatLng(this.livelocation.lat, this.livelocation.lng);
+   var destinationA = new google.maps.LatLng(this.assignedstop.lat, this.assignedstop.lng);
+      
     var service = new google.maps.DistanceMatrixService();
     service.getDistanceMatrix(
       {
@@ -190,32 +184,17 @@ export class StudentPage {
         unitSystem: google.maps.UnitSystem.METRIC,
         avoidHighways: false,
         avoidTolls: false
-      }, callback);
-
-    function callback(response, status) {
-      if (status == 'OK') {
-        var origins = response.originAddresses;
-        var destinations = response.destinationAddresses;
-
-        this.output = document.getElementById('abc');
-
-        for (var i = 0; i < origins.length; i++) {
-          var results = response.rows[i].elements;
-          for (var j = 0; j < results.length; j++) {
-            var element = results[j];
-            console.log("aa" + results[j])
-            this.distance = element.distance.text;
-            console.log(this.distance)
-            var duration = element.duration.text;
-            console.log(duration)
-            var from = origins[i];
-            console.log(from )
-            var to = destinations[j];
-            console.log(to )
-          }
+      }, ( response,status)=>{
+        if (status == 'OK') {
+         
+  
+         this.distance = response.rows[0].elements[0].distance.text;
+         this.duration = response.rows[0].elements[0].duration.text;
+         //let eta = this.duration + 
+         console.log(this.distance);
+         console.log(this.duration);
         }
-      }
-    }
+      });  
   }
 //////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////
@@ -226,6 +205,7 @@ export class StudentPage {
           lat: this.livelocation.lat,
           lng: this.livelocation.lng
         });
+        this.app.showToast('Bus Located' ,'top', '');
       } catch (error) {
 
         this.app.showToast('No Live Bus Not Found', 'top', '');
@@ -238,6 +218,7 @@ export class StudentPage {
           lat: this.mylat,
           lng: this.mylon
         });
+        this.app.showToast('Current Location' ,'top', '');
       } catch (error) {
         this.app.showToast('Unable To Find Your Location. Enable GPS', 'top', '');
       }
@@ -250,6 +231,7 @@ export class StudentPage {
         lat: this.assignedstop.lat,
         lng: this.assignedstop.lng
       });
+      this.app.showToast('Your Registered Stop' ,'top', '');
     }
   }
 
@@ -260,4 +242,12 @@ export class StudentPage {
     });
  
    }
+   presentDrawer(ev){
+     let popover = this.popoverCtrl.create(DrawerPage, {}, {cssClass:'pageDrawer'});
+     popover.present({
+       ev:ev
+     });
+   }
+
+ 
 }

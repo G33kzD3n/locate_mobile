@@ -6,6 +6,7 @@ import { MenuController } from 'ionic-angular';
 import { Geolocation } from "@ionic-native/geolocation";
 import { Storage } from '@ionic/storage';
 import { LocationServiceProvider } from '../../providers/location-service/location-service';
+import { Geofence } from '@ionic-native/geofence';
 
 @IonicPage()
 @Component({
@@ -42,12 +43,19 @@ export class DriverhomepagePage {
     public http: Http, public storage: Storage,
     public navCtrl: NavController, public menu: MenuController,
     public navParams: NavParams, public app: AppServiceProvider,
-    public geolocation: Geolocation, public locationService: LocationServiceProvider) {
+    public geolocation: Geolocation, public locationService: LocationServiceProvider,
+    private geofence: Geofence) {
+      geofence.initialize().then(
+        () => console.log('Geofence Plugin Ready'),
+        (err) => console.log(err)
+      )
   }
   ngOnInit() {
     this.locationService.id = setInterval(() => {
       this.storewhereabouts();
     }, 6000);
+
+    this.addGeofence();
   }
 
   ionViewOnLoad() {
@@ -110,5 +118,27 @@ export class DriverhomepagePage {
   }
   ionViewDidLeave() {
     clearInterval(this.locationService.id);
+  }
+
+  private addGeofence() {
+    //options describing geofence
+    let fence = {
+      id: '69ca1b88-6fbe-4e80-a4d4-ff4d3748acdb', //any unique ID
+      latitude:       34.144135,  //center of geofence radius
+      longitude:      74.801942,
+      radius:         1000, //radius to edge of geofence in meters
+      transitionType: 3, //see 'Transition Types' below
+      notification: { //notification settings
+          id:             1, //any unique ID
+          title:          'Warning', //notification title
+          text:           'Bus Is About To Reach Your Stop', //notification body
+          openAppOnClick: true //open app when notification is tapped
+      }
+    }
+  
+    this.geofence.addOrUpdate(fence).then(
+       () => console.log('Geofence added'),
+       (err) => console.log('Geofence failed to add')
+     );
   }
 }

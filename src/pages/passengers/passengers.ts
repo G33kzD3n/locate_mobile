@@ -25,12 +25,14 @@ export class PassengersPage {
     this.storage.get('bus_no').then((bus_no) => {
     bus_no = this.app.getToken(bus_no);
 
+    // this.http.get(this.app.getUrl() + '/buses/' + bus_no + '/passengers')
     this.http.get(this.app.getUrl() + '/buses/' + bus_no + '/passengers')
       .map(res => res.json())
       .subscribe(
 
         result => {
           this.passengers = result.passengers;
+          console.log(JSON.stringify(this.passengers)+"kkkkkk");
         },
         error => {
           error = (JSON.parse(error._body));

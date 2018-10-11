@@ -34,6 +34,9 @@ import { PusherServiceProvider } from '../providers/pusher-service/pusher-servic
 import { ModalPage } from '../pages/modal/modal';
 import { OpenNativeSettings } from '@ionic-native/open-native-settings'
 import { Badge } from '@ionic-native/badge'
+import { Geofence } from '@ionic-native/geofence';
+import { DrawerPage } from '../pages/drawer/drawer';
+
 
 @NgModule({
   declarations: [
@@ -52,7 +55,9 @@ import { Badge } from '@ionic-native/badge'
     BreakdownPage,
     DriverhomepagePage,
     ModalPage,
-    LivelocationPage
+    LivelocationPage,
+    DrawerPage
+    
   ],
   imports: [
     BrowserModule,
@@ -61,7 +66,7 @@ import { Badge } from '@ionic-native/badge'
     HttpModule,
     IonicModule.forRoot(MyApp),
     IonicStorageModule.forRoot(),
-
+    
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -80,7 +85,8 @@ import { Badge } from '@ionic-native/badge'
     DriverprofilePage,
     BreakdownPage,
     DriverhomepagePage,
-    ModalPage
+    ModalPage,
+    DrawerPage
   ],
   providers: [
     Geolocation,
@@ -97,7 +103,8 @@ import { Badge } from '@ionic-native/badge'
     CallNumber,
     PusherServiceProvider,
     OpenNativeSettings,
-    Badge
+    Badge,
+    Geofence
   ]
 })
 export class AppModule { }

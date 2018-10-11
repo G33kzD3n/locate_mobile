@@ -17,13 +17,14 @@
     </ion-buttons>
 
 
+
   </ion-navbar>
 </ion-header>
 <ion-content scroll="true">
 
 
   <ion-card>
-    <div #map id="map" style="height:500px;"> </div>
+    <div #map id="map" > </div>
     <ion-fab right top>
       <button mini ion-fab color="dark">
         <ion-icon name="md-arrow-down"></ion-icon>
@@ -42,33 +43,19 @@
       </ion-fab-list>
     </ion-fab>
   </ion-card>
-  <ion-card>
-    <ion-item>
-      <ion-img src="assets/imgs/marker1.png" item-start></ion-img>
-      <h2>Bus Location: {{ bus?.lat }}---{{ bus?.lng }}
-      </h2>
-    </ion-item>
-    <ion-item>
-      <ion-img src="assets/imgs/bus2.png" item-start></ion-img>
-      <h2>My Stop: {{mylat}}---{{mylon}}
-      </h2>
-
-      <p *ngFor="let dist of distance"></p>
-      {{dist}} {{origins}}
-
-
-    </ion-item>
-  </ion-card>
-  <div #abc style="height:30px ">
-    {{distance}}---</div>
+  
 
 </ion-content>
-<ion-footer class="foo">
-  <ion-toolbar>
 
-    <span item-start>30 min To Reach ({{distance}} Km)</span>
-    <ion-buttons end>
-      <span item-end>ETA: 9:15 AM</span>
-    </ion-buttons>
-  </ion-toolbar>
+
+<ion-footer class="foo">
+    <!-- <button ion-button (click)="presentDrawer($event)">
+        <ion-icon name="arrow-up"></ion-icon>
+      </button> -->
+
+
+  <span > <strong> {{distance}} </strong> To Reach Your Stop. ETA In <strong> {{duration}} </strong> </span>
+  
+
+
 </ion-footer>

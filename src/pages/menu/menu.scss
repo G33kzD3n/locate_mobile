@@ -1,4 +1,9 @@
-
+.ftr{
+  background-color: #dedede !important;
+  height: 45px;
+  
+  
+}
 .user-profile {
 
   height: 170px;
@@ -33,8 +38,8 @@ ion-button{
 }
 
 .activehighlight{
-  //  background-color:  #268fe6;
-  background: linear-gradient(to bottom, #e4e0e0 70%, #ffffff );
+    background-color:  #f0f0f0;
+ // background: linear-gradient(to bottom, #e4e0e0 70%, #ffffff );
   color: #268fe6;
 }
 .scroll-content {
