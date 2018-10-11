@@ -38,7 +38,6 @@ export class PassengersPage {
       this.http.get(this.app.getUrl() + '/buses/' + bus_no + '/passengers?groupby=stopnames')
         .map(res => res.json())
         .subscribe(
-
           result => {
             for (let i = 0; i < result.length; i++) {
               this.data[i] = result[i].stop;
