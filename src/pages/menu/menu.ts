@@ -7,6 +7,7 @@ import { LocationServiceProvider } from '../../providers/location-service/locati
 
 import { ProfilePage } from '../profile/profile';
 import { StudentPage } from '../student/student';
+import { RoutePage } from '../route/route';
 import { LoginPage } from '../login/login';
 import { LocationPage } from '../location/location';
 import { CalenderPage } from '../calender/calender';
@@ -82,6 +83,7 @@ export class MenuPage {
         this.rootpage = DriverhomepagePage;
         this.pages = [
           { title: 'Home', component: DriverhomepagePage, icon: 'home', index: 0 },
+          { title: 'Assigned Route', component: RoutePage, icon: 'compass', index: 0 },
           { title: 'Passengers', component: PassengersPage, icon: 'people', index: 0 },
           { title: 'Breakdown', component: BreakdownPage, icon: 'hand', index: 0 },
           { title: 'University Calender', component: CalenderPage, icon: 'calendar', index: 0 },

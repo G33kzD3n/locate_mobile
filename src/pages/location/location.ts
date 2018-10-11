@@ -41,7 +41,7 @@ export class LocationPage {
 
   livetrack(bus_no) {
     this.navCtrl.push(LivelocationPage, {
-      data : bus_no
+      data: bus_no
     });
   }
 
