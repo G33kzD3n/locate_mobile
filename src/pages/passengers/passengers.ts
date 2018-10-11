@@ -16,7 +16,7 @@ import { RequestOptions, Headers } from '@angular/http';
 })
 export class PassengersPage {
   data: any = [];
-  passengers: any=[];
+  passengers: any = [];
   constructor(public storage: Storage, public app: AppServiceProvider,
     public navCtrl: NavController, public navParams: NavParams,
     public http: Http, public popoverCtrl: PopoverController,
@@ -32,6 +32,7 @@ export class PassengersPage {
 
   getdata() {
     this.storage.get('bus_no').then((bus_no) => {
+      this.app.showLoader("Loading passengers of this bus");
       // let headers = new Headers({ 'Content-Type': 'application/json' });
       // let options = new RequestOptions({ headers: headers });
       this.http.get(this.app.getUrl() + '/buses/' + bus_no + '/passengers?groupby=stopnames')
@@ -43,11 +44,8 @@ export class PassengersPage {
               this.data[i] = result[i].stop;
             }
             for (let i = 0; i < result.length; i++) {
-              this.passengers[i]=result[i].stop.passengers;
+              this.passengers[i] = result[i].stop.passengers;
             }
-            console.log(this.data);
-            console.log(this.passengers);
-            //this.passengers = result.passengers;
           },
           error => {
             error = (JSON.parse(error._body));
@@ -56,7 +54,7 @@ export class PassengersPage {
             }
           },
           () => {
-            //this.app.removeLoader();
+            this.app.removeLoader();
           });
     });
   }

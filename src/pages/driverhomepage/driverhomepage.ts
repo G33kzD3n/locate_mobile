@@ -89,7 +89,7 @@ export class DriverhomepagePage {
       }).catch((err) => {
         // this.app.removeLoader();
         console.log(err);
-        this.app.showToast("Error!!!", 'top', 'error');
+        // this.app.showToast("Error!!!", 'top', 'error');
       });
   }
 
