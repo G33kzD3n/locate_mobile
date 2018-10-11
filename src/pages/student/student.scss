@@ -1,19 +1,26 @@
+
 .span
 {
     text-align: right;
 }
 
 #map{
-    height: 90%;
+    height: 500px;
 }
 .foo{
     height: 50px;
+    text-align: center;
+    background-color: #dedede;
+    font-size: large;
+    padding-top: 12px;
     }
-    ion-img {
-        object-fit: resize;
-        //width: auto !important;
-        //border: 0;
-        //padding: 0;
-        background-color: white;
-        padding-bottom: 30px;
-    }
+    
+    // #appcolor {
+    //     // background-image: url('../assets/imgs/tool.jpg');
+    //     // background-repeat: no-repeat;
+    //     // background-position: center;
+    //     // background-size: 100% 100% ;
+    //    background: linear-gradient(0.40turn, #0993f0 , #2b45d8 );
+       
+    //     }
+        

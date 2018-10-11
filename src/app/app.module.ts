@@ -34,6 +34,9 @@ import { PusherServiceProvider } from '../providers/pusher-service/pusher-servic
 import { ModalPage } from '../pages/modal/modal';
 import { OpenNativeSettings } from '@ionic-native/open-native-settings'
 import { Badge } from '@ionic-native/badge'
+import { Geofence } from '@ionic-native/geofence';
+import { DrawerPage } from '../pages/drawer/drawer';
+
 import { BreakdowncordPage } from '../pages/breakdowncord/breakdowncord';
 import { NotificationServiceProvider } from '../providers/notification-service/notification-service';
 
@@ -55,6 +58,7 @@ import { NotificationServiceProvider } from '../providers/notification-service/n
     DriverhomepagePage,
     ModalPage,
     LivelocationPage,
+    DrawerPage,    
     BreakdowncordPage
   ],
   imports: [
@@ -64,7 +68,7 @@ import { NotificationServiceProvider } from '../providers/notification-service/n
     HttpModule,
     IonicModule.forRoot(MyApp),
     IonicStorageModule.forRoot(),
-
+    
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -84,6 +88,7 @@ import { NotificationServiceProvider } from '../providers/notification-service/n
     BreakdownPage,
     DriverhomepagePage,
     ModalPage,
+    DrawerPage,
     BreakdowncordPage
   ],
   providers: [
@@ -102,6 +107,7 @@ import { NotificationServiceProvider } from '../providers/notification-service/n
     PusherServiceProvider,
     OpenNativeSettings,
     Badge,
+    Geofence,
     NotificationServiceProvider
   ]
 })

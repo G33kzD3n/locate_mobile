@@ -19,13 +19,13 @@
     </ion-list>
   </ion-content>
   
-  <ion-footer (click)="logOut()">
-    <ion-toolbar>
-      <button ion-button full outline color="header-color" style="border:none;width:50%; margin:0 auto;">
+  <ion-footer class="ftr" (click)="logOut()">
+    
+      <button ion-button full outline  style="border:none;width:50%; margin:0 auto;">
         <ion-icon name="log-out" style="font-size:2em; float: left;" color="dark"></ion-icon>
         <ion-title style="margin:auto" id="logout" name="log-out">Logout</ion-title>
       </button>
-    </ion-toolbar>
+    
   </ion-footer>
 </ion-menu>
 <ion-nav [root]="rootpage" #content swipeBackEnabled="false"></ion-nav>

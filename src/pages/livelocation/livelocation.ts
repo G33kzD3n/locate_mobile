@@ -144,6 +144,7 @@ export class LivelocationPage {
           lat: this.livelocation.lat,
           lng: this.livelocation.lng
         });
+        this.app.showToast('Bus Located' ,'top', '');
       } catch (error) {
 
         this.app.showToast('No Live Bus Not Found', 'top', 'error');
@@ -156,16 +157,22 @@ export class LivelocationPage {
           lat: this.mylat,
           lng: this.mylon
         });
+        this.app.showToast('Current Location' ,'top', '');
       } catch (error) {
         this.app.showToast('Unable To Find Your Location. Enable GPS', 'top', 'error');
       }
 
     } else {
-
-      this.map.setCenter({
-        lat: this.assignedstop.lat,
-        lng: this.assignedstop.lng
-      });
+      try {
+        this.map.setCenter({
+          lat: this.assignedstop.lat,
+          lng: this.assignedstop.lng
+        });
+        this.app.showToast('Your Registered Stop' ,'top', '');
+      } catch (error) {
+        this.app.showToast('Could Not Found Your Stop' ,'top', '');
+      }
+    
     }
   }
 }

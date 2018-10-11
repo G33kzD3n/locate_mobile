@@ -27,15 +27,24 @@
     background: linear-gradient(0.40turn, #0993f0 , #2b45d8 );
     }
     
+    
+    // .pageDrawer {
+    
+    //     width: 100%;
+    //     height: 40%;
+    //    background-color: #0993f0;
+    // }
+    
+    
+    
 
+    // .contentbg{
+    //     background-image: url('../assets/imgs/bga.jpg');
+    //     background-repeat: no-repeat;
+    //     background-position: center;
+    //     background-size: 100% 100% ;
 
-    .contentbg{
-        background-image: url('../assets/imgs/bga.jpg');
-        background-repeat: no-repeat;
-        background-position: center;
-        background-size: 100% 100% ;
-
-    }
+    // }
 //     .mytoast{
 //         $toast-md-background	: black;
 // }
@@ -79,9 +88,6 @@
 }
 
 
-.ion-header{
-    color: ghostwhite !important;
-}
 modal-wrapper {
     position: absolute;
     width: 100%;

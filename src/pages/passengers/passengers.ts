@@ -39,11 +39,13 @@ export class PassengersPage {
         .map(res => res.json())
         .subscribe(
           result => {
+            console.log(result);
             for (let i = 0; i < result.length; i++) {
               this.data[i] = result[i].stop;
             }
             for (let i = 0; i < result.length; i++) {
               this.passengers[i] = result[i].stop.passengers;
+              console.log(this.passengers);
             }
           },
           error => {

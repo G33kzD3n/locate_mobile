@@ -27,19 +27,19 @@
   <ion-label class="user">{{user1.name}}</ion-label>
 
 
-  <ion-card class="pcard">
-    <ion-card-content>
+  <ion-card class="pcard" no-padding>
+    <ion-card-content no-padding>
       <ion-list class="list">
         <ion-item >
           <ion-icon name="md-home"></ion-icon><label> Department</label>
           <h2>{{ user1.dept_code }}</h2>
         </ion-item>
         <ion-item>
-          <ion-icon name="md-bus"></ion-icon><label> Alloted Bus</label>
+          <ion-icon  name="md-bus"></ion-icon><label> Alloted Bus</label>
           <h2>{{ user1.bus_no }}</h2>
         </ion-item>
-        <ion-item>
-          <ion-icon name="md-call"></ion-icon> <label> Phone Number</label>
+        <ion-item >
+          <ion-icon  name="md-call" ></ion-icon> <label>  Phone Number</label>
           <h2>{{ user1.cell_no }}</h2>
         </ion-item>
         <ion-item>

@@ -10,15 +10,16 @@ import { PusherServiceProvider } from '../../providers/pusher-service/pusher-ser
 import { LocationServiceProvider } from '../../providers/location-service/location-service';
 import { ModalPage } from '../modal/modal';
 import { NotificationServiceProvider } from '../../providers/notification-service/notification-service';
+import { DrawerPage } from '../drawer/drawer';
 
 declare var google: any;
 
 @IonicPage()
 @Component({
-
   selector: 'page-student',
   templateUrl: 'student.html',
 })
+
 export class StudentPage {
   @ViewChild('map') mapRef: ElementRef;
   map: any;
@@ -29,13 +30,16 @@ export class StudentPage {
   livelocation: any;
   image = "assets/imgs/bus2.png";
   markers = [];
+  buslocation: any;
   location: any;
   output: any;
-
   channel: any;
   public mylat: any;
   public mylon: any;
   public distance: any;
+  public duration: any;
+  myDate: any = new Date().toTimeString();
+  estimatedtimeofarrival: any = new Date().toTimeString();
 
   constructor(public modal: ModalController, public pusher: PusherServiceProvider,
     public locationService: LocationServiceProvider,
@@ -44,25 +48,24 @@ export class StudentPage {
     public navParams: NavParams, public app: AppServiceProvider, public geolocation: Geolocation,
     public popoverCtrl: PopoverController,
     public notificationSrv: NotificationServiceProvider) {
-    
   }
 
   ngOnInit() {
-    this.eta();
+    this.getAssignedStop();
     this.pusher.breakdown = this.pusher.init('8839-channel');
     this.showmap();
     if (this.app.userlevel == 0) {
       this.getbreakdownupdate();
-      console.log("student function"+this.notificationSrv.ncounter);
+      console.log("student function" + this.notificationSrv.ncounter);
     }
     if (this.app.userlevel == 2) {
       this.getbreakdown();
-       console.log("cordinator"+this.notificationSrv.ncounter);
+      console.log("cordinator" + this.notificationSrv.ncounter);
     }
   }
 
   getbreakdown() {
-    console.log("cordinator"+this.notificationSrv.ncounter);
+    console.log("cordinator" + this.notificationSrv.ncounter);
     this.pusher.breakdown.bind('breakdown-info-created', (data) => {
       this.notificationSrv.pushNotification({
         level: 2,
@@ -72,12 +75,11 @@ export class StudentPage {
       //stores data later to b used in breakdowncord.ts
       //to show type of breakdown to cordinator
       this.notificationSrv.breakdownmsg = data;
-      console.log("cordinator"+this.notificationSrv.ncounter);
+      console.log("cordinator" + this.notificationSrv.ncounter);
     });
   }
 
   getbreakdownupdate() {
-    
     this.pusher.breakdown.bind('breakdown-info-updated', (data) => {
       this.notificationSrv.pushNotification({
         level: 0,
@@ -85,12 +87,10 @@ export class StudentPage {
       });
       this.notificationSrv.ncounter++;
     });
-    console.log("student function"+this.notificationSrv.ncounter);
+    console.log("student function" + this.notificationSrv.ncounter);
   }
 
-  ionViewDidLoad() {
-    this.getAssignedStop();
-  }
+  ionViewDidLoad() { }
 
   addMarker(position, map) {
     var marker = new google.maps.Marker({
@@ -119,13 +119,18 @@ export class StudentPage {
       console.log('Error getting location', error);
     });
     const mymark = new google.maps.LatLng(this.mylat, this.mylon);
-    this.addMarker(mymark, this.map);
     this.showMarkers();
+    this.addMarker(mymark, this.map);
+    ///////////////Function Shows Markers////////////
     var location = new google.maps.LatLng(34.083656, 74.797371);
     let options = {
       center: location,
       zoom: 15,
       disableDefaultUI: true,
+      scaleControl: true,
+      gestureHandling: 'cooperative',
+      rotateControl: true,
+      zoomControl: true,
       mapTypeId: google.maps.MapTypeId.ROADMAP,
     };
     //create map
@@ -142,6 +147,7 @@ export class StudentPage {
     this.pusher.breakdown.bind('location-update', (data) => {
       this.bus = data;
       this.livelocation = data;
+      this.eta();
       this.clearMarkers();
       const loc = new google.maps.LatLng(data.lat, data.lng);
       this.addMarker(loc, this.map);
@@ -174,11 +180,12 @@ export class StudentPage {
         )
     })
   }
-  ////////////////partially applied ETA//////////////////////////////////////////////////////
+  ////////////////ETA//////////////////////////////////////////////////////
   //////////////////////////////////////////////////////////////////////////////////////////
   eta() {
-    var origin1 = new google.maps.LatLng(34.083724, 74.797235);
-    var destinationA = new google.maps.LatLng(34.076633, 74.829661);
+    var origin1 = new google.maps.LatLng(this.livelocation.lat, this.livelocation.lng);
+    var destinationA = new google.maps.LatLng(this.assignedstop.lat, this.assignedstop.lng);
+
     var service = new google.maps.DistanceMatrixService();
     service.getDistanceMatrix(
       {
@@ -188,25 +195,29 @@ export class StudentPage {
         unitSystem: google.maps.UnitSystem.METRIC,
         avoidHighways: false,
         avoidTolls: false
-      }, callback);
+      }, (response, status) => {
+        if (status == 'OK') {
+          this.distance = response.rows[0].elements[0].distance.text;
+          this.duration = response.rows[0].elements[0].duration.text;
+          let myarr = this.duration.split(' ');
+          console.log(myarr);
+          console.log(this.myDate);
+          let newDate:number=[] = this.myDate.split(':');
+          console.log(newDate);
+          newDate[0]=parseInt(newDate[0]) + parseInt(myarr[0]);
+          newDate[1]=parseInt(newDate[1]) + parseInt(myarr[2]);
+          console.log(newDate);
+          //console.log("current time"+ this.estimatedtimeofarrival);
+          // this.estimatedtimeofarrival = this.myDate.setHours(myarr[0],myarr[2]);
+          // this.estimatedtimeofarrival = new Date();
+          //console.log(this.estimatedtimeofarrival)
+          // this.estimatedtimeofarrival.setHours((this.estimatedtimeofarrival.getHours()) + myarr[0]);
+          // console.log("duration"+ this.duration);
+          //   console.log("after addition"+ this.estimatedtimeofarrival);
+          //console.log(d);
 
-    function callback(response, status) {
-      if (status == 'OK') {
-        var origins = response.originAddresses;
-        var destinations = response.destinationAddresses;
-        this.output = document.getElementById('abc');
-        for (var i = 0; i < origins.length; i++) {
-          var results = response.rows[i].elements;
-          for (var j = 0; j < results.length; j++) {
-            var element = results[j];
-            this.distance = element.distance.text;
-            var duration = element.duration.text;
-            var from = origins[i];
-            var to = destinations[j];
-          }
         }
-      }
-    }
+      });
   }
   //////////////////////////////////////////////////////////////////////////
   //////////////////////////////////////////////////////////////////////////
@@ -217,6 +228,7 @@ export class StudentPage {
           lat: this.livelocation.lat,
           lng: this.livelocation.lng
         });
+        this.app.showToast('Bus Located', 'top', 'success');
       } catch (error) {
         this.app.showToast('No Live Bus Found', 'top', 'error');
       }
@@ -226,6 +238,7 @@ export class StudentPage {
           lat: this.mylat,
           lng: this.mylon
         });
+        this.app.showToast('Current Location', 'top', 'success');
       } catch (error) {
         this.app.showToast('Unable To Find Your Location. Enable GPS', 'top', 'error');
       }
@@ -234,11 +247,20 @@ export class StudentPage {
         lat: this.assignedstop.lat,
         lng: this.assignedstop.lng
       });
+      this.app.showToast('Your Registered Stop', 'top', '');
     }
   }
+
   presentPopover(ev) {
     let modal = this.popoverCtrl.create(ModalPage);
     modal.present({
+      ev: ev
+    });
+  }
+
+  presentDrawer(ev) {
+    let popover = this.popoverCtrl.create(DrawerPage, {}, { cssClass: 'pageDrawer' });
+    popover.present({
       ev: ev
     });
   }
