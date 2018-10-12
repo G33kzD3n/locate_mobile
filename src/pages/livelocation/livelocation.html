@@ -1,4 +1,3 @@
-
 <ion-header>
 
   <ion-navbar>
@@ -9,15 +8,23 @@
 
 
 <ion-content no-padding>
-  <ion-card no-padding >
+  <ion-card no-padding>
     <div #map id="map"> </div>
     <ion-fab right top>
-        <button mini ion-fab color="dark" ><ion-icon name="md-arrow-down"></ion-icon></button>
-        <ion-fab-list>
-          <button ion-fab (click)="focus(1)"><ion-icon name="md-bus"></ion-icon></button>
-          <button ion-fab (click)="focus(2)"><ion-icon name="md-locate"></ion-icon></button>
-          <button ion-fab (click)="focus(3)"><ion-icon name="md-flag" ></ion-icon></button>
-        </ion-fab-list>
-      </ion-fab>
+      <button mini ion-fab color="dark">
+        <ion-icon name="md-arrow-down"></ion-icon>
+      </button>
+      <ion-fab-list>
+        <button ion-fab (click)="focus(1)">
+          <ion-icon name="md-bus"></ion-icon>
+        </button>
+        <button ion-fab (click)="focus(2)">
+          <ion-icon name="md-locate"></ion-icon>
+        </button>
+        <button ion-fab (click)="focus(3)">
+          <ion-icon name="md-flag"></ion-icon>
+        </button>
+      </ion-fab-list>
+    </ion-fab>
   </ion-card>
 </ion-content>

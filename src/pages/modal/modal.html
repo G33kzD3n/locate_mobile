@@ -1,21 +1,22 @@
 <ion-content class="pop">
     <div class="overlay" (click)="dismiss()"></div>
     <ion-list>
-        <ion-list-header class="ionpop"><strong>Notifications</strong> <a href="" class="link" style="float:right">Mark
-                All as Read</a></ion-list-header>
-        <ion-item *ngFor="let notification of this.notifications;">
+        <ion-list-header class="ionpop"><strong>Notifications</strong> 
+            <a href="" class="link" style="float:right">Mark All
+                as Read</a></ion-list-header>
+        <ion-list *ngFor="let notification of this.notifications;">
 
-            <ion-card *ngIf="notification.level == 2" text-wrap>
+            <ion-card *ngIf="notification.level == 2" text-wrap no-padding>
                 <ion-item>
-                    <h3 style="text-align: left;display: inline;">{{ notification.msg.type }}</h3>
+                    <h3 style="display: inline;">{{ notification.msg.type }}</h3>
                     <p style="display: inline; float: right;">{{ notification.msg.time }}</p>
                 </ion-item>
                 <ion-card-content>
-                    <p style="text-align: left;display: inline;">breakdown has occured in your bus compose a message
-                        for the students of the bus</p>
+                    <p style="text-align: left;display: inline;">
+                        Breakdown Has Occured! Broadcast This To Students.</p>
                     <div>
-                        <span style="display:inline; float:right;" ion-text color="danger" (click)="openbreak()">open
-                            <strong>Breakdown</strong></span>
+                        <span style="display:inline;float: right;" ion-text color="danger" (click)="openbreak()">
+                            Open <strong> Breakdown</strong></span>
                     </div>
                 </ion-card-content>
             </ion-card>
@@ -29,7 +30,7 @@
                 </ion-card-content>
             </ion-card>
             <span *ngIf="notification.level == 'both'">{{ notification.msg }}</span>
-        </ion-item>
+        </ion-list>
     </ion-list>
 
     <ion-buttons end>

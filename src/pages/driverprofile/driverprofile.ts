@@ -21,7 +21,6 @@ export class DriverprofilePage {
     public navCtrl: NavController, public storage: Storage,
     public app: AppServiceProvider, public http: Http,
     public navParams: NavParams) {
-
     this.user1 = "";
   }
 
@@ -29,26 +28,23 @@ export class DriverprofilePage {
     this.app.showLoader("Loading your profile...")
     this.showprofile();
   }
+
   showprofile() {
     this.storage.get('user').then((user) => {
       user = this.app.getToken(user);
-
-
       let headers = new Headers({ 'Content-Type': 'application/json' });
-      // headers.append('Authorization', 'Bearer ' + userToken);
       let options = new RequestOptions({ headers: headers });
-
       this.http.get(this.app.getUrl() + '/users/' + user, options)
         .map(res => res.json())
         .subscribe(
-
           result => {
             this.user1 = result.data;
           },
           error => {
-            error = (JSON.parse(error._body));
-            if (error) {
-              this.app.removeLoader();
+            this.app.removeLoader();
+            if (this.app.serverDown(error)) {
+              this.app.showToast('Please try after sometime', 'top', 'error');
+            }else{
               this.app.showToast("No data found in the database", 'top', 'error');
             }
           },

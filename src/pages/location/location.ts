@@ -7,6 +7,7 @@ import { ModalPage } from '../modal/modal';
 import { NotificationServiceProvider } from '../../providers/notification-service/notification-service';
 import { PopoverController } from 'ionic-angular';
 import { LivelocationPage } from '../livelocation/livelocation';
+import { LocationServiceProvider } from '../../providers/location-service/location-service';
 
 @IonicPage()
 @Component({
@@ -29,7 +30,7 @@ export class LocationPage {
   constructor(public http: Http,
     public app: AppServiceProvider, public storage: Storage,
     public navCtrl: NavController, public navParams: NavParams,
-    public popoverCtrl: PopoverController,
+    public popoverCtrl: PopoverController, public locationService: LocationServiceProvider,
     public notificationSrv: NotificationServiceProvider) {
     this.buses = "";
     //this.stops="";
@@ -57,26 +58,26 @@ export class LocationPage {
     }
   }
   locatebuses() {
-
     this.storage.get('bus_no').then((bus_no) => {
       bus_no = this.app.getToken(bus_no);
       this.mybus = bus_no;
+      //code from 90 to 92 is used for showing only the non logged in buses
+      //else it will show all the buses.
       this.app.showLoader("Loading");
       let headers = new Headers({ 'Content-Type': 'application/json' });
       let options = new RequestOptions({ headers: headers });
-
       this.http.get(this.app.getUrl() + '/buses', options)
         .map(res => res.json())
         .subscribe(
-
           result => {
             this.buses = result.buses;
             this.stops = result.buses[0].stops.names.split(';');
           },
           error => {
-            error = (JSON.parse(error._body));
-            if (error) {
-              this.app.removeLoader();
+            this.app.removeLoader();
+            if (this.app.serverDown(error)) {
+              this.app.showToast('Please try after sometime', 'top', 'error');
+            } else {
               this.app.showToast('No data found in the database', 'top', 'error');
             }
           },
@@ -85,6 +86,7 @@ export class LocationPage {
           });
     });
   }
+
   presentPopover(ev) {
     let modal = this.popoverCtrl.create(ModalPage);
     modal.present({

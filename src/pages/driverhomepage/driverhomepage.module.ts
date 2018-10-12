@@ -10,4 +10,4 @@ import { DriverhomepagePage } from './driverhomepage';
     IonicPageModule.forChild(DriverhomepagePage),
   ],
 })
-export class DriverhomepagePageModule {}
+export class DriverhomepagePageModule { }

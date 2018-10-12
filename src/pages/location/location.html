@@ -34,8 +34,11 @@
         </ion-row>
       </ion-grid>
     </span>
-    <div *ngIf="hideMe == i  && On === true">
-      <ion-label class="routes" text-wrap padding> {{bus.stops.names.split(';').join(" -- ")}} </ion-label>
-    </div>
+    <div  *ngIf="hideMe == i  && On === true">
+    <!-- <span *ngFor="let name of stops ; let y=index let last=last"> -->
+  
+        <ion-label  class="routes" text-wrap padding>{{bus?.stops?.names.split(';').join(" then--> ")}} </ion-label>   
+  <!-- </span> -->
+</div>
   </ion-card>
 </ion-content>

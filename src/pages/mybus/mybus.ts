@@ -1,21 +1,17 @@
 import { Component, ViewChild, ElementRef } from '@angular/core';
-import { IonicPage, NavController, NavParams, Popover } from 'ionic-angular';
+import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 import { AppServiceProvider } from '../../providers/app-service/app-service';
-import { RequestOptions, Headers, Http } from '@angular/http';
+import { Http } from '@angular/http';
 import { Geolocation } from "@ionic-native/geolocation";
 import { CallNumber } from '@ionic-native/call-number';
 import { LocationServiceProvider } from '../../providers/location-service/location-service';
-declare var google: any;
 import { ModalPage } from '../modal/modal';
 import { NotificationServiceProvider } from '../../providers/notification-service/notification-service';
 import { PopoverController } from 'ionic-angular';
+declare var google: any;
 
 
-interface point {
-  lat: number,
-  lng: number
-};
 @IonicPage()
 @Component({
   selector: 'page-mybus',
@@ -34,12 +30,7 @@ export class MybusPage {
   i: any;
   mark: any;
 
-
-
-
-
   public poly: any;
-
   public points: any = [];
   public places;
   public bus: any;
@@ -50,7 +41,6 @@ export class MybusPage {
   image1 = "assets/imgs/bus2.png";
   waypts: any = [];
 
-
   constructor(public notificationSrv: NotificationServiceProvider, public locationService: LocationServiceProvider,
     public popoverCtrl: PopoverController,
     public http: Http, public geolocation: Geolocation,
@@ -59,9 +49,6 @@ export class MybusPage {
     public callNumber: CallNumber) {
     this.bus = "";
   }
-
-
-
   ionViewDidLoad() {
     this.gotomybus();
     this.getAssignedStop();
@@ -75,15 +62,12 @@ export class MybusPage {
 
   showmap() {
     const location = new google.maps.LatLng(34.129881, 74.836936);
-
     const options = {
       center: location,
       zoom: 17,
       disableDefaultUI: true,
       mapTypeId: google.maps.MapTypeId.ROADMAP
-
     }
-
     this.map = new google.maps.Map(this.mapRef.nativeElement, options);
     this.addMarkers(this.points);
     this.app.removeLoader();
@@ -101,21 +85,14 @@ export class MybusPage {
         const loc = new google.maps.LatLng(this.assignedstop.lat, this.assignedstop.lng);
         var showMarkers = new google.maps.Marker({ position: loc, title: this.assignedstop.name, icon: this.image1 });
         this.myStopIndex = i;
-
         showMarkers.setMap(this.map);
-
-
       }
     }
-
   }
 
   startNavigating() {
-
-
     let directionsService = new google.maps.DirectionsService;
     let directionsDisplay = new google.maps.DirectionsRenderer;
-
     directionsDisplay.setMap(this.map);
     directionsDisplay.setPanel(this.directionsPanel.nativeElement);
     console.log(this.points[this.myStopIndex - parseInt('2')]);
@@ -145,40 +122,35 @@ export class MybusPage {
         stopover: true
       }
       ],
-
-
       destination: '34.2323, 74.4163',
-
       provideRouteAlternatives: true,
-
       travelMode: google.maps.TravelMode['DRIVING']
     }, (res, status) => {
-
       if (status == google.maps.DirectionsStatus.OK) {
         directionsDisplay.setDirections(res);
       } else {
         console.warn(status);
       }
-
     });
-
   }
   showroute() {
-
-    if (this.hideMe === false) {
-      this.app.showLoader('Loading Route...');
-      this.hideMe = true;
-      setTimeout(() => {
-        this.showmap();
-        this.startNavigating();
-      }, 300);
-
-    } else {
-
-      this.hideMe = false;
+    if (!this.app.serverOffline) {
+      this.app.showToast('Please try after sometime', 'top', 'error');
     }
-
+    else {
+      if (this.hideMe === false) {
+        this.app.showLoader('Loading Route...');
+        this.hideMe = true;
+        setTimeout(() => {
+          this.showmap();
+          this.startNavigating();
+        }, 300);
+      } else {
+        this.hideMe = false;
+      }
+    }
   }
+
 
   gotomybus(): any {
     this.storage.get('bus_no').then((bus_no) => {
@@ -189,11 +161,14 @@ export class MybusPage {
             this.bus = result.bus;
             this.places = this.bus.stops.names;
             this.points = this.bus.stops.latLngs;
+            this.app.serverOffline=true;
           },
           error => {
-            error = (JSON.parse(error._body));
-            if (error) {
-              this.app.removeLoader();
+            this.app.removeLoader();
+            if (this.app.serverDown(error)) {
+              this.app.showToast('Please try after sometime', 'top', 'error');
+              this.app.serverOffline=false;
+            } else {
               this.app.showToast("No data found in the database", 'top', 'error');
             }
           },
@@ -210,7 +185,9 @@ export class MybusPage {
             this.assignedstop = res.data.stop;
           },
           err => {
-
+            if (this.app.serverDown(err)) {
+              this.app.showToast('Please try after sometime', 'top', 'error');
+            }
           },
           () => {
 
@@ -218,6 +195,7 @@ export class MybusPage {
         )
     })
   }
+
   presentPopover(ev) {
     let modal = this.popoverCtrl.create(ModalPage);
     modal.present({

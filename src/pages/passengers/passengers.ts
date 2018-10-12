@@ -7,7 +7,6 @@ import { ModalPage } from '../modal/modal';
 import { NotificationServiceProvider } from '../../providers/notification-service/notification-service';
 import { PopoverController } from 'ionic-angular';
 import { LocationServiceProvider } from '../../providers/location-service/location-service';
-import { RequestOptions, Headers } from '@angular/http';
 
 @IonicPage()
 @Component({
@@ -25,32 +24,29 @@ export class PassengersPage {
 
   }
   ionViewDidLoad() {
-    console.log('ionViewDidLoad PassengersPage');
     this.getdata();
   }
-
 
   getdata() {
     this.storage.get('bus_no').then((bus_no) => {
       this.app.showLoader("Loading passengers of this bus");
-      // let headers = new Headers({ 'Content-Type': 'application/json' });
-      // let options = new RequestOptions({ headers: headers });
       this.http.get(this.app.getUrl() + '/buses/' + bus_no + '/passengers?groupby=stopnames')
         .map(res => res.json())
         .subscribe(
           result => {
-            console.log(result);
             for (let i = 0; i < result.length; i++) {
               this.data[i] = result[i].stop;
             }
             for (let i = 0; i < result.length; i++) {
               this.passengers[i] = result[i].stop.passengers;
-              console.log(this.passengers);
             }
           },
           error => {
-            error = (JSON.parse(error._body));
-            if (error) {
+            this.app.removeLoader();
+            if (this.app.serverDown(error)) {
+              this.app.showToast('Please try after sometime', 'top', 'error');
+            }
+            else {
               this.app.showToast("No data found in the database", 'top', 'error');
             }
           },
@@ -59,6 +55,7 @@ export class PassengersPage {
           });
     });
   }
+
   presentPopover(ev) {
     let modal = this.popoverCtrl.create(ModalPage);
     modal.present({

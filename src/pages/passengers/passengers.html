@@ -3,7 +3,7 @@
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>Students</ion-title>
+    <ion-title>Passengers</ion-title>
     <ion-buttons end>
       <button id="cart-btn" ion-button icon-only (click)="presentPopover($event)">
         <ion-icon name="notifications"></ion-icon>
@@ -15,13 +15,13 @@
   </ion-navbar>
 </ion-header>
 <ion-content no-padding class="contentbg">
-  <ion-card *ngFor="let data of data;" no-padding>
+  <ion-card *ngFor="let data of data;" no-padding class="stdcard">
     <ion-card-header>
       <ion-icon name="location"></ion-icon> {{ data.name}}
     </ion-card-header>
     <!-- <ion-card-header color="dark">Passenger no: {{i}}</ion-card-header> -->
     <ion-card-content *ngFor="let passenger of data.passengers; let y=index let last=last" no-padding>
-      <ion-item style="background: linear-gradient(0.40turn, #c2d8e7 , #fdfffb ,#bbd2e2 );">
+      <ion-item>
         <img class="thumb" src="assets/imgs/11.JPG" item-left>
 
         <label>
@@ -44,7 +44,7 @@
           <ion-icon name="md-home"></ion-icon> {{passenger.dept_code}}
         </h2>
 
-      </ion-item>
+      </ion-item><hr>
     </ion-card-content>
   </ion-card>
 </ion-content>

@@ -15,8 +15,8 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content padding class="contentbg">
-  <ion-card class="pcard">
+<ion-content no-padding>
+  <ion-card no-padding class="pcard">
     <ion-card-content>
       <ion-list class="list">
         <ion-item>
@@ -30,15 +30,15 @@
       </ion-list>
       <form class="list-form" [formGroup]="loginForm" (ngSubmit)="sendbreakdownwithmsg(loginForm.value)">
         <ion-item>
-          <ion-textarea placeholder="Enter Message" name="message" id="message" formControlName="message" required></ion-textarea>
+          <ion-textarea rows='20' placeholder="Enter Message" name="message" id="message" formControlName="message" required></ion-textarea>
         </ion-item>
         <div class="errorBox" *ngIf="loginForm.controls['message'].hasError('required')  && loginForm.controls['message'].touched">*Message
           can't be empty
         </div>
         <!-- <span *ngIf="record !== false"> -->
-          <button ion-button icon-start round block color="danger" [disabled]="!loginForm.valid">
-            <ion-icon name="send"></ion-icon>Send
-          </button>
+        <button ion-button icon-start round block color="danger" [disabled]="!loginForm.valid">
+          <ion-icon name="send"></ion-icon>Send
+        </button>
         <!-- </span> -->
       </form>
     </ion-card-content>

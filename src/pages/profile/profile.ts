@@ -1,11 +1,17 @@
 import { Component, ViewChild } from '@angular/core';
-import { IonicPage, NavController, NavParams, Nav, PopoverController } from 'ionic-angular';
+import { NavController, NavParams, Nav, PopoverController } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 import { RequestOptions, Headers, Http } from '@angular/http';
 import { AppServiceProvider } from '../../providers/app-service/app-service';
 import { LocationServiceProvider } from '../../providers/location-service/location-service';
 import { ModalPage } from '../modal/modal';
 import { NotificationServiceProvider } from '../../providers/notification-service/notification-service';
+import * as pdfmake from 'pdfmake/build/pdfmake';
+import * as pdfFonts from 'pdfmake/build/vfs_fonts';
+import { File } from '@ionic-native/file';
+import { Platform } from 'ionic-angular';
+import { FileOpener } from '@ionic-native/file-opener';
+
 @Component({
   selector: 'page-profile',
   templateUrl: 'profile.html',
@@ -16,15 +22,19 @@ export class ProfilePage {
   public data: any;
   public stopid: any;
   title: string = "Profile";
-  public roll:any;
+  public roll: any;
+  pdfObj = null;
 
-
-  constructor(public notificationSrv: NotificationServiceProvider,public popoverCtrl: PopoverController,public locationService: LocationServiceProvider, public navCtrl: NavController, public storage: Storage, public app: AppServiceProvider, public http: Http, public navParams: NavParams) {
+  constructor(public platform: Platform, public notificationSrv: NotificationServiceProvider,
+    public fileopener: FileOpener,
+    public popoverCtrl: PopoverController, public locationService: LocationServiceProvider,
+    public navCtrl: NavController, public storage: Storage, public app: AppServiceProvider,
+    public http: Http, public navParams: NavParams, public file: File) {
 
     this.user1 = "";
     this.data = "";
-    this.roll="";
-    }
+    this.roll = "";
+  }
 
 
   ionViewDidEnter() {
@@ -35,18 +45,18 @@ export class ProfilePage {
   openuser() {
     this.storage.get('user').then((user) => {
       user = this.app.getToken(user);
-      this.roll=user;
+      this.roll = user;
       this.locationService.getProfile(user)
         .subscribe(
           result => {
             this.user1 = result.data;
             this.stopid = this.user1.stop.name;
-            console.log(this.stopid);
-                },
+          },
           error => {
-            error = (JSON.parse(error._body));
-            if (error) {
-              this.app.removeLoader();
+            this.app.removeLoader();
+            if (this.app.serverDown(error)) {
+              this.app.showToast('Please try after sometime', 'top', 'error');
+            } else {
               this.app.showToast("No data found in the database", 'top', 'error');
             }
           },
@@ -58,13 +68,8 @@ export class ProfilePage {
   openfee() {
     this.storage.get('user').then((user) => {
       user = this.app.getToken(user);
-
-
       let headers = new Headers({ 'Content-Type': 'application/json' });
-      // headers.append('Authorization', 'Bearer ' + userToken);
       let options = new RequestOptions({ headers: headers });
-      //console.log(user);
-      // console.log(userToken);
       this.http.get(this.app.getUrl() + '/users/' + user + '/fees/unpaid', options)
         .map(res => res.json())
         .subscribe(
@@ -73,9 +78,9 @@ export class ProfilePage {
             this.data = result.data;
           },
           error => {
-            error = (JSON.parse(error._body));
-            if (error) {
-              this.app.removeLoader();
+            if (this.app.serverDown(error)) {
+              this.app.showToast('Please try after sometime', 'top', 'error');
+            } else {
               this.app.showToast("No data found in the database", 'top', 'error');
             }
           },
@@ -89,5 +94,93 @@ export class ProfilePage {
     modal.present({
       ev: ev
     });
+  }
+  makePdf() {
+    if (!this.app.serverOffline) {
+      this.app.showToast('Please try after sometime','top','error');
+    }
+    else {
+      pdfmake.vfs = pdfFonts.pdfMake.vfs;
+      var docDefinition = {
+        content: [
+          {
+            columns: [
+              // {
+              //   image: 'data:image/jpeg;base64,your_image_here',
+              //   fit: [100, 100]
+              // },
+              [
+                { text: 'University of Kashmir', style: 'header' },
+                { text: 'North Campus Delina, Baramulla', style: 'sub_header' },
+                { text: '\n', style: '' },
+                { text: 'Reciept No:', style: 'llr' },
+                { text: 'Dated: ' + this.app.calDate(), style: 'url' },
+                { text: '\n\n', style: '' },
+                { text: 'Fee Reciept For Unpaid Fees', style: 'sub_header' },
+                { text: '\n\n', style: '' },
+                { text: 'Monthly fee: ' + this.data.monthly_fee, style: 'url' },
+                { text: 'No of Unpaid Months: ' + this.data.unpaid_months, style: 'url' },
+                { text: 'Total Amount Payable: ' + this.data.total_unpaid_fee, style: 'url' },
+                { text: '\n\n', style: '' },
+                { text: 'Payable by: ' + this.data.name, style: 'llr' },
+                { text: 'Cashier Signature', style: 'url' },
+              ]
+            ]
+          }
+        ],
+        styles: {
+          header: {
+            bold: true,
+            fontSize: 30,
+            alignment: 'center'
+          },
+          sub_header: {
+            fontSize: 18,
+            alignment: 'center'
+          },
+          url: {
+            fontSize: 16,
+            alignment: 'right'
+          },
+          llr: {
+            fontSize: 16,
+            alignment: 'left'
+          }
+        },
+        pageSize: 'A5',
+        pageOrientation: 'portrait'
+      };
+      this.pdfObj = pdfmake.createPdf(docDefinition);
+      //   pdfmake.createPdf(docDefinition).getBuffer(function (buffer) {
+      //     let utf8 = new Uint8Array(buffer);
+      //     let binaryArray = utf8.buffer;
+      //     self.saveToDevice(binaryArray, "Bitcoin.pdf")
+      //   });
+      // }
+
+      if (this.platform.is('cordova')) {
+        this.pdfObj.getBuffer((buffer) => {
+          var blob = new Blob([buffer], { type: 'application/pdf' });
+          // Save the PDF to the data Directory of our App
+          this.file.writeFile(this.file.dataDirectory, 'myletter.pdf', blob, { replace: true }).then(fileEntry => {
+            // Open the PDf with the correct OS tools
+            this.fileopener.open(this.file.dataDirectory + 'myletter.pdf', 'application/pdf');
+            this.saveToDevice(blob, 'myletter.pdf');
+          })
+        });
+      } else {
+        // On a browser simply use download!
+        this.pdfObj.download();
+      }
+    }
+  }
+
+
+
+
+
+  saveToDevice(data: any, savefile: any) {
+    this.file.writeFile(this.file.externalDataDirectory, savefile, data, { replace: false });
+    this.app.showToast('File has been saved on device', 'top', 'success');
   }
 }

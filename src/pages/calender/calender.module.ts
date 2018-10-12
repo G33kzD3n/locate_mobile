@@ -10,4 +10,4 @@ import { CalenderPage } from './calender';
     IonicPageModule.forChild(CalenderPage),
   ],
 })
-export class CalenderPageModule {}
+export class CalenderPageModule { }

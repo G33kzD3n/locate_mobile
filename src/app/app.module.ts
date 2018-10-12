@@ -6,6 +6,8 @@ import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
 import { FormsModule } from '@angular/forms';
+import { File } from '@ionic-native/file';
+import { FileOpener } from '@ionic-native/file-opener';
 
 import { MyApp } from './app.component';
 import { LoginPage } from '../pages/login/login';
@@ -35,7 +37,6 @@ import { ModalPage } from '../pages/modal/modal';
 import { OpenNativeSettings } from '@ionic-native/open-native-settings'
 import { Badge } from '@ionic-native/badge'
 import { Geofence } from '@ionic-native/geofence';
-import { DrawerPage } from '../pages/drawer/drawer';
 
 import { BreakdowncordPage } from '../pages/breakdowncord/breakdowncord';
 import { NotificationServiceProvider } from '../providers/notification-service/notification-service';
@@ -58,7 +59,6 @@ import { NotificationServiceProvider } from '../providers/notification-service/n
     DriverhomepagePage,
     ModalPage,
     LivelocationPage,
-    DrawerPage,    
     BreakdowncordPage
   ],
   imports: [
@@ -68,7 +68,7 @@ import { NotificationServiceProvider } from '../providers/notification-service/n
     HttpModule,
     IonicModule.forRoot(MyApp),
     IonicStorageModule.forRoot(),
-    
+
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -88,7 +88,6 @@ import { NotificationServiceProvider } from '../providers/notification-service/n
     BreakdownPage,
     DriverhomepagePage,
     ModalPage,
-    DrawerPage,
     BreakdowncordPage
   ],
   providers: [
@@ -108,7 +107,9 @@ import { NotificationServiceProvider } from '../providers/notification-service/n
     OpenNativeSettings,
     Badge,
     Geofence,
-    NotificationServiceProvider
+    NotificationServiceProvider,
+    File,
+    FileOpener
   ]
 })
 export class AppModule { }

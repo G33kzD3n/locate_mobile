@@ -1,7 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { PopoverController } from 'ionic-angular';
-import { ModalPage } from '../../pages/modal/modal';
 
 @Injectable()
 export class NotificationServiceProvider {

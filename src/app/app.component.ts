@@ -3,10 +3,9 @@ import { Platform, Nav, ModalController } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { NotificationServiceProvider } from '../providers/notification-service/notification-service';
-
 import { AppServiceProvider } from '../providers/app-service/app-service';
 import { LoginPage } from '../pages/login/login';
-import { ModalPage } from '../pages/modal/modal';
+
 
 @Component({
   templateUrl: 'app.html'
@@ -14,7 +13,6 @@ import { ModalPage } from '../pages/modal/modal';
 
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
-  //rootPage :any =  TabsPage;
   rootPage: any = LoginPage;
 
 
