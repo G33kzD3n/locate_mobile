@@ -57,9 +57,6 @@ export class StudentPage {
   ngOnInit() {
 
     this.getAssignedStop();
-    this.showmap();
-
-
     this.pusher.breakdown = this.pusher.init('8839-channel');
     this.showmap();
     if (this.app.userlevel == 0) {

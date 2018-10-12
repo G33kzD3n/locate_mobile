@@ -7,6 +7,7 @@ import { ModalPage } from '../modal/modal';
 import { NotificationServiceProvider } from '../../providers/notification-service/notification-service';
 import { PopoverController } from 'ionic-angular';
 import { LivelocationPage } from '../livelocation/livelocation';
+import { LocationServiceProvider } from '../../providers/location-service/location-service';
 
 @IonicPage()
 @Component({
@@ -29,13 +30,14 @@ export class LocationPage {
   constructor(public http: Http,
     public app: AppServiceProvider, public storage: Storage,
     public navCtrl: NavController, public navParams: NavParams,
-    public popoverCtrl: PopoverController,
+    public popoverCtrl: PopoverController,public locationService: LocationServiceProvider,
     public notificationSrv: NotificationServiceProvider) {
     this.buses = "";
     //this.stops="";
   }
 
   ionViewDidLoad() {
+    console.log("didload");
     this.locatebuses();
   }
 
@@ -59,31 +61,59 @@ export class LocationPage {
   locatebuses() {
 
     this.storage.get('bus_no').then((bus_no) => {
+      this.app.showLoader("Loading...");
       bus_no = this.app.getToken(bus_no);
-      this.mybus = bus_no;
-      this.app.showLoader("Loading");
-      let headers = new Headers({ 'Content-Type': 'application/json' });
-      let options = new RequestOptions({ headers: headers });
-
-      this.http.get(this.app.getUrl() + '/buses', options)
-        .map(res => res.json())
+      console.log(bus_no+"bus");
+      this.locationService.getStops(bus_no)
         .subscribe(
-
           result => {
-            this.buses = result.buses;
-            this.stops = result.buses[0].stops.names.split(';');
+            this.bus = result.bus;
+            // this.places = this.bus.stops.names;
+            // this.points = this.bus.stops.latLngs;
+            for(let i=0;i<1;i++)
+            {
+              this.stops=this.bus.stops.names.split(';');
+            }
+           // console.log(this.names);
           },
           error => {
             error = (JSON.parse(error._body));
             if (error) {
               this.app.removeLoader();
-              this.app.showToast('No data found in the database', 'top', 'error');
+              this.app.showToast("No data found in the database", 'top', 'error');
             }
           },
           () => {
             this.app.removeLoader();
           });
     });
+
+    // this.storage.get('bus_no').then((bus_no) => {
+    //   bus_no = this.app.getToken(bus_no);
+    //   this.mybus = bus_no;
+    //   this.app.showLoader("Loading");
+    //   let headers = new Headers({ 'Content-Type': 'application/json' });
+    //   let options = new RequestOptions({ headers: headers });
+
+    //   this.http.get(this.app.getUrl() + '/buses', options)
+    //     .map(res => res.json())
+    //     .subscribe(
+
+    //       result => {
+    //         this.buses = result.buses;
+    //         this.stops = result.buses[0].stops.names.split(';');
+    //       },
+    //       error => {
+    //         error = (JSON.parse(error._body));
+    //         if (error) {
+    //           this.app.removeLoader();
+    //           this.app.showToast('No data found in the database', 'top', 'error');
+    //         }
+    //       },
+    //       () => {
+    //         this.app.removeLoader();
+    //       });
+    // });
   }
   presentPopover(ev) {
     let modal = this.popoverCtrl.create(ModalPage);

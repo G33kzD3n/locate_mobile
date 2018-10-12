@@ -6,11 +6,10 @@ import { RequestOptions, Headers, Http } from '@angular/http';
 import { Geolocation } from "@ionic-native/geolocation";
 import { CallNumber } from '@ionic-native/call-number';
 import { LocationServiceProvider } from '../../providers/location-service/location-service';
-declare var google: any;
 import { ModalPage } from '../modal/modal';
 import { NotificationServiceProvider } from '../../providers/notification-service/notification-service';
 import { PopoverController } from 'ionic-angular';
-
+declare var google: any;
 
 interface point {
   lat: number,
