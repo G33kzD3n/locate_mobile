@@ -5,12 +5,12 @@
     </button>
     <ion-title>{{ title }}</ion-title>
     <ion-buttons end>
-        <button id="cart-btn" ion-button icon-only (click)="presentPopover($event)">
-            <ion-icon name="notifications"></ion-icon>
-            <span *ngIf="this.notificationSrv.ncounter !== 0">
-              <ion-badge id="cart-badge" color="danger"> {{ this.notificationSrv.ncounter }}</ion-badge>
-            </span>
-          </button>
+      <button id="cart-btn" ion-button icon-only (click)="presentPopover($event)">
+        <ion-icon name="notifications"></ion-icon>
+        <span *ngIf="this.notificationSrv.ncounter !== 0">
+          <ion-badge id="cart-badge" color="danger"> {{ this.notificationSrv.ncounter }}</ion-badge>
+        </span>
+      </button>
     </ion-buttons>
   </ion-navbar>
 </ion-header>
@@ -26,32 +26,30 @@
 
   <ion-label class="user">{{user1.name}}</ion-label>
 
+  <ion-card class="pcard" no-padding>
+    <ion-card-content no-padding>
+      <ion-list class="list">
+        <ion-item>
+          <ion-icon name="md-home"></ion-icon><label> Department</label>
+          <h2>{{ user1.dept_code }}</h2>
+        </ion-item>
+        <ion-item>
+          <ion-icon name="md-bus"></ion-icon><label> Alloted Bus</label>
+          <h2>{{ user1.bus_no }}</h2>
+        </ion-item>
+        <ion-item>
+          <ion-icon name="md-call"></ion-icon> <label> Phone Number</label>
+          <h2>{{ user1.cell_no }}</h2>
+        </ion-item>
+        <ion-item>
+          <ion-icon name="md-calendar"></ion-icon><label> Registration Date</label>
+          <h2>{{ user1.registration_date }}</h2>
+        </ion-item>
+      </ion-list>
 
-  <ion-card class="pcard">
-    <ion-card-content>
-      <ion-grid>
-        <ion-row>
-          <ion-col>
-            <ion-icon name="md-home"></ion-icon><label> Department</label><br>
-            <h2>{{ user1.dept_code }}</h2>
-          </ion-col>
-          <ion-col>
-            <ion-icon name="md-bus"></ion-icon><label> Alloted Bus</label><br>
-            <h2>{{ user1.bus_no }}</h2>
-          </ion-col>
-        </ion-row>
-        <ion-row>
-          <ion-col>
-            <ion-icon name="md-call" item-start></ion-icon> <label> Phone Number</label><br>
-            <h2>{{ user1.cell_no }}</h2>
-          </ion-col>
-          <ion-col>
-            <ion-icon name="md-calendar"></ion-icon><label> Registration Date</label><br>
-            <h2>{{ user1.registration_date }}</h2>
-          </ion-col>
-        </ion-row>
-      </ion-grid>
     </ion-card-content>
   </ion-card>
+
+
   <br>
 </ion-content>

@@ -21,7 +21,6 @@ export class DriverprofilePage {
     public navCtrl: NavController, public storage: Storage,
     public app: AppServiceProvider, public http: Http,
     public navParams: NavParams) {
-
     this.user1 = "";
   }
 
@@ -29,19 +28,15 @@ export class DriverprofilePage {
     this.app.showLoader("Loading your profile...")
     this.showprofile();
   }
+
   showprofile() {
     this.storage.get('user').then((user) => {
       user = this.app.getToken(user);
-
-
       let headers = new Headers({ 'Content-Type': 'application/json' });
-      // headers.append('Authorization', 'Bearer ' + userToken);
       let options = new RequestOptions({ headers: headers });
-
       this.http.get(this.app.getUrl() + '/users/' + user, options)
         .map(res => res.json())
         .subscribe(
-
           result => {
             this.user1 = result.data;
           },

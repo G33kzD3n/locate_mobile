@@ -15,8 +15,8 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content padding class="contentbg">
-  <ion-card class="pcard">
+<ion-content no-padding>
+  <ion-card no-padding class="pcard">
     <ion-card-content>
       <ion-list class="list">
         <ion-item>
@@ -36,9 +36,9 @@
           can't be empty
         </div>
         <!-- <span *ngIf="record !== false"> -->
-          <button ion-button icon-start round block color="danger" [disabled]="!loginForm.valid">
-            <ion-icon name="send"></ion-icon>Send
-          </button>
+        <button ion-button icon-start round block color="danger" [disabled]="!loginForm.valid">
+          <ion-icon name="send"></ion-icon>Send
+        </button>
         <!-- </span> -->
       </form>
     </ion-card-content>

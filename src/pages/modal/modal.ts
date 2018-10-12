@@ -23,15 +23,17 @@ export class ModalPage {
     this.notifications = this.notificationSrv.getPushNotifications();
 
   }
+  
   openbreak() {
-    this.navCtrl.setRoot(BreakdowncordPage);
-  }
-
-  ionViewDidLoad() {
+    this.navCtrl.push(BreakdowncordPage);
   }
   dismiss() {
     this.viewCtrl.dismiss();
   }
+
+  ionViewDidLoad() {
+  }
+  
   clear() {
     this.notificationSrv.ncounter = 0;
     this.notifications = [];

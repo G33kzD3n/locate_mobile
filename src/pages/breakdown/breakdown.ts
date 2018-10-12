@@ -17,21 +17,17 @@ export class BreakdownPage {
 
   constructor(public storage: Storage, private app: AppServiceProvider,
     public http: Http, public navCtrl: NavController,
-    public navParams: NavParams,public popoverCtrl: PopoverController,
+    public navParams: NavParams, public popoverCtrl: PopoverController,
     public notificationSrv: NotificationServiceProvider) {
   }
 
   ionViewDidLoad() {
   }
-
-
   message: string;
   sendBreakdown(data: { name: string }) {
     this.app.showLoader('Sending Breakdown Message. Please wait...');
     this.message = data.name;
-
     this.storage.get('bus_no').then((bus_no) => {
-
       let payload = {
         type: this.message,
         time: this.app.calDate()

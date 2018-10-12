@@ -10,7 +10,6 @@ import { PusherServiceProvider } from '../../providers/pusher-service/pusher-ser
 import { LocationServiceProvider } from '../../providers/location-service/location-service';
 import { ModalPage } from '../modal/modal';
 import { NotificationServiceProvider } from '../../providers/notification-service/notification-service';
-import { DrawerPage } from '../drawer/drawer';
 
 declare var google: any;
 
@@ -40,6 +39,8 @@ export class StudentPage {
   public duration: any;
   myDate: any = new Date().toTimeString();
   estimatedtimeofarrival: any = new Date().toTimeString();
+  newTime: any;
+  meridiem: String = "Am";
 
   constructor(public modal: ModalController, public pusher: PusherServiceProvider,
     public locationService: LocationServiceProvider,
@@ -52,20 +53,17 @@ export class StudentPage {
 
   ngOnInit() {
     this.getAssignedStop();
-    this.pusher.breakdown = this.pusher.init('8839-channel');
+    // this.pusher.breakdown = this.pusher.init('8839-channel');
     this.showmap();
     if (this.app.userlevel == 0) {
       this.getbreakdownupdate();
-      console.log("student function" + this.notificationSrv.ncounter);
     }
     if (this.app.userlevel == 2) {
       this.getbreakdown();
-      console.log("cordinator" + this.notificationSrv.ncounter);
     }
   }
 
   getbreakdown() {
-    console.log("cordinator" + this.notificationSrv.ncounter);
     this.pusher.breakdown.bind('breakdown-info-created', (data) => {
       this.notificationSrv.pushNotification({
         level: 2,
@@ -75,7 +73,6 @@ export class StudentPage {
       //stores data later to b used in breakdowncord.ts
       //to show type of breakdown to cordinator
       this.notificationSrv.breakdownmsg = data;
-      console.log("cordinator" + this.notificationSrv.ncounter);
     });
   }
 
@@ -87,7 +84,6 @@ export class StudentPage {
       });
       this.notificationSrv.ncounter++;
     });
-    console.log("student function" + this.notificationSrv.ncounter);
   }
 
   ionViewDidLoad() { }
@@ -116,7 +112,6 @@ export class StudentPage {
       this.mylat = resp.coords.latitude;
       this.mylon = resp.coords.longitude;
     }).catch((error) => {
-      console.log('Error getting location', error);
     });
     const mymark = new google.maps.LatLng(this.mylat, this.mylon);
     this.showMarkers();
@@ -136,6 +131,8 @@ export class StudentPage {
     //create map
     this.map = new google.maps.Map(this.mapRef.nativeElement, options);
     this.app.removeLoader();
+
+    //get update of bus from socket.
     this.getlocation();
   }
 
@@ -145,7 +142,6 @@ export class StudentPage {
 
   getlocation() {
     this.pusher.breakdown.bind('location-update', (data) => {
-      this.bus = data;
       this.livelocation = data;
       this.eta();
       this.clearMarkers();
@@ -156,9 +152,6 @@ export class StudentPage {
   }
 
   ionViewDidLeave() {
-    this.storage.get('bus_no').then((bus_no) => {
-      this.pusher.breakdown.unbind('location-update');
-    });
   }
 
   getAssignedStop() {
@@ -199,25 +192,41 @@ export class StudentPage {
         if (status == 'OK') {
           this.distance = response.rows[0].elements[0].distance.text;
           this.duration = response.rows[0].elements[0].duration.text;
-          let myarr = this.duration.split(' ');
-          console.log(myarr);
-          console.log(this.myDate);
-          let newDate:number=[] = this.myDate.split(':');
-          console.log(newDate);
-          newDate[0]=parseInt(newDate[0]) + parseInt(myarr[0]);
-          newDate[1]=parseInt(newDate[1]) + parseInt(myarr[2]);
-          console.log(newDate);
-          //console.log("current time"+ this.estimatedtimeofarrival);
-          // this.estimatedtimeofarrival = this.myDate.setHours(myarr[0],myarr[2]);
-          // this.estimatedtimeofarrival = new Date();
-          //console.log(this.estimatedtimeofarrival)
-          // this.estimatedtimeofarrival.setHours((this.estimatedtimeofarrival.getHours()) + myarr[0]);
-          // console.log("duration"+ this.duration);
-          //   console.log("after addition"+ this.estimatedtimeofarrival);
-          //console.log(d);
-
+          let googleEta: any = null;
+          googleEta = this.duration.split(' ');
+          this.newTime = this.myDate.split(':');
+          this.dateAdd(googleEta, this.newTime);
         }
       });
+  }
+
+  dateAdd(googleEta, newTime) {
+    if (googleEta[1] === 'mins') {
+      //only minutes in google eta no hour present.
+      newTime[1] = parseInt(newTime[1]) + parseInt(googleEta[0]);
+      if (newTime[1] > 60) {
+        newTime[1] = (parseInt(newTime[1]) - 60); //add 1 + hour  
+        newTime[0] = parseInt(newTime[0]) + 1;
+        if (newTime[0] >= 12) {
+          this.meridiem = "Pm";
+        }
+      }
+    } else {
+      //add hours
+      newTime[0] = parseInt(newTime[0]) + parseInt(googleEta[0]);
+      //add mins
+      newTime[1] = parseInt(newTime[1]) + parseInt(googleEta[2]);
+      if (newTime[1] >= 60) {
+        newTime[1] = (parseInt(newTime[1]) - 60);
+        newTime[0] = parseInt(newTime[0]) + 1;
+      }
+      if (newTime[0] >= 24) {
+        newTime[0] = 1;
+      }
+      if (newTime[0] >= 12) {
+        this.meridiem = "Pm";
+      }
+    }
   }
   //////////////////////////////////////////////////////////////////////////
   //////////////////////////////////////////////////////////////////////////
@@ -254,13 +263,6 @@ export class StudentPage {
   presentPopover(ev) {
     let modal = this.popoverCtrl.create(ModalPage);
     modal.present({
-      ev: ev
-    });
-  }
-
-  presentDrawer(ev) {
-    let popover = this.popoverCtrl.create(DrawerPage, {}, { cssClass: 'pageDrawer' });
-    popover.present({
       ev: ev
     });
   }

@@ -1,5 +1,15 @@
 page-passengers {
 
+    .stdcard{
+        background: transparent;
+        ion-card-header{
+            background-color: #f0f0f0;
+        }
+        ion-icon{
+            margin-right: 5px;
+        }
+    }
+
     .thumb{
     
         width: 120px;

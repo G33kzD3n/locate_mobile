@@ -10,4 +10,4 @@ import { LivelocationPage } from './livelocation';
     IonicPageModule.forChild(LivelocationPage),
   ],
 })
-export class LivelocationPageModule {}
+export class LivelocationPageModule { }
