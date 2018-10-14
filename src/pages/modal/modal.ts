@@ -25,9 +25,7 @@ export class ModalPage {
   }
   
   openbreak() {
-
     this.navCtrl.push(BreakdowncordPage);
-
   }
   dismiss() {
     this.viewCtrl.dismiss();

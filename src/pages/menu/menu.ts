@@ -44,9 +44,9 @@ export class MenuPage {
     public app: AppServiceProvider, public navCtrl: NavController,
     public http: Http, public navParams: NavParams, public storage: Storage,
     public notificationSrv: NotificationServiceProvider) { }
-  isActive(){
+  isActive() {
   }
-  
+
   openPage(p: any) {
     this.nav.setRoot(p.component);
     this.activepage = p;

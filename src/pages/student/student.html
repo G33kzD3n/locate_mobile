@@ -24,7 +24,7 @@
 
 
   <ion-card>
-    <div #map id="map" > </div>
+    <div #map id="map"> </div>
     <ion-fab right top>
       <button mini ion-fab color="dark">
         <ion-icon name="md-arrow-down"></ion-icon>
@@ -43,21 +43,28 @@
       </ion-fab-list>
     </ion-fab>
   </ion-card>
-  
-
-</ion-content>
 
 
-<ion-footer class="foo">
-    <!-- <button ion-button (click)="presentDrawer($event)">
-        <ion-icon name="arrow-up"></ion-icon>
-      </button> -->
+</ion-content> 
 
 
-  <span > <strong> {{distance}} </strong> To Reach Your Stop. ETA In <strong> {{duration}} </strong> </span>
-
-  <!-- <progress-bar [progress]="loadProgress"></progress-bar> -->
-  
+<ion-footer class="foo" >
+ 
+  <ion-grid>
+    <ion-row>
+      <ion-col align-items-start col-8 style="text-align:left!important;top:-20px!important; width:auto!important" >
+     <strong style="font-size:14px"> {{ duration }}</strong>
+     <span style="font-size:14px;"> To Reach</span> 
+     <span style="font-size:12px;color:gray;">{{distance}}</span>
+      </ion-col>
+      <ion-col align-items-end col-4 
+      style="text-align:right!important;top:-20px!important">
+        <span style="font-size:14px">ETA-</span>
+        <span style="font-size:13px;">{{newTime && newTime[0]}}:{{newTime && newTime[1]}}</span>
+        <span *ngIf="newTime && newTime[0] !==0" style="font-size:13px;"></span>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 
 
 </ion-footer>

@@ -19,7 +19,7 @@ declare var google: any;
 })
 export class RoutePage {
   @ViewChild('map') mapRef: ElementRef;
-  
+
 
   public points: any = [];
   public places;
@@ -27,12 +27,12 @@ export class RoutePage {
   public names: any = [];
   public hideMe: boolean = false;
 
-  
+
   map: any;
-  
+
   image = "assets/imgs/icon.png";
-  
-  
+
+
 
   constructor(public http: Http, public locationService: LocationServiceProvider,
     public navCtrl: NavController, public navParams: NavParams,
@@ -63,7 +63,6 @@ export class RoutePage {
             for (let i = 0; i < 1; i++) {
               this.names = this.bus.stops.names.split(';');
             }
-            console.log(this.names);
           },
           error => {
             error = (JSON.parse(error._body));

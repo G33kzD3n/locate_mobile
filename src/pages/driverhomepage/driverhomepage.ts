@@ -35,7 +35,6 @@ export class DriverhomepagePage {
       this.isOn = true;
       this.text = "Turn Off Engine"
     } else {
-
       console.log("Engine Turned Off");
       this.buttonColor = "#0000cd";
       this.isOn = false;
@@ -48,104 +47,100 @@ export class DriverhomepagePage {
     public navCtrl: NavController, public menu: MenuController,
     public navParams: NavParams, public app: AppServiceProvider,
     public geolocation: Geolocation, public locationService: LocationServiceProvider,
-    private geofence: Geofence,public popoverCtrl: PopoverController,
+    private geofence: Geofence, public popoverCtrl: PopoverController,
     public notificationSrv: NotificationServiceProvider) {
     geofence.initialize().then(
       () => console.log('Geofence Plugin Ready'),
       (err) => console.log(err)
-    ) 
+    )
   }
-ngOnInit() {
-  this.locationService.id = setInterval(() => {
-    this.storewhereabouts();
-  }, 6000);
+  ngOnInit() {
+    this.locationService.id = setInterval(() => {
+      this.storewhereabouts();
+    }, 4000);
 
-  this.addGeofence();
-}
+    this.addGeofence();
+  }
 
-ionViewOnLoad() {
-}
+  ionViewOnLoad() {
+  }
 
-storewhereabouts() {
-  this.geolocation.getCurrentPosition({ enableHighAccuracy: true, timeout: 5000, maximumAge: 0 }).
-    then((resp) => {
-      this.lat = resp.coords.latitude;
-      this.lng = resp.coords.longitude;
-      this.storage.get('bus_no').then((bus_no) => {
+  storewhereabouts() {
+    this.geolocation.getCurrentPosition({ enableHighAccuracy: true, timeout: 3000, maximumAge: 0 }).
+      then((resp) => {
+        this.lat = resp.coords.latitude;
+        this.lng = resp.coords.longitude;
+        this.storage.get('bus_no').then((bus_no) => {
+          let payload = {
+            busno: bus_no,
+            lat: this.lat,
+            lng: this.lng,
+            time: this.app.calDate()
+          };
+          console.log(payload.time);
+          this.locationService.storeLocation(payload)
+            .subscribe(
+              res => {
+                this.getLocation();
+              },
+              err => {
+                this.app.removeLoader();
+                err = (JSON.parse(err._body));
+                console.log("Database error");
+              }
+            );
+        });
 
-        let payload = {
-          busno: bus_no,
-          lat: this.lat,
-          lng: this.lng,
-          time: this.app.calDate()
-        };
-        console.log(payload.time);
-        this.locationService.storeLocation(payload)
-          .subscribe(
-            res => {
-              this.getLocation();
-            },
-            err => {
-              this.app.removeLoader();
-              err = (JSON.parse(err._body));
-              console.log("Database error");
-            }
-          );
+      }).catch((err) => {
+        console.log(err);
+        this.app.showToast("Error!!!", 'top', 'error');
       });
+  }
 
-    }).catch((err) => {
-      // this.app.removeLoader();
-      console.log(err);
-      // this.app.showToast("Error!!!", 'top', 'error');
+  getLocation() {
+    this.storage.get('bus_no').then((bus_no) => {
+      let payload = {
+        busno: bus_no,
+      };
+      this.locationService.getLocation(payload.busno)
+        .subscribe(
+          res => {
+            let data: any;
+            data = res;
+            this.myLocation = data.bus;
+          },
+          err => {
+            err = (JSON.parse(err._body));
+            this.app.removeLoader();
+            console.log("error in get location");
+          }
+        );
     });
-}
-
-getLocation() {
-  this.storage.get('bus_no').then((bus_no) => {
-    let payload = {
-      busno: bus_no,
-
-    };
-    this.locationService.getLocation(payload.busno)
-      .subscribe(
-        res => {
-          let data: any;
-          data = res;
-          this.myLocation = data.bus;
-        },
-        err => {
-          err = (JSON.parse(err._body));
-          this.app.removeLoader();
-          console.log("error in get location");
-        }
-      );
-  });
-}
-ionViewDidLeave() {
-  clearInterval(this.locationService.id);
-}
+  }
+  ionViewDidLeave() {
+    clearInterval(this.locationService.id);
+  }
 
   private addGeofence() {
-  //options describing geofence
-  let fence = {
-    id: '69ca1b88-6fbe-4e80-a4d4-ff4d3748acdb', //any unique ID
-    latitude: 34.144135,  //center of geofence radius
-    longitude: 74.801942,
-    radius: 1000, //radius to edge of geofence in meters
-    transitionType: 3, //see 'Transition Types' below
-    notification: { //notification settings
-      id: 1, //any unique ID
-      title: 'Warning', //notification title
-      text: 'Bus Is About To Reach Your Stop', //notification body
-      openAppOnClick: true //open app when notification is tapped
+    //options describing geofence
+    let fence = {
+      id: '69ca1b88-6fbe-4e80-a4d4-ff4d3748acdb', //any unique ID
+      latitude: 34.144135,  //center of geofence radius
+      longitude: 74.801942,
+      radius: 1000, //radius to edge of geofence in meters
+      transitionType: 3, //see 'Transition Types' below
+      notification: { //notification settings
+        id: 1, //any unique ID
+        title: 'Warning', //notification title
+        text: 'Bus Is About To Reach Your Stop', //notification body
+        openAppOnClick: true //open app when notification is tapped
+      }
     }
+    this.geofence.addOrUpdate(fence).then(
+      () => console.log('Geofence added'),
+      (err) => console.log('Geofence failed to add')
+    );
   }
-
-  this.geofence.addOrUpdate(fence).then(
-    () => console.log('Geofence added'),
-    (err) => console.log('Geofence failed to add')
-  );
-}
   presentPopover(ev) {
     let modal = this.popoverCtrl.create(ModalPage);
     modal.present({

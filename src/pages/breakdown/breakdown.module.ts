@@ -10,4 +10,4 @@ import { BreakdownPage } from './breakdown';
     IonicPageModule.forChild(BreakdownPage),
   ],
 })
-export class BreakdownPageModule {}
+export class BreakdownPageModule { }

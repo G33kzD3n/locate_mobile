@@ -72,9 +72,7 @@ export class LivelocationPage {
     //create map
     this.map = new google.maps.Map(this.mapRef.nativeElement, options);
     this.app.removeLoader();
-    // this.locationService.id = setInterval(() => {
     this.getlocation();
-    // }, 7000);
   }
 
   addMarker(position, map) {
@@ -83,7 +81,6 @@ export class LivelocationPage {
       map: map
     });
     this.markers.push(marker);
-    //return new google.maps.Marker({ position, map })
   }
 
   getlocation() {
@@ -112,7 +109,6 @@ export class LivelocationPage {
   }
 
   ionViewDidLeave() {
-    //clearInterval(this.locationService.id);
     let bus_no = this.navParams.get('data');
     this.pusher.destroy(bus_no + '-channel');
   }
@@ -146,11 +142,8 @@ export class LivelocationPage {
         });
         this.app.showToast('Bus Located' ,'top', '');
       } catch (error) {
-
         this.app.showToast('No Live Bus Not Found', 'top', 'error');
       }
-
-
     } else if (xyz == 2) {
       try {
         this.map.setCenter({
@@ -172,7 +165,6 @@ export class LivelocationPage {
       } catch (error) {
         this.app.showToast('Could Not Found Your Stop' ,'top', '');
       }
-    
     }
   }
 }

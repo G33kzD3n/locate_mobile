@@ -6,12 +6,11 @@ import { RequestOptions, Headers, Http } from '@angular/http';
 import { Storage } from '@ionic/storage';
 import { Network } from '@ionic-native/network';
 import { PusherServiceProvider } from '../../providers/pusher-service/pusher-service';
-
 import "rxjs/add/operator/map";
-import { Message } from '@angular/compiler/src/i18n/i18n_ast';
 import { ModalPage } from '../modal/modal';
 import { NotificationServiceProvider } from '../../providers/notification-service/notification-service';
 import { PopoverController } from 'ionic-angular';
+import {StudentPage} from '../student/student'
 
 
 @IonicPage()
@@ -23,7 +22,7 @@ export class BreakdowncordPage {
   loginForm: FormGroup;
   message: any;
   record_id: any;
-  record : boolean =false;
+  record: boolean = false;
 
   constructor(public notificationSrv: NotificationServiceProvider, public pusher: PusherServiceProvider,
     public network: Network, public navCtrl: NavController,
@@ -37,10 +36,8 @@ export class BreakdowncordPage {
   ngOnInit() {
     this.message = this.notificationSrv.breakdownmsg;
     console.log(this.message);
-    if (this.message !== undefined)
-    {
-      this.record=true;
-      console.log(this.record);
+    if (this.message !== undefined) {
+      this.record = true;
     }
     this.loginForm = new FormGroup({
       'message': new FormControl('', Validators.compose([
@@ -52,13 +49,9 @@ export class BreakdowncordPage {
   }
 
   sendbreakdownwithmsg() {
-    for(let i=0;i<this.notificationSrv.notifications.length;i++)
-    {
-      //console.log(this.notificationSrv.notifications[i].msg.time);
-      if (this.message.time == this.notificationSrv.notifications[i].msg.time){
-      //console.log("hello");
-      this.notificationSrv.notifications.splice([i], 1);
-      //console.log(this.notificationSrv.notifications)
+    for (let i = 0; i < this.notificationSrv.notifications.length; i++) {
+      if (this.message.time == this.notificationSrv.notifications[i].msg.time) {
+        this.notificationSrv.notifications.splice([i], 1);
       }
     }
     this.app.showLoader("Sending message to all students of the bus");
@@ -81,7 +74,6 @@ export class BreakdowncordPage {
             this.app.removeLoader();
             this.app.showToast('No breakdown Message from Driver', 'top', 'error');
           },
-
           () => {
             this.app.removeLoader();
             this.app.showToast('Message sent', 'top', 'success');
@@ -89,10 +81,14 @@ export class BreakdowncordPage {
             this.notificationSrv.ncounter--;
             this.message = "";
             this.loginForm.reset();
-            //this.record=false;
+            setTimeout(() => {
+              this.navCtrl.setRoot(StudentPage);
+            }, 800);
+            
           });
     });
   }
+  
   presentPopover(ev) {
     let modal = this.popoverCtrl.create(ModalPage);
     modal.present({

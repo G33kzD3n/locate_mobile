@@ -30,14 +30,13 @@ export class LocationPage {
   constructor(public http: Http,
     public app: AppServiceProvider, public storage: Storage,
     public navCtrl: NavController, public navParams: NavParams,
-    public popoverCtrl: PopoverController,public locationService: LocationServiceProvider,
+    public popoverCtrl: PopoverController, public locationService: LocationServiceProvider,
     public notificationSrv: NotificationServiceProvider) {
     this.buses = "";
     //this.stops="";
   }
 
   ionViewDidLoad() {
-    console.log("didload");
     this.locatebuses();
   }
 
@@ -62,10 +61,11 @@ export class LocationPage {
     this.storage.get('bus_no').then((bus_no) => {
       bus_no = this.app.getToken(bus_no);
       this.mybus = bus_no;
+      //code from 90 to 92 is used for showing only the non logged in buses
+      //else it will show all the buses.
       this.app.showLoader("Loading");
       let headers = new Headers({ 'Content-Type': 'application/json' });
       let options = new RequestOptions({ headers: headers });
-
       this.http.get(this.app.getUrl() + '/buses', options)
         .map(res => res.json())
         .subscribe(
@@ -86,6 +86,7 @@ export class LocationPage {
           });
     });
   }
+  
   presentPopover(ev) {
     let modal = this.popoverCtrl.create(ModalPage);
     modal.present({
