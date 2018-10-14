@@ -10,6 +10,7 @@ import "rxjs/add/operator/map";
 import { ModalPage } from '../modal/modal';
 import { NotificationServiceProvider } from '../../providers/notification-service/notification-service';
 import { PopoverController } from 'ionic-angular';
+import {StudentPage} from '../student/student'
 
 
 @IonicPage()
@@ -35,7 +36,7 @@ export class BreakdowncordPage {
   ngOnInit() {
     this.message = this.notificationSrv.breakdownmsg;
     console.log(this.message);
-    if (this.message != undefined) {
+    if (this.message !== undefined) {
       this.record = true;
     }
     this.loginForm = new FormGroup({
@@ -49,7 +50,6 @@ export class BreakdowncordPage {
 
   sendbreakdownwithmsg() {
     if (this.record) {
-      console.log("inside b"+this.record);
       for (let i = 0; i < this.notificationSrv.notifications.length; i++) {
         if (this.message.time == this.notificationSrv.notifications[i].msg.time) {
           this.notificationSrv.notifications.splice([i], 1);
@@ -88,6 +88,9 @@ export class BreakdowncordPage {
               this.notificationSrv.ncounter--;
               this.message = "";
               this.loginForm.reset();
+              setTimeout(() => {
+                this.navCtrl.setRoot(StudentPage);
+              }, 800);
             });
       });
     }
@@ -95,6 +98,7 @@ export class BreakdowncordPage {
       this.app.showToast('No breakdown Message from Driver', 'top', 'error');
     }
   }
+  
   presentPopover(ev) {
     let modal = this.popoverCtrl.create(ModalPage);
     modal.present({

@@ -35,7 +35,6 @@ export class BreakdownPage {
       console.log(payload);
       let headers = new Headers({ 'Content-Type': 'application/json' });
       let options = new RequestOptions({ headers: headers });
-      //this.http.get("http://localhost:8000/api/user")
       this.http.post(this.app.getUrl() + '/buses/' + bus_no + '/breakdown', payload, options)
         .map(res => res.json())
         .subscribe(

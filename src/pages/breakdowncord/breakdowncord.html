@@ -35,11 +35,9 @@
         <div class="errorBox" *ngIf="loginForm.controls['message'].hasError('required')  && loginForm.controls['message'].touched">*Message
           can't be empty
         </div>
-        <!-- <span *ngIf="record !== false"> -->
         <button ion-button icon-start round block color="danger" [disabled]="!loginForm.valid">
           <ion-icon name="send"></ion-icon>Send
         </button>
-        <!-- </span> -->
       </form>
     </ion-card-content>
   </ion-card>
