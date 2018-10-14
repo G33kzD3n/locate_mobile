@@ -59,61 +59,32 @@ export class LocationPage {
     }
   }
   locatebuses() {
-
     this.storage.get('bus_no').then((bus_no) => {
-      this.app.showLoader("Loading...");
       bus_no = this.app.getToken(bus_no);
-      console.log(bus_no+"bus");
-      this.locationService.getStops(bus_no)
+      this.mybus = bus_no;
+      this.app.showLoader("Loading");
+      let headers = new Headers({ 'Content-Type': 'application/json' });
+      let options = new RequestOptions({ headers: headers });
+
+      this.http.get(this.app.getUrl() + '/buses', options)
+        .map(res => res.json())
         .subscribe(
+
           result => {
-            this.bus = result.bus;
-            // this.places = this.bus.stops.names;
-            // this.points = this.bus.stops.latLngs;
-            for(let i=0;i<1;i++)
-            {
-              this.stops=this.bus.stops.names.split(';');
-            }
-           // console.log(this.names);
+            this.buses = result.buses;
+            this.stops = result.buses[0].stops.names.split(';');
           },
           error => {
             error = (JSON.parse(error._body));
             if (error) {
               this.app.removeLoader();
-              this.app.showToast("No data found in the database", 'top', 'error');
+              this.app.showToast('No data found in the database', 'top', 'error');
             }
           },
           () => {
             this.app.removeLoader();
           });
     });
-
-    // this.storage.get('bus_no').then((bus_no) => {
-    //   bus_no = this.app.getToken(bus_no);
-    //   this.mybus = bus_no;
-    //   this.app.showLoader("Loading");
-    //   let headers = new Headers({ 'Content-Type': 'application/json' });
-    //   let options = new RequestOptions({ headers: headers });
-
-    //   this.http.get(this.app.getUrl() + '/buses', options)
-    //     .map(res => res.json())
-    //     .subscribe(
-
-    //       result => {
-    //         this.buses = result.buses;
-    //         this.stops = result.buses[0].stops.names.split(';');
-    //       },
-    //       error => {
-    //         error = (JSON.parse(error._body));
-    //         if (error) {
-    //           this.app.removeLoader();
-    //           this.app.showToast('No data found in the database', 'top', 'error');
-    //         }
-    //       },
-    //       () => {
-    //         this.app.removeLoader();
-    //       });
-    // });
   }
   presentPopover(ev) {
     let modal = this.popoverCtrl.create(ModalPage);

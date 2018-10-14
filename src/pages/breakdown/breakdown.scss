@@ -1,13 +1,28 @@
 page-breakdown {
     .breakdown{
+        color: #000 !important;
         ion-card{
-            background-color: #dedede;
-            
-        }   ion-button{
+           background-color: #f5f5f5;
+           background-image: url('../assets/imgs/brk.png');
+           background-repeat: no-repeat;
+        background-position: center;
+         background-size: 50% 50% ;
+            height: 100px;
+            padding: 0;
 
-        color: black;}
-       
             
+        }   button{
+            margin-top: 45%;
+
+        color: #000 !important;}
+       
+            p{
+                text-align: center;
+                margin-top: 55%;
+                
+                text-transform: uppercase;
+                font-weight: bolder;
+            }
         
     }
 

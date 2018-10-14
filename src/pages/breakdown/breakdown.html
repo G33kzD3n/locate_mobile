@@ -1,43 +1,71 @@
 <ion-header>
-    <ion-navbar>
-      <button ion-button menuToggle>
-        <ion-icon name="menu"></ion-icon>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Breakdown</ion-title>
+    <ion-buttons end>
+      <button id="cart-btn" ion-button icon-only (click)="presentPopover($event)">
+        <ion-icon name="notifications"></ion-icon>
+        <span *ngIf="this.notificationSrv.ncounter !== 0">
+          <ion-badge id="cart-badge" color="danger"> {{ this.notificationSrv.ncounter }}</ion-badge>
+        </span>
       </button>
-      <ion-title>Breakdown</ion-title>
-      <ion-buttons end>
-          <button id="cart-btn" ion-button icon-only (click)="presentPopover($event)">
-              <ion-icon name="notifications"></ion-icon>
-              <span *ngIf="this.notificationSrv.ncounter !== 0">
-                <ion-badge id="cart-badge" color="danger"> {{ this.notificationSrv.ncounter }}</ion-badge>
-              </span>
-            </button>
-        </ion-buttons>
-    </ion-navbar>
-  </ion-header>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
 
-  <ion-content no-padding class="breakdown">
-    <ion-card>
-      <ion-card-content><button ion-button block clear center (click)="sendBreakdown({name:'Tire Puncture'})">Tire Puncture</button></ion-card-content>
-    </ion-card>
-    <ion-card>
-        <ion-card-content><button ion-button block clear center (click)="sendBreakdown({name:'Road Block'})">Road Block</button></ion-card-content>
-      </ion-card>
-      <ion-card>
-          <ion-card-content><button ion-button block clear center (click)="sendBreakdown({name:'Engine Fail'})">Engine Fail</button></ion-card-content>
-        </ion-card>
+<ion-content no-padding class="breakdown">
+
+  <ion-grid>
+    <ion-row>
+      <ion-col>
         <ion-card>
-            <ion-card-content><button ion-button block clear center (click)="sendBreakdown({name:'other'})">Other</button></ion-card-content>
-          </ion-card>
-          
-          <ion-card>
-              <ion-card-content><button ion-button block clear center (click)="sendBreakdown({name:'other'})">Other</button></ion-card-content>
-            </ion-card>
-  
-          
-          <h2>{{message}}</h2>
-    
-    
-    
-    
-  </ion-content>
-  
+          <ion-card-content (click)="sendBreakdown({name:'Tire Puncture'})">
+            <p>Tire Puncture</p>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+      <ion-col>
+        <ion-card>
+          <ion-card-content (click)="sendBreakdown({name:'Road Block'})">
+            <p>Road Block</p>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+    <hr>
+    <ion-row>
+      <ion-col>
+        <ion-card>
+          <ion-card-content (click)="sendBreakdown({name:'Engine Fail'})">
+            <p>Engine Fail</p>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+      <ion-col>
+        <ion-card>
+          <ion-card-content (click)="sendBreakdown({name:'other'})">
+            <p>Other</p>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-card>
+          <ion-card-content (click)="sendBreakdown({name:'other'})">
+            <p>Other</p>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+      <ion-col>
+        <ion-card>
+          <ion-card-content (click)="sendBreakdown({name:'other'})">
+            <p>Other</p>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

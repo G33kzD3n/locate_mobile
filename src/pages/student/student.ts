@@ -14,6 +14,7 @@ import { NotificationServiceProvider } from '../../providers/notification-servic
 import { DrawerPage } from '../drawer/drawer';
 
 
+
 declare var google: any;
 
 @IonicPage()
@@ -50,7 +51,8 @@ export class StudentPage {
     public navCtrl: NavController, public menu: MenuController,
     public navParams: NavParams, public app: AppServiceProvider, public geolocation: Geolocation,
     public popoverCtrl: PopoverController,
-    public notificationSrv: NotificationServiceProvider) {
+    public notificationSrv: NotificationServiceProvider,
+  ) {
     
   }
 
@@ -128,13 +130,9 @@ export class StudentPage {
     }).catch((error) => {
       console.log('Error getting location', error);
     });
-    const mymark = new google.maps.LatLng(this.mylat, this.mylon);
-    this.showMarkers();
-    this.addMarker(mymark, this.map);
-    ///////////////Function Shows Markers////////////
     
-
-
+    this.showMarkers();
+   
     var location = new google.maps.LatLng(34.083656, 74.797371);
     let options = {
       center: location,
@@ -242,6 +240,10 @@ export class StudentPage {
           lat: this.mylat,
           lng: this.mylon
         });
+        const loc1 = new google.maps.LatLng(this.mylat, this.mylon);
+        var showMark = new google.maps.Marker({ position: loc1 });
+            showMark.setMap(this.map);
+
         this.app.showToast('Current Location' ,'top', '');
       } catch (error) {
         this.app.showToast('Unable To Find Your Location. Enable GPS', 'top', 'error');
