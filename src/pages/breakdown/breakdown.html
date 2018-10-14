@@ -16,28 +16,56 @@
 </ion-header>
 
 <ion-content no-padding class="breakdown">
-  <ion-card>
-    <ion-card-content><button ion-button block clear center (click)="sendBreakdown({name:'Tire Puncture'})">Tire
-        Puncture</button></ion-card-content>
-  </ion-card>
-  <ion-card>
-    <ion-card-content><button ion-button block clear center (click)="sendBreakdown({name:'Road Block'})">Road Block</button></ion-card-content>
-  </ion-card>
-  <ion-card>
-    <ion-card-content><button ion-button block clear center (click)="sendBreakdown({name:'Engine Fail'})">Engine Fail</button></ion-card-content>
-  </ion-card>
-  <ion-card>
-    <ion-card-content><button ion-button block clear center (click)="sendBreakdown({name:'other'})">Other</button></ion-card-content>
-  </ion-card>
 
-  <ion-card>
-    <ion-card-content><button ion-button block clear center (click)="sendBreakdown({name:'other'})">Other</button></ion-card-content>
-  </ion-card>
-
-
-  <h2>{{message}}</h2>
-
-
-
-
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <ion-card>
+          <ion-card-content (click)="sendBreakdown({name:'Tire Puncture'})">
+            <p>Tire Puncture</p>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+      <ion-col>
+        <ion-card>
+          <ion-card-content (click)="sendBreakdown({name:'Road Block'})">
+            <p>Road Block</p>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+    <hr>
+    <ion-row>
+      <ion-col>
+        <ion-card>
+          <ion-card-content (click)="sendBreakdown({name:'Engine Fail'})">
+            <p>Engine Fail</p>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+      <ion-col>
+        <ion-card>
+          <ion-card-content (click)="sendBreakdown({name:'other'})">
+            <p>Other</p>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-card>
+          <ion-card-content (click)="sendBreakdown({name:'other'})">
+            <p>Other</p>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+      <ion-col>
+        <ion-card>
+          <ion-card-content (click)="sendBreakdown({name:'other'})">
+            <p>Other</p>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>

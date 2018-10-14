@@ -54,16 +54,16 @@ export class StudentPage {
   ngOnInit() {
     this.getAssignedStop();
     this.storage.get('bus_no').then((bus) => {
-    this.pusher.breakdown = this.pusher.init(bus+'-channel');
-    this.showmap();
-    if (this.app.userlevel == 0) {
-      this.getbreakdownupdate();
-    }
-    if (this.app.userlevel == 2) {
-      this.getbreakdown();
-    }
-    console.log();
-  });
+      this.pusher.breakdown = this.pusher.init(bus + '-channel');
+      this.showmap();
+      if (this.app.userlevel == 0) {
+        this.getbreakdownupdate();
+      }
+      if (this.app.userlevel == 2) {
+        this.getbreakdown();
+      }
+      console.log();
+    });
   }
 
   getbreakdown() {
@@ -116,10 +116,9 @@ export class StudentPage {
       this.mylon = resp.coords.longitude;
     }).catch((error) => {
     });
-    const mymark = new google.maps.LatLng(this.mylat, this.mylon);
+
     this.showMarkers();
-    this.addMarker(mymark, this.map);
-    ///////////////Function Shows Markers////////////
+
     var location = new google.maps.LatLng(34.083656, 74.797371);
     let options = {
       center: location,
@@ -181,7 +180,6 @@ export class StudentPage {
     })
   }
   ////////////////ETA//////////////////////////////////////////////////////
-  //////////////////////////////////////////////////////////////////////////////////////////
   eta() {
     var origin1 = new google.maps.LatLng(this.livelocation.lat, this.livelocation.lng);
     var destinationA = new google.maps.LatLng(this.assignedstop.lat, this.assignedstop.lng);
@@ -214,9 +212,7 @@ export class StudentPage {
       if (newTime[1] > 60) {
         newTime[1] = (parseInt(newTime[1]) - 60); //add 1 + hour  
         newTime[0] = parseInt(newTime[0]) + 1;
-        if (newTime[0] >= 12) {
-          this.meridiem = "Pm";
-        }
+
       }
     } else {
       //add hours
@@ -230,16 +226,13 @@ export class StudentPage {
       if (newTime[0] >= 24) {
         newTime[0] = 1;
       }
-      if (newTime[0] >= 12) {
-        this.meridiem = "Pm";
-      }
     }
   }
   //////////////////////////////////////////////////////////////////////////
-  //////////////////////////////////////////////////////////////////////////
+
   focus(xyz) {
     if (!this.app.serverOffline) {
-      this.app.showToast('Please try after sometime','top', 'error');
+      this.app.showToast('Please try after sometime', 'top', 'error');
     }
     else {
       if (xyz == 1) {
@@ -258,6 +251,10 @@ export class StudentPage {
             lat: this.mylat,
             lng: this.mylon
           });
+          const loc1 = new google.maps.LatLng(this.mylat, this.mylon);
+          var showMark = new google.maps.Marker({ position: loc1 });
+          showMark.setMap(this.map);
+
           this.app.showToast('Current Location', 'top', 'success');
         } catch (error) {
           this.app.showToast('Unable To Find Your Location. Enable GPS', 'top', 'error');

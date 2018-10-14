@@ -69,6 +69,7 @@ export class LocationPage {
       this.http.get(this.app.getUrl() + '/buses', options)
         .map(res => res.json())
         .subscribe(
+
           result => {
             this.buses = result.buses;
             this.stops = result.buses[0].stops.names.split(';');
@@ -86,7 +87,6 @@ export class LocationPage {
           });
     });
   }
-
   presentPopover(ev) {
     let modal = this.popoverCtrl.create(ModalPage);
     modal.present({

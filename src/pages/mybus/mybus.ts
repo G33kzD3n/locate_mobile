@@ -195,7 +195,6 @@ export class MybusPage {
         )
     })
   }
-
   presentPopover(ev) {
     let modal = this.popoverCtrl.create(ModalPage);
     modal.present({

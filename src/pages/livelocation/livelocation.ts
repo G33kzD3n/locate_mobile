@@ -92,7 +92,6 @@ export class LivelocationPage {
       this.clearMarkers();
       this.addMarker(loc, this.map);
       this.showMarkers();
-      this.app.showToast(JSON.stringify(data), 'top', 'success');
     });
   }
   showMarkers() {

@@ -55,9 +55,9 @@ export class DriverhomepagePage {
     )
   }
   ngOnInit() {
-    // this.locationService.id = setInterval(() => {
-    //   this.storewhereabouts();
-    // }, 4000);
+    this.locationService.id = setInterval(() => {
+      this.storewhereabouts();
+    }, 4000);
 
     this.addGeofence();
   }
