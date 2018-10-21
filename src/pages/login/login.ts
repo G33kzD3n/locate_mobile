@@ -10,6 +10,7 @@ import { NotificationServiceProvider } from '../../providers/notification-servic
 import "rxjs/add/operator/map";
 import { SignupPage } from '../signup/signup';
 import { MenuPage } from '../menu/menu';
+import { errorHandler } from '@angular/platform-browser/src/browser';
 
 
 @IonicPage()
@@ -48,6 +49,7 @@ export class LoginPage {
   }
 
   gotoprofile() {
+    this.app.showLoader("Logging in wait..");
     if (this.app.internetstatus == false) {
       console.log(this.app.internetstatus);
       this.app.Confirm();
@@ -71,19 +73,25 @@ export class LoginPage {
             this.storage.set('user', payload.username);
             this.pusher.setChannel(this.user.bus_no + "-channel");
             this.pusher.breakdown = this.pusher.init(this.pusher.getChannel());
+            this.app.removeLoader();
+            console.log("check github");
           },
           error => {
-            error = (JSON.parse(error._body));
-            if (error) {
-              this.app.removeLoader();
+            this.app.removeLoader();
+            if(this.app.serverDown(error))
+            {
+              this.app.showToast('Please try after sometime','top','error');
+            }
+            else {
               this.app.showToast("Username or Password doesn't match", 'top', 'error');
             }
           },
           () => {
-            this.app.removeLoader();
-            this.navCtrl.setRoot(MenuPage, {
-              user: this.loginForm.controls['username'].value
-            });
+            setTimeout(() => {
+              this.navCtrl.setRoot(MenuPage, {
+                user: this.loginForm.controls['username'].value
+              })
+            }, 300);
           });
     }
   }

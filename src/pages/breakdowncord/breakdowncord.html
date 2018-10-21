@@ -30,7 +30,7 @@
       </ion-list>
       <form class="list-form" [formGroup]="loginForm" (ngSubmit)="sendbreakdownwithmsg(loginForm.value)">
         <ion-item>
-          <ion-textarea placeholder="Enter Message" name="message" id="message" formControlName="message" required></ion-textarea>
+          <ion-textarea rows='20' placeholder="Enter Message" name="message" id="message" formControlName="message" required></ion-textarea>
         </ion-item>
         <div class="errorBox" *ngIf="loginForm.controls['message'].hasError('required')  && loginForm.controls['message'].touched">*Message
           can't be empty

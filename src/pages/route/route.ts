@@ -33,7 +33,6 @@ export class RoutePage {
   image = "assets/imgs/icon.png";
 
 
-
   constructor(public http: Http, public locationService: LocationServiceProvider,
     public navCtrl: NavController, public navParams: NavParams,
     public app: AppServiceProvider, public notificationSrv: NotificationServiceProvider,
@@ -63,11 +62,15 @@ export class RoutePage {
             for (let i = 0; i < 1; i++) {
               this.names = this.bus.stops.names.split(';');
             }
+            this.app.serverOffline = true;
           },
           error => {
-            error = (JSON.parse(error._body));
-            if (error) {
-              this.app.removeLoader();
+            this.app.removeLoader();
+            this.app.serverOffline = false;
+            if (this.app.serverDown(error)) {
+              this.app.showToast('Please try after sometime', 'top', 'error');
+            }
+            else {
               this.app.showToast("No data found in the database", 'top', 'error');
             }
           },
@@ -103,24 +106,26 @@ export class RoutePage {
 
   }
   showroute() {
-
-    if (this.hideMe === false) {
-      this.app.showLoader('Loading Route...');
-      this.hideMe = true;
-      setTimeout(() => {
-        this.showmap();
-        this.startNavigating();
-      }, 300);
-
-    } else {
-
-      this.hideMe = false;
+    if (!this.app.serverOffline) {
+      this.app.removeLoader();
+      this.app.showToast('Please try after sometime', 'top', 'error');
     }
+    else {
+      if (this.hideMe === false) {
+        this.app.showLoader('Loading Route...');
+        this.hideMe = true;
+        setTimeout(() => {
+          this.showmap();
+          this.startNavigating();
+        }, 300);
 
+      } else {
+        this.hideMe = false;
+      }
+    }
   }
+
   startNavigating() {
-
-
     let directionsService = new google.maps.DirectionsService;
     directionsService.route({
       origin: '34.1284, 74.8365',
@@ -148,14 +153,8 @@ export class RoutePage {
       ],
 
       destination: '34.2323, 74.4163',
-
       provideRouteAlternatives: true,
-
       travelMode: google.maps.TravelMode['DRIVING']
     });
-
   }
-
-
-
 }

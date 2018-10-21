@@ -53,14 +53,17 @@ export class StudentPage {
 
   ngOnInit() {
     this.getAssignedStop();
-    // this.pusher.breakdown = this.pusher.init('8839-channel');
-    this.showmap();
-    if (this.app.userlevel == 0) {
-      this.getbreakdownupdate();
-    }
-    if (this.app.userlevel == 2) {
-      this.getbreakdown();
-    }
+    this.storage.get('bus_no').then((bus) => {
+      this.pusher.breakdown = this.pusher.init(bus + '-channel');
+      this.showmap();
+      if (this.app.userlevel == 0) {
+        this.getbreakdownupdate();
+      }
+      if (this.app.userlevel == 2) {
+        this.getbreakdown();
+      }
+      console.log();
+    });
   }
 
   getbreakdown() {
@@ -113,9 +116,9 @@ export class StudentPage {
       this.mylon = resp.coords.longitude;
     }).catch((error) => {
     });
-    
+
     this.showMarkers();
-   
+
     var location = new google.maps.LatLng(34.083656, 74.797371);
     let options = {
       center: location,
@@ -162,9 +165,13 @@ export class StudentPage {
             const loc = new google.maps.LatLng(this.assignedstop.lat, this.assignedstop.lng);
             var showMarkers = new google.maps.Marker({ position: loc, title: this.assignedstop.name, icon: this.image });
             showMarkers.setMap(this.map);
+            this.app.serverOffline = true;
           },
           err => {
-
+            if (this.app.serverDown(err)) {
+              this.app.showToast('Please try after sometime', 'top', 'error');
+              this.app.serverOffline = false;
+            }
           },
           () => {
 
@@ -205,7 +212,7 @@ export class StudentPage {
       if (newTime[1] > 60) {
         newTime[1] = (parseInt(newTime[1]) - 60); //add 1 + hour  
         newTime[0] = parseInt(newTime[0]) + 1;
-        
+
       }
     } else {
       //add hours
@@ -222,38 +229,43 @@ export class StudentPage {
     }
   }
   //////////////////////////////////////////////////////////////////////////
-  
-  focus(xyz) {
-    if (xyz == 1) {
-      try {
-        this.map.setCenter({
-          lat: this.livelocation.lat,
-          lng: this.livelocation.lng
-        });
-        this.app.showToast('Bus Located', 'top', 'success');
-      } catch (error) {
-        this.app.showToast('No Live Bus Found', 'top', 'error');
-      }
-    } else if (xyz == 2) {
-      try {
-        this.map.setCenter({
-          lat: this.mylat,
-          lng: this.mylon
-        });
-        const loc1 = new google.maps.LatLng(this.mylat, this.mylon);
-        var showMark = new google.maps.Marker({ position: loc1 });
-            showMark.setMap(this.map);
 
-        this.app.showToast('Current Location' ,'top', '');
-      } catch (error) {
-        this.app.showToast('Unable To Find Your Location. Enable GPS', 'top', 'error');
+  focus(xyz) {
+    if (!this.app.serverOffline) {
+      this.app.showToast('Please try after sometime', 'top', 'error');
+    }
+    else {
+      if (xyz == 1) {
+        try {
+          this.map.setCenter({
+            lat: this.livelocation.lat,
+            lng: this.livelocation.lng
+          });
+          this.app.showToast('Bus Located', 'top', 'success');
+        } catch (error) {
+          this.app.showToast('No Live Bus Found', 'top', 'error');
+        }
+      } else if (xyz == 2) {
+        try {
+          this.map.setCenter({
+            lat: this.mylat,
+            lng: this.mylon
+          });
+          const loc1 = new google.maps.LatLng(this.mylat, this.mylon);
+          var showMark = new google.maps.Marker({ position: loc1 });
+          showMark.setMap(this.map);
+
+          this.app.showToast('Current Location', 'top', 'success');
+        } catch (error) {
+          this.app.showToast('Unable To Find Your Location. Enable GPS', 'top', 'error');
+        }
+      } else {
+        this.map.setCenter({
+          lat: this.assignedstop.lat,
+          lng: this.assignedstop.lng
+        });
+        this.app.showToast('Your Registered Stop', 'top', '');
       }
-    } else {
-      this.map.setCenter({
-        lat: this.assignedstop.lat,
-        lng: this.assignedstop.lng
-      });
-      this.app.showToast('Your Registered Stop', 'top', '');
     }
   }
 

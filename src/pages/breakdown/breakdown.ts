@@ -41,7 +41,13 @@ export class BreakdownPage {
           result => {
           },
           error => {
-            this.app.showToast("Breakdown Message wasnt sent", 'top', 'error');
+            this.app.removeLoader();
+            if (this.app.serverDown(error)) {
+              this.app.showToast('Please try after sometime', 'top', 'error');
+            }
+            else {
+              this.app.showToast("Breakdown Message wasnt sent", 'top', 'error');
+            }
           },
           () => {
             this.app.removeLoader();

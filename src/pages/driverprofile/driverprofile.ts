@@ -41,9 +41,10 @@ export class DriverprofilePage {
             this.user1 = result.data;
           },
           error => {
-            error = (JSON.parse(error._body));
-            if (error) {
-              this.app.removeLoader();
+            this.app.removeLoader();
+            if (this.app.serverDown(error)) {
+              this.app.showToast('Please try after sometime', 'top', 'error');
+            }else{
               this.app.showToast("No data found in the database", 'top', 'error');
             }
           },

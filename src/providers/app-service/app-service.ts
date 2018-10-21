@@ -10,18 +10,18 @@ import { OpenNativeSettings } from '@ionic-native/open-native-settings';
 
 @Injectable()
 export class AppServiceProvider {
-   private baseUrl: string = "https://convoyfleet.herokuapp.com/public/api/1.0";
+  private baseUrl: string = "https://convoyfleet.herokuapp.com/public/api/1.0";
   //private baseUrl: string = "http://192.168.43.58:9000/api/1.0";
- // private baseUrl: string = "http://192.168.43.220:8000/api/1.0";
-
+  //private baseUrl: string = "http://192.168.43.220:8000/api/1.0";
   public loader: any;
   public style: any;
   myDate: any = new Date().toLocaleString();
   internetstatus: boolean;
   userlevel;
-  
+  serverOffline=false;
 
-  constructor(public platform :Platform,public settings: OpenNativeSettings, public datepipe: DatePipe, public plat: Platform, public alert: AlertController, public network: Network, public http: Http, public loadingCtrl: LoadingController, public toastCtrl: ToastController) {
+
+  constructor(public platform: Platform, public settings: OpenNativeSettings, public datepipe: DatePipe, public plat: Platform, public alert: AlertController, public network: Network, public http: Http, public loadingCtrl: LoadingController, public toastCtrl: ToastController) {
     this.loader = this.loadingCtrl.create({
       content: ''
     });
@@ -50,7 +50,7 @@ export class AppServiceProvider {
       this.internetstatus = false;
     });
   }
-    
+
   showToast(data: string, position: string, style: string) {
     let toast = this.toastCtrl.create({
       message: data,
@@ -92,7 +92,7 @@ export class AppServiceProvider {
           role: 'cancel',
           handler: () => {
             console.log('Cancel clicked');
-           // this.exitapp();
+            // this.exitapp();
           }
         }
       ]
@@ -105,7 +105,13 @@ export class AppServiceProvider {
     }).catch(err =>
       console.log(err));
   }
-  exitapp(){
+  exitapp() {
     this.platform.exitApp();
+  }
+  serverDown(error: any) {
+    if (error.status == 0) {
+      return true;
+    }
+    return false;
   }
 }

@@ -85,15 +85,17 @@ export class DriverhomepagePage {
               },
               err => {
                 this.app.removeLoader();
-                err = (JSON.parse(err._body));
-                console.log("Database error");
+                if (this.app.serverDown(err)) {
+                  this.app.showToast('Please try after sometime', 'top', 'error');
+                }
               }
             );
         });
 
       }).catch((err) => {
+        // this.app.removeLoader();
         console.log(err);
-        this.app.showToast("Error!!!", 'top', 'error');
+        //this.app.showToast("Error!!!", 'top', 'error');
       });
   }
 
@@ -110,9 +112,10 @@ export class DriverhomepagePage {
             this.myLocation = data.bus;
           },
           err => {
-            err = (JSON.parse(err._body));
             this.app.removeLoader();
-            console.log("error in get location");
+            if (this.app.serverDown(err)) {
+              this.app.showToast('Please try after sometime', 'top', 'error');
+            }
           }
         );
     });

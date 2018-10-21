@@ -92,7 +92,6 @@ export class LivelocationPage {
       this.clearMarkers();
       this.addMarker(loc, this.map);
       this.showMarkers();
-      this.app.showToast(JSON.stringify(data), 'top', 'success');
     });
   }
   showMarkers() {
@@ -124,7 +123,9 @@ export class LivelocationPage {
             showMarkers.setMap(this.map);
           },
           err => {
-
+            if (this.app.serverDown(err)) {
+              this.app.showToast('Please try after sometime', 'top', 'error');
+            }
           },
           () => {
 

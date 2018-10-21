@@ -49,44 +49,54 @@ export class BreakdowncordPage {
   }
 
   sendbreakdownwithmsg() {
-    for (let i = 0; i < this.notificationSrv.notifications.length; i++) {
-      if (this.message.time == this.notificationSrv.notifications[i].msg.time) {
-        this.notificationSrv.notifications.splice([i], 1);
+    if (this.record) {
+      for (let i = 0; i < this.notificationSrv.notifications.length; i++) {
+        if (this.message.time == this.notificationSrv.notifications[i].msg.time) {
+          this.notificationSrv.notifications.splice([i], 1);
+        }
       }
+      this.app.showLoader("Sending message to all students of the bus");
+      let payload = {
+        message: this.loginForm.controls['message'].value,
+        time: this.app.calDate()
+      };
+      this.record_id = this.notificationSrv.breakdownmsg.record_id;
+      this.storage.get('bus_no').then((bus_no) => {
+        let headers = new Headers({ 'Content-Type': 'application/json' });
+        let options = new RequestOptions({ headers: headers });
+        this.http.put(this.app.getUrl() + '/buses/' + bus_no + '/breakdowns/' + this.record_id, payload, options)
+          .map(res => res.json())
+          .subscribe(
+
+            result => {
+
+            },
+            error => {
+              this.app.removeLoader();
+              if (error.status==404)
+              {
+                this.app.showToast('No breakdown Message from Driver','top','error');
+              }
+              if (this.app.serverDown(error)) {
+                this.app.showToast('Please try after sometime', 'top', 'error');
+              } 
+            },
+            () => {
+              this.app.removeLoader();
+              this.app.showToast('Message sent', 'top', 'success');
+              this.notificationSrv.breakdownmsg = "";
+              this.notificationSrv.ncounter--;
+              this.message = "";
+              this.loginForm.reset();
+              setTimeout(() => {
+                this.navCtrl.setRoot(StudentPage);
+              }, 800);
+            });
+      });
     }
-    this.app.showLoader("Sending message to all students of the bus");
-    let payload = {
-      message: this.loginForm.controls['message'].value,
-      time: this.app.calDate()
-    };
-    this.record_id = this.notificationSrv.breakdownmsg.record_id;
-    this.storage.get('bus_no').then((bus_no) => {
-      let headers = new Headers({ 'Content-Type': 'application/json' });
-      let options = new RequestOptions({ headers: headers });
-      this.http.put(this.app.getUrl() + '/buses/' + bus_no + '/breakdowns/' + this.record_id, payload, options)
-        .map(res => res.json())
-        .subscribe(
-
-          result => {
-
-          },
-          error => {
-            this.app.removeLoader();
-            this.app.showToast('No breakdown Message from Driver', 'top', 'error');
-          },
-          () => {
-            this.app.removeLoader();
-            this.app.showToast('Message sent', 'top', 'success');
-            this.notificationSrv.breakdownmsg = "";
-            this.notificationSrv.ncounter--;
-            this.message = "";
-            this.loginForm.reset();
-            setTimeout(() => {
-              this.navCtrl.setRoot(StudentPage);
-            }, 800);
-            
-          });
-    });
+    else {
+      this.app.showToast('No breakdown Message from Driver', 'top', 'error');
+    }
   }
   
   presentPopover(ev) {

@@ -134,17 +134,23 @@ export class MybusPage {
     });
   }
   showroute() {
-    if (this.hideMe === false) {
-      this.app.showLoader('Loading Route...');
-      this.hideMe = true;
-      setTimeout(() => {
-        this.showmap();
-        this.startNavigating();
-      }, 300);
-    } else {
-      this.hideMe = false;
+    if (!this.app.serverOffline) {
+      this.app.showToast('Please try after sometime', 'top', 'error');
+    }
+    else {
+      if (this.hideMe === false) {
+        this.app.showLoader('Loading Route...');
+        this.hideMe = true;
+        setTimeout(() => {
+          this.showmap();
+          this.startNavigating();
+        }, 300);
+      } else {
+        this.hideMe = false;
+      }
     }
   }
+
 
   gotomybus(): any {
     this.storage.get('bus_no').then((bus_no) => {
@@ -155,11 +161,14 @@ export class MybusPage {
             this.bus = result.bus;
             this.places = this.bus.stops.names;
             this.points = this.bus.stops.latLngs;
+            this.app.serverOffline=true;
           },
           error => {
-            error = (JSON.parse(error._body));
-            if (error) {
-              this.app.removeLoader();
+            this.app.removeLoader();
+            if (this.app.serverDown(error)) {
+              this.app.showToast('Please try after sometime', 'top', 'error');
+              this.app.serverOffline=false;
+            } else {
               this.app.showToast("No data found in the database", 'top', 'error');
             }
           },
@@ -176,7 +185,9 @@ export class MybusPage {
             this.assignedstop = res.data.stop;
           },
           err => {
-
+            if (this.app.serverDown(err)) {
+              this.app.showToast('Please try after sometime', 'top', 'error');
+            }
           },
           () => {
 
@@ -184,7 +195,6 @@ export class MybusPage {
         )
     })
   }
-  
   presentPopover(ev) {
     let modal = this.popoverCtrl.create(ModalPage);
     modal.present({

@@ -53,9 +53,10 @@ export class ProfilePage {
             this.stopid = this.user1.stop.name;
           },
           error => {
-            error = (JSON.parse(error._body));
-            if (error) {
-              this.app.removeLoader();
+            this.app.removeLoader();
+            if (this.app.serverDown(error)) {
+              this.app.showToast('Please try after sometime', 'top', 'error');
+            } else {
               this.app.showToast("No data found in the database", 'top', 'error');
             }
           },
@@ -77,9 +78,9 @@ export class ProfilePage {
             this.data = result.data;
           },
           error => {
-            error = (JSON.parse(error._body));
-            if (error) {
-              this.app.removeLoader();
+            if (this.app.serverDown(error)) {
+              this.app.showToast('Please try after sometime', 'top', 'error');
+            } else {
               this.app.showToast("No data found in the database", 'top', 'error');
             }
           },
@@ -95,81 +96,91 @@ export class ProfilePage {
     });
   }
   makePdf() {
-    pdfmake.vfs = pdfFonts.pdfMake.vfs;
-    var docDefinition = {
-      content: [
-        {
-          columns: [
-            // {
-            //   image: 'data:image/jpeg;base64,your_image_here',
-            //   fit: [100, 100]
-            // },
-            [
-              { text: 'University of Kashmir', style: 'header' },
-              { text: 'North Campus Delina, Baramulla', style: 'sub_header' },
-              { text: '\n', style: ''},
-              { text: 'Reciept No:', style: 'llr' },
-              { text: 'Dated: '+this.app.calDate(), style: 'url'},
-              { text: '\n\n', style: ''},
-              { text: 'Fee Reciept For Unpaid Fees', style: 'sub_header' },
-              { text: '\n\n', style: ''},
-              { text: 'Monthly fee: ' +this.data.monthly_fee, style: 'url' },
-              { text: 'No of Unpaid Months: '+this.data.unpaid_months, style: 'url' },
-              { text: 'Total Amount Payable: '+this.data.total_unpaid_fee, style: 'url' },
-              { text: '\n\n', style: ''},
-              { text: 'Payable by: '+ this.data.name, style: 'llr' },
-              { text: 'Cashier Signature', style: 'url' },
+    if (!this.app.serverOffline) {
+      this.app.showToast('Please try after sometime','top','error');
+    }
+    else {
+      pdfmake.vfs = pdfFonts.pdfMake.vfs;
+      var docDefinition = {
+        content: [
+          {
+            columns: [
+              // {
+              //   image: 'data:image/jpeg;base64,your_image_here',
+              //   fit: [100, 100]
+              // },
+              [
+                { text: 'University of Kashmir', style: 'header' },
+                { text: 'North Campus Delina, Baramulla', style: 'sub_header' },
+                { text: '\n', style: '' },
+                { text: 'Reciept No:', style: 'llr' },
+                { text: 'Dated: ' + this.app.calDate(), style: 'url' },
+                { text: '\n\n', style: '' },
+                { text: 'Fee Reciept For Unpaid Fees', style: 'sub_header' },
+                { text: '\n\n', style: '' },
+                { text: 'Monthly fee: ' + this.data.monthly_fee, style: 'url' },
+                { text: 'No of Unpaid Months: ' + this.data.unpaid_months, style: 'url' },
+                { text: 'Total Amount Payable: ' + this.data.total_unpaid_fee, style: 'url' },
+                { text: '\n\n', style: '' },
+                { text: 'Payable by: ' + this.data.name, style: 'llr' },
+                { text: 'Cashier Signature', style: 'url' },
+              ]
             ]
-          ]
-        }
-      ],
-      styles: {
-        header: {
-          bold: true,
-          fontSize: 30,
-          alignment: 'center'
+          }
+        ],
+        styles: {
+          header: {
+            bold: true,
+            fontSize: 30,
+            alignment: 'center'
+          },
+          sub_header: {
+            fontSize: 18,
+            alignment: 'center'
+          },
+          url: {
+            fontSize: 16,
+            alignment: 'right'
+          },
+          llr: {
+            fontSize: 16,
+            alignment: 'left'
+          }
         },
-        sub_header: {
-          fontSize: 18,
-          alignment: 'center'
-        },
-        url: {
-          fontSize: 16,
-          alignment: 'right'
-        },
-        llr: {
-          fontSize:16,
-          alignment: 'left'
-        }
-      },
-      pageSize: 'A5',
-      pageOrientation: 'portrait'
-    };
-    this.pdfObj = pdfmake.createPdf(docDefinition);
-    //   pdfmake.createPdf(docDefinition).getBuffer(function (buffer) {
-    //     let utf8 = new Uint8Array(buffer);
-    //     let binaryArray = utf8.buffer;
-    //     self.saveToDevice(binaryArray, "Bitcoin.pdf")
-    //   });
-    // }
-   
-    if (this.platform.is('cordova')) {
-      this.pdfObj.getBuffer((buffer) => {
-        var blob = new Blob([buffer], { type: 'application/pdf' });
-        // Save the PDF to the data Directory of our App
-        this.file.writeFile(this.file.dataDirectory, 'myletter.pdf', blob, { replace: true }).then(fileEntry => {
-          // Open the PDf with the correct OS tools
-          this.fileopener.open(this.file.dataDirectory + 'myletter.pdf', 'application/pdf');
-          this.saveToDevice(blob,'myletter.pdf');
-        })
-      });
-    } else {
-      // On a browser simply use download!
-      this.pdfObj.download();
+        pageSize: 'A5',
+        pageOrientation: 'portrait'
+      };
+      this.pdfObj = pdfmake.createPdf(docDefinition);
+      //   pdfmake.createPdf(docDefinition).getBuffer(function (buffer) {
+      //     let utf8 = new Uint8Array(buffer);
+      //     let binaryArray = utf8.buffer;
+      //     self.saveToDevice(binaryArray, "Bitcoin.pdf")
+      //   });
+      // }
+
+      if (this.platform.is('cordova')) {
+        this.pdfObj.getBuffer((buffer) => {
+          var blob = new Blob([buffer], { type: 'application/pdf' });
+          // Save the PDF to the data Directory of our App
+          this.file.writeFile(this.file.dataDirectory, 'myletter.pdf', blob, { replace: true }).then(fileEntry => {
+            // Open the PDf with the correct OS tools
+            this.fileopener.open(this.file.dataDirectory + 'myletter.pdf', 'application/pdf');
+            this.saveToDevice(blob, 'myletter.pdf');
+          })
+        });
+      } else {
+        // On a browser simply use download!
+        this.pdfObj.download();
+      }
     }
   }
+
+
+
+
+
   saveToDevice(data: any, savefile: any) {
     this.file.writeFile(this.file.externalDataDirectory, savefile, data, { replace: false });
-    this.app.showToast('File has been saved on device','top','success');
+    this.app.showToast('File has been saved on device', 'top', 'success');
   }
 }
