@@ -74,6 +74,7 @@ export class LoginPage {
             this.pusher.setChannel(this.user.bus_no + "-channel");
             this.pusher.breakdown = this.pusher.init(this.pusher.getChannel());
             this.app.removeLoader();
+            console.log("check github");
           },
           error => {
             this.app.removeLoader();

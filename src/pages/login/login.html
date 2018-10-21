@@ -16,7 +16,7 @@
     <div class="errorBox" *ngIf="loginForm.controls['username'].hasError('required')  && loginForm.controls['username'].touched">*User
       ID Required.
     </div>
-    <div class="errorBox" *ngIf="loginForm.controls['username'].hasError('pattern') && loginForm.controls['username'].touched">*Password
+    <div class="errorBox" *ngIf="loginForm.controls['username'].hasError('pattern') && loginForm.controls['username'].touched">*User ID
       Is Required.
     </div>
     <div class="errorBox" *ngIf="loginForm.controls['username'].hasError('minlength') || loginForm.controls['username'].hasError('maxlength')  && loginForm.controls['username'].touched">
