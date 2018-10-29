@@ -97,4 +97,9 @@
         <variable name="ANDROID_SUPPORT_VERSION" value="27.+" />
     </plugin>
     <engine name="android" spec="7.1.1" />
+    <plugin name="phonegap-plugin-push" spec="2.2.3">
+        <variable name="SENDER_ID" value="71497443427" />
+        <variable name="ANDROID_SUPPORT_V13_VERSION" value="27.+" />
+        <variable name="FCM_VERSION" value="11.6.2" />
+    </plugin>
 </widget>

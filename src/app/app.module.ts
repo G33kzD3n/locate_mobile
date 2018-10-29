@@ -37,6 +37,7 @@ import { ModalPage } from '../pages/modal/modal';
 import { OpenNativeSettings } from '@ionic-native/open-native-settings'
 import { Badge } from '@ionic-native/badge'
 import { Geofence } from '@ionic-native/geofence';
+import { Push, PushObject, PushOptions } from '@ionic-native/push';
 
 import { BreakdowncordPage } from '../pages/breakdowncord/breakdowncord';
 import { NotificationServiceProvider } from '../providers/notification-service/notification-service';
@@ -69,7 +70,7 @@ import { NotificationServiceProvider } from '../providers/notification-service/n
     HttpModule,
     IonicModule.forRoot(MyApp),
     IonicStorageModule.forRoot(),
-
+    
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -110,7 +111,9 @@ import { NotificationServiceProvider } from '../providers/notification-service/n
     Geofence,
     NotificationServiceProvider,
     File,
-    FileOpener
+    FileOpener,
+    Push,
+    PusherServiceProvider
   ]
 })
 export class AppModule { }
