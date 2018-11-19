@@ -27,6 +27,7 @@ export class DriverhomepagePage {
   lng: any;
   id: any;
   myLocation: any;
+  speed: any;
 
   onClickIgnition() {
     if (this.isOn == false) {
@@ -70,11 +71,13 @@ export class DriverhomepagePage {
       then((resp) => {
         this.lat = resp.coords.latitude;
         this.lng = resp.coords.longitude;
+        this.speed = resp.coords.speed;
         this.storage.get('bus_no').then((bus_no) => {
           let payload = {
             busno: bus_no,
             lat: this.lat,
             lng: this.lng,
+            speed: this.speed,
             time: this.app.calDate()
           };
           console.log(payload.time);
