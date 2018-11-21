@@ -27,6 +27,7 @@ export class DriverhomepagePage {
   lng: any;
   id: any;
   myLocation: any;
+  speed: any;
 
   onClickIgnition() {
     if (this.isOn == false) {
@@ -43,12 +44,12 @@ export class DriverhomepagePage {
   }
 
   constructor(
-    public http: Http, public storage: Storage,
-    public navCtrl: NavController, public menu: MenuController,
-    public navParams: NavParams, public app: AppServiceProvider,
-    public geolocation: Geolocation, public locationService: LocationServiceProvider,
-    private geofence: Geofence, public popoverCtrl: PopoverController,
-    public notificationSrv: NotificationServiceProvider) {
+    protected http: Http, protected storage: Storage,
+    protected navCtrl: NavController, protected menu: MenuController,
+    protected navParams: NavParams, protected app: AppServiceProvider,
+    protected geolocation: Geolocation, protected locationService: LocationServiceProvider,
+    private geofence: Geofence, protected popoverCtrl: PopoverController,
+    protected notificationSrv: NotificationServiceProvider) {
     geofence.initialize().then(
       () => console.log('Geofence Plugin Ready'),
       (err) => console.log(err)
@@ -70,11 +71,13 @@ export class DriverhomepagePage {
       then((resp) => {
         this.lat = resp.coords.latitude;
         this.lng = resp.coords.longitude;
+        this.speed = resp.coords.speed;
         this.storage.get('bus_no').then((bus_no) => {
           let payload = {
             busno: bus_no,
             lat: this.lat,
             lng: this.lng,
+            speed: this.speed,
             time: this.app.calDate()
           };
           console.log(payload.time);

@@ -25,9 +25,9 @@ export class LoginPage {
   loginForm: FormGroup;
   user: any;
 
-  constructor(public pusher: PusherServiceProvider, public network: Network,
-    public navCtrl: NavController, private app: AppServiceProvider,
-    public http: Http, public storage: Storage, public notificationSrv: NotificationServiceProvider) {
+  constructor(protected pusher: PusherServiceProvider, protected network: Network,
+    protected navCtrl: NavController, private app: AppServiceProvider,
+    protected http: Http, protected storage: Storage, protected notificationSrv: NotificationServiceProvider) {
   }
 
   ngOnInit() {

@@ -11,9 +11,9 @@ import { PopoverController } from 'ionic-angular';
 })
 export class CalenderPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams,
-    public popoverCtrl: PopoverController,
-    public notificationSrv: NotificationServiceProvider) {
+  constructor(protected navCtrl: NavController, protected navParams: NavParams,
+    protected popoverCtrl: PopoverController,
+    protected notificationSrv: NotificationServiceProvider) {
   }
 
   ionViewDidLoad() {

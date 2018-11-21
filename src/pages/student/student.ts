@@ -24,10 +24,12 @@ export class StudentPage {
   map: any;
   lat: any;
   lng: any;
+  speed: any;
   bus: any;
   assignedstop: any;
   livelocation: any;
   image = "assets/imgs/bus2.png";
+  mylocImage = "assets/imgs/myloc.png";
   markers = [];
   buslocation: any;
   location: any;
@@ -37,18 +39,17 @@ export class StudentPage {
   public mylon: any;
   public distance: any;
   public duration: any;
-  myDate: any = new Date().toTimeString();
-  estimatedtimeofarrival: any = new Date().toTimeString();
+  // myDate: any = new Date().toTimeString();
+  // estimatedtimeofarrival: any = new Date().toTimeString();
   newTime: any;
-  meridiem: String = "Am";
 
-  constructor(public modal: ModalController, public pusher: PusherServiceProvider,
-    public locationService: LocationServiceProvider,
-    public storage: Storage, public http: Http, public datepipe: DatePipe,
-    public navCtrl: NavController, public menu: MenuController,
-    public navParams: NavParams, public app: AppServiceProvider, public geolocation: Geolocation,
-    public popoverCtrl: PopoverController,
-    public notificationSrv: NotificationServiceProvider) {
+  constructor(protected modal: ModalController, protected pusher: PusherServiceProvider,
+    protected locationService: LocationServiceProvider,
+    protected storage: Storage, protected http: Http, protected datepipe: DatePipe,
+    protected navCtrl: NavController, protected menu: MenuController,
+    protected navParams: NavParams, protected app: AppServiceProvider, protected geolocation: Geolocation,
+    protected popoverCtrl: PopoverController,
+    protected notificationSrv: NotificationServiceProvider) {
   }
 
   ngOnInit() {
@@ -145,6 +146,7 @@ export class StudentPage {
   getlocation() {
     this.pusher.breakdown.bind('location-update', (data) => {
       this.livelocation = data;
+      this.speed = data.speed;
       this.eta();
       this.clearMarkers();
       const loc = new google.maps.LatLng(data.lat, data.lng);
@@ -199,7 +201,9 @@ export class StudentPage {
           this.duration = response.rows[0].elements[0].duration.text;
           let googleEta: any = null;
           googleEta = this.duration.split(' ');
-          this.newTime = this.myDate.split(':');
+          let myDate: any = new Date().toTimeString();
+          this.newTime = myDate.split(':');
+          console.log(this.newTime);
           this.dateAdd(googleEta, this.newTime);
         }
       });
@@ -252,7 +256,7 @@ export class StudentPage {
             lng: this.mylon
           });
           const loc1 = new google.maps.LatLng(this.mylat, this.mylon);
-          var showMark = new google.maps.Marker({ position: loc1 });
+          var showMark = new google.maps.Marker({ position: loc1, icon: this.mylocImage });
           showMark.setMap(this.map);
 
           this.app.showToast('Current Location', 'top', 'success');

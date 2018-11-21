@@ -15,13 +15,15 @@ import { PopoverController } from 'ionic-angular';
 export class DriverprofilePage {
   public user1: any;
   public title = "Profile";
+  public id: any;
 
-  constructor(public popoverCtrl: PopoverController,
-    public notificationSrv: NotificationServiceProvider,
-    public navCtrl: NavController, public storage: Storage,
-    public app: AppServiceProvider, public http: Http,
-    public navParams: NavParams) {
+  constructor(protected popoverCtrl: PopoverController,
+    protected notificationSrv: NotificationServiceProvider,
+    protected navCtrl: NavController, protected storage: Storage,
+    protected app: AppServiceProvider, protected http: Http,
+    protected navParams: NavParams) {
     this.user1 = "";
+    this.id = "";
   }
 
   ionViewDidLoad() {
@@ -32,6 +34,7 @@ export class DriverprofilePage {
   showprofile() {
     this.storage.get('user').then((user) => {
       user = this.app.getToken(user);
+      this.id = user;
       let headers = new Headers({ 'Content-Type': 'application/json' });
       let options = new RequestOptions({ headers: headers });
       this.http.get(this.app.getUrl() + '/users/' + user, options)

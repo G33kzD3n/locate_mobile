@@ -41,12 +41,12 @@ export class MybusPage {
   image1 = "assets/imgs/bus2.png";
   waypts: any = [];
 
-  constructor(public notificationSrv: NotificationServiceProvider, public locationService: LocationServiceProvider,
-    public popoverCtrl: PopoverController,
-    public http: Http, public geolocation: Geolocation,
-    public app: AppServiceProvider, public storage: Storage,
-    public navCtrl: NavController, public navParams: NavParams,
-    public callNumber: CallNumber) {
+  constructor(protected notificationSrv: NotificationServiceProvider, protected locationService: LocationServiceProvider,
+    protected popoverCtrl: PopoverController,
+    protected http: Http, protected geolocation: Geolocation,
+    protected app: AppServiceProvider, protected storage: Storage,
+    protected navCtrl: NavController, protected navParams: NavParams,
+    protected callNumber: CallNumber) {
     this.bus = "";
   }
   ionViewDidLoad() {

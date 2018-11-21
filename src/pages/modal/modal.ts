@@ -15,11 +15,11 @@ import { BreakdowncordPage } from '../breakdowncord/breakdowncord';
 })
 export class ModalPage {
   notifications: any = [];
-  constructor(public pusher: PusherServiceProvider,
-    public app: AppServiceProvider, public viewCtrl: ViewController,
-    public modal: ModalController, public navCtrl: NavController,
-    public navParams: NavParams,
-    public notificationSrv: NotificationServiceProvider) {
+  constructor(protected pusher: PusherServiceProvider,
+    protected app: AppServiceProvider, protected viewCtrl: ViewController,
+    protected modal: ModalController, protected navCtrl: NavController,
+    protected navParams: NavParams,
+    protected notificationSrv: NotificationServiceProvider) {
     this.notifications = this.notificationSrv.getPushNotifications();
 
   }

@@ -25,11 +25,11 @@ export class ProfilePage {
   public roll: any;
   pdfObj = null;
 
-  constructor(public platform: Platform, public notificationSrv: NotificationServiceProvider,
-    public fileopener: FileOpener,
-    public popoverCtrl: PopoverController, public locationService: LocationServiceProvider,
-    public navCtrl: NavController, public storage: Storage, public app: AppServiceProvider,
-    public http: Http, public navParams: NavParams, public file: File) {
+  constructor(protected platform: Platform, protected notificationSrv: NotificationServiceProvider,
+    protected fileopener: FileOpener,
+    protected popoverCtrl: PopoverController, protected locationService: LocationServiceProvider,
+    protected navCtrl: NavController, protected storage: Storage, protected app: AppServiceProvider,
+    protected http: Http, protected navParams: NavParams, protected file: File) {
 
     this.user1 = "";
     this.data = "";

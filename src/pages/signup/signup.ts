@@ -13,7 +13,7 @@ export class SignupPage {
 	form: FormGroup;
 	pagetitle: any;
 
-	constructor(public navCtrl: NavController, public navParams: NavParams, public formbuilder: FormBuilder) {
+	constructor(protected navCtrl: NavController, protected navParams: NavParams, protected formbuilder: FormBuilder) {
 		this.pagetitle = "Sign-up";
 	}
 
