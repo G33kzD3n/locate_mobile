@@ -32,8 +32,8 @@ export class LivelocationPage {
   public mylon: any;
 
 
-  constructor(public modal: ModalController, public pusher: PusherServiceProvider, public locationService: LocationServiceProvider,
-    public storage: Storage, public http: Http, public datepipe: DatePipe, public navCtrl: NavController, public menu: MenuController, public navParams: NavParams, public app: AppServiceProvider, public geolocation: Geolocation) {
+  constructor(protected modal: ModalController, protected pusher: PusherServiceProvider, protected locationService: LocationServiceProvider,
+    protected storage: Storage, protected http: Http, protected datepipe: DatePipe, protected navCtrl: NavController, protected menu: MenuController, protected navParams: NavParams, protected app: AppServiceProvider, protected geolocation: Geolocation) {
   }
 
   ionViewWillEnter() {

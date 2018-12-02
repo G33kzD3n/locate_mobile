@@ -44,13 +44,13 @@ export class StudentPage {
   // estimatedtimeofarrival: any = new Date().toTimeString();
   newTime: any;
 
-  constructor(public modal: ModalController, public pusher: PusherServiceProvider,
-    public locationService: LocationServiceProvider,
-    public storage: Storage, public http: Http, public datepipe: DatePipe,
-    public navCtrl: NavController, public menu: MenuController,
-    public navParams: NavParams, public app: AppServiceProvider, public geolocation: Geolocation,
-    public popoverCtrl: PopoverController,
-    public notificationSrv: NotificationServiceProvider) {
+  constructor(protected modal: ModalController, protected pusher: PusherServiceProvider,
+    protected locationService: LocationServiceProvider,
+    protected storage: Storage, protected http: Http, protected datepipe: DatePipe,
+    protected navCtrl: NavController, protected menu: MenuController,
+    protected navParams: NavParams, protected app: AppServiceProvider, protected geolocation: Geolocation,
+    protected popoverCtrl: PopoverController,
+    protected notificationSrv: NotificationServiceProvider) {
   }
 
   ngOnInit() {
@@ -259,7 +259,7 @@ export class StudentPage {
             lng: this.mylon
           });
           const loc1 = new google.maps.LatLng(this.mylat, this.mylon);
-          var showMark = new google.maps.Marker({ position: loc1 , icon: this.mylocImage});
+          var showMark = new google.maps.Marker({ position: loc1, icon: this.mylocImage });
           showMark.setMap(this.map);
 
           this.app.showToast('Current Location', 'top', 'success');

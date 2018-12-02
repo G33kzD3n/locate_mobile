@@ -44,12 +44,12 @@ export class DriverhomepagePage {
   }
 
   constructor(
-    public http: Http, public storage: Storage,
-    public navCtrl: NavController, public menu: MenuController,
-    public navParams: NavParams, public app: AppServiceProvider,
-    public geolocation: Geolocation, public locationService: LocationServiceProvider,
-    private geofence: Geofence, public popoverCtrl: PopoverController,
-    public notificationSrv: NotificationServiceProvider) {
+    protected http: Http, protected storage: Storage,
+    protected navCtrl: NavController, protected menu: MenuController,
+    protected navParams: NavParams, protected app: AppServiceProvider,
+    protected geolocation: Geolocation, protected locationService: LocationServiceProvider,
+    private geofence: Geofence, protected popoverCtrl: PopoverController,
+    protected notificationSrv: NotificationServiceProvider) {
     geofence.initialize().then(
       () => console.log('Geofence Plugin Ready'),
       (err) => console.log(err)

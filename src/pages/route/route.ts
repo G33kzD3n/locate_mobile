@@ -33,10 +33,10 @@ export class RoutePage {
   image = "assets/imgs/icon.png";
 
 
-  constructor(public http: Http, public locationService: LocationServiceProvider,
-    public navCtrl: NavController, public navParams: NavParams,
-    public app: AppServiceProvider, public notificationSrv: NotificationServiceProvider,
-    public popoverCtrl: PopoverController, public storage: Storage) {
+  constructor(protected http: Http, protected locationService: LocationServiceProvider,
+    protected navCtrl: NavController, protected navParams: NavParams,
+    protected app: AppServiceProvider, protected notificationSrv: NotificationServiceProvider,
+    protected popoverCtrl: PopoverController, protected storage: Storage) {
 
   }
 

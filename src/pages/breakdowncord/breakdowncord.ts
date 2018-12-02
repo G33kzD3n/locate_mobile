@@ -24,10 +24,10 @@ export class BreakdowncordPage {
   record_id: any;
   record: boolean = false;
 
-  constructor(public notificationSrv: NotificationServiceProvider, public pusher: PusherServiceProvider,
-    public network: Network, public navCtrl: NavController,
-    private app: AppServiceProvider, public http: Http,
-    public storage: Storage, public popoverCtrl: PopoverController) {
+  constructor(protected notificationSrv: NotificationServiceProvider, protected pusher: PusherServiceProvider,
+    protected network: Network, protected navCtrl: NavController,
+    private app: AppServiceProvider, protected http: Http,
+    protected storage: Storage, protected popoverCtrl: PopoverController) {
   }
 
   ionViewDidLoad() {

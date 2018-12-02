@@ -17,11 +17,11 @@ export class DriverprofilePage {
   public title = "Profile";
   public id: any;
 
-  constructor(public popoverCtrl: PopoverController,
-    public notificationSrv: NotificationServiceProvider,
-    public navCtrl: NavController, public storage: Storage,
-    public app: AppServiceProvider, public http: Http,
-    public navParams: NavParams) {
+  constructor(protected popoverCtrl: PopoverController,
+    protected notificationSrv: NotificationServiceProvider,
+    protected navCtrl: NavController, protected storage: Storage,
+    protected app: AppServiceProvider, protected http: Http,
+    protected navParams: NavParams) {
     this.user1 = "";
     this.id = "";
   }

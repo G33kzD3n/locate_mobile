@@ -27,11 +27,11 @@ export class LocationPage {
 
 
 
-  constructor(public http: Http,
-    public app: AppServiceProvider, public storage: Storage,
-    public navCtrl: NavController, public navParams: NavParams,
-    public popoverCtrl: PopoverController, public locationService: LocationServiceProvider,
-    public notificationSrv: NotificationServiceProvider) {
+  constructor(protected http: Http,
+    protected app: AppServiceProvider, protected storage: Storage,
+    protected navCtrl: NavController, protected navParams: NavParams,
+    protected popoverCtrl: PopoverController, protected locationService: LocationServiceProvider,
+    protected notificationSrv: NotificationServiceProvider) {
     this.buses = "";
     //this.stops="";
   }

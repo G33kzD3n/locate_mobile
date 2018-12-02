@@ -15,10 +15,10 @@ import { PopoverController } from 'ionic-angular';
 })
 export class BreakdownPage {
 
-  constructor(public storage: Storage, private app: AppServiceProvider,
-    public http: Http, public navCtrl: NavController,
-    public navParams: NavParams, public popoverCtrl: PopoverController,
-    public notificationSrv: NotificationServiceProvider) {
+  constructor(protected storage: Storage, private app: AppServiceProvider,
+    protected http: Http, protected navCtrl: NavController,
+    protected navParams: NavParams, protected popoverCtrl: PopoverController,
+    protected notificationSrv: NotificationServiceProvider) {
   }
 
   ionViewDidLoad() {

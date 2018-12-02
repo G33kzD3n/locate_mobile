@@ -16,11 +16,11 @@ import { LocationServiceProvider } from '../../providers/location-service/locati
 export class PassengersPage {
   data: any = [];
   passengers: any = [];
-  constructor(public storage: Storage, public app: AppServiceProvider,
-    public navCtrl: NavController, public navParams: NavParams,
-    public http: Http, public popoverCtrl: PopoverController,
-    public notificationSrv: NotificationServiceProvider,
-    public locationService: LocationServiceProvider) {
+  constructor(protected storage: Storage, protected app: AppServiceProvider,
+    protected navCtrl: NavController, protected navParams: NavParams,
+    protected http: Http, protected popoverCtrl: PopoverController,
+    protected notificationSrv: NotificationServiceProvider,
+    protected locationService: LocationServiceProvider) {
 
   }
   ionViewDidLoad() {

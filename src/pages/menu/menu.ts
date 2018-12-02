@@ -39,11 +39,11 @@ export class MenuPage {
   activepage: any;
 
 
-  constructor(public pusher: PusherServiceProvider, public location: LocationServiceProvider,
-    public platform: Platform, public alert: AlertController,
-    public app: AppServiceProvider, public navCtrl: NavController,
-    public http: Http, public navParams: NavParams, public storage: Storage,
-    public notificationSrv: NotificationServiceProvider) { }
+  constructor(protected pusher: PusherServiceProvider, protected location: LocationServiceProvider,
+    protected platform: Platform, protected alert: AlertController,
+    protected app: AppServiceProvider, protected navCtrl: NavController,
+    protected http: Http, protected navParams: NavParams, protected storage: Storage,
+    protected notificationSrv: NotificationServiceProvider) { }
   isActive() {
   }
 
