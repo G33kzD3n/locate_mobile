@@ -20,7 +20,8 @@ export class LivelocationPage {
   map: any;
   location: any;
   bus: any;
-
+  mylocImage = "assets/imgs/myloc.png";
+  busmarker = "assets/imgs/busmarker.png";
   assignedstop: any;
   image = "assets/imgs/bus2.png";
 
@@ -78,7 +79,8 @@ export class LivelocationPage {
   addMarker(position, map) {
     var marker = new google.maps.Marker({
       position: position,
-      map: map
+      map: map,
+      icon: this.busmarker
     });
     this.markers.push(marker);
   }
@@ -151,6 +153,10 @@ export class LivelocationPage {
           lat: this.mylat,
           lng: this.mylon
         });
+
+        const loc1 = new google.maps.LatLng(this.mylat, this.mylon);
+          var showMark = new google.maps.Marker({ position: loc1 , icon: this.mylocImage});
+          showMark.setMap(this.map);
         this.app.showToast('Current Location' ,'top', '');
       } catch (error) {
         this.app.showToast('Unable To Find Your Location. Enable GPS', 'top', 'error');

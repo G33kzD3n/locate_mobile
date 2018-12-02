@@ -30,6 +30,7 @@ export class StudentPage {
   livelocation: any;
   image = "assets/imgs/bus2.png";
   mylocImage = "assets/imgs/myloc.png";
+  busmarker = "assets/imgs/busmarker.png";
   markers = [];
   buslocation: any;
   location: any;
@@ -39,8 +40,8 @@ export class StudentPage {
   public mylon: any;
   public distance: any;
   public duration: any;
-  myDate: any = new Date().toTimeString();
-  estimatedtimeofarrival: any = new Date().toTimeString();
+  
+  // estimatedtimeofarrival: any = new Date().toTimeString();
   newTime: any;
 
   constructor(public modal: ModalController, public pusher: PusherServiceProvider,
@@ -95,7 +96,8 @@ export class StudentPage {
   addMarker(position, map) {
     var marker = new google.maps.Marker({
       position: position,
-      map: map
+      map: map,
+      icon: this.busmarker
     });
     this.markers.push(marker);
   }
@@ -201,7 +203,8 @@ export class StudentPage {
           this.duration = response.rows[0].elements[0].duration.text;
           let googleEta: any = null;
           googleEta = this.duration.split(' ');
-          this.newTime = this.myDate.split(':');
+          let  myDate: any = new Date().toTimeString();
+          this.newTime = myDate.split(':');
           this.dateAdd(googleEta, this.newTime);
         }
       });
@@ -221,14 +224,16 @@ export class StudentPage {
       newTime[0] = parseInt(newTime[0]) + parseInt(googleEta[0]);
       //add mins
       newTime[1] = parseInt(newTime[1]) + parseInt(googleEta[2]);
-      if (newTime[1] >= 60) {
+      if (newTime[1] > 60) {
         newTime[1] = (parseInt(newTime[1]) - 60);
         newTime[0] = parseInt(newTime[0]) + 1;
       }
-      if (newTime[0] >= 24) {
+      if (newTime[0] > 24) {
         newTime[0] = 1;
       }
     }
+     newTime[1] = newTime[1] < 10 ? "0"+newTime[1] : newTime[1];
+     console.log(newTime);
   }
   //////////////////////////////////////////////////////////////////////////
 
