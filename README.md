@@ -2,12 +2,6 @@
 An IOT based web service for North Campus Transportation System which will keep track of university buses in real time with a comprehensive transport management solution.This software is used to monitor the whereabouts of our campus bus fleet and the students / employees who travel in them.
 
 
-
-![alt text](https://github.com/G33kzD3n/locate_mobile/blob/master/src/assets/project%20snaps/Screenshot%20from%202018-11-15%2009-38-52.png)
-![alt text](https://github.com/G33kzD3n/locate_mobile/blob/master/src/assets/project%20snaps/Screenshot from 2018-11-15 09-39-00.png)
-
-![alt text](https://github.com/G33kzD3n/locate_mobile/blob/master/src/assets/project%20snaps/Screenshot from 2018-11-15 09-39-20.png)
-
 ![alt text](https://github.com/G33kzD3n/locate_mobile/blob/master/src/assets/project%20snaps/bus.png)
 
 ![alt text](https://github.com/G33kzD3n/locate_mobile/blob/master/src/assets/project%20snaps/cordinatorbreak.jpg)
